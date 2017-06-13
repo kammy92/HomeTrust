@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview1"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin_small"
+        card_view:cardCornerRadius="@dimen/cardview_default_radius"
+        card_view:cardElevation="@dimen/cardview_elevation">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rlVideo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="visible"/>
+
+                <com.google.android.youtube.player.YouTubeThumbnailView
+                    android:id="@+id/youtube_thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/activity_margin_small"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/ivVideo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/youtube_logo"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlVideo"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_margin_small"
+                    android:text="&quot; aksjnd lkamsd lkmads lkmasdd lkmasdd lkmasd lkmasd lkamsd lkmasdd lkmasd lkmasd lkmasdd lkmasd lkmasd lkmsad lkasd Everything you guys promise is always as such! Make money all the time.&quot;"/>
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/tvText"
+                    android:paddingBottom="@dimen/activity_margin_small"
+                    android:paddingEnd="@dimen/activity_margin_small"
+                    android:paddingRight="@dimen/activity_margin_small"
+                    android:text="CHAD "
+                    android:textColor="@color/colorPrimaryDark"/>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

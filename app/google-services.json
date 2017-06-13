@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "599805303644",
+    "firebase_url": "https://hometrust-c92f9.firebaseio.com",
+    "project_id": "hometrust-c92f9",
+    "storage_bucket": "hometrust-c92f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599805303644:android:00ebbeab5cb30758",
+        "android_client_info": {
+          "package_name": "com.clearsale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599805303644-j4519s53sk5uuc15vjtqva77hh63gmn3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUtCPjPXvI1da7gQN_T4xp3-xgytfRoAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
