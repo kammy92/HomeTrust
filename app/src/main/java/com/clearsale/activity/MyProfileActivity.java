@@ -229,15 +229,17 @@ public class MyProfileActivity extends AppCompatActivity {
         spinnerItems = new String[] {
                 "Select Home Type",
                 "Cosmetic only",
-                "Bath and kitchens plus all of the above",
-                "Whole house remodel include moving walls plus all of the above",
-                "Structural work plus all of above",
+                "Baths and Kitchens plus all of the above",
+                "Whole house remodel includes moving walls plus all of the above",
+                "Structural work plus all of the above",
         };
+    
     
         stateList.clear ();
         stateList.add ("CO");
         stateList.add ("WA");
-       
+//        stateList.add ("WA");
+    
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String> (this, R.layout.spinner, spinnerItems);
         spinnerArrayAdapter.setDropDownViewResource (R.layout.spinner);
         spinner.setAdapter (spinnerArrayAdapter);

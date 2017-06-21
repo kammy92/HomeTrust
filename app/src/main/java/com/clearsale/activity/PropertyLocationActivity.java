@@ -53,8 +53,12 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
     
     private void initData () {
         propertyDetailsPref = PropertyDetailsPref.getInstance ();
-        latitude = Double.parseDouble (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE));
-        longitude = Double.parseDouble (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_LONGITUDE));
+        try {
+            latitude = Double.parseDouble (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE));
+            longitude = Double.parseDouble (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_LONGITUDE));
+        } catch (Exception e) {
+            e.printStackTrace ();
+        }
     }
     
     private void initListener () {

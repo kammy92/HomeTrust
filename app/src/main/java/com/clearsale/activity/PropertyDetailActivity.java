@@ -102,7 +102,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
     }
     
     private void initView () {
-        rlMain = (RelativeLayout) findViewById (R.id.rlMain);
+    
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
         clMain = (CoordinatorLayout) findViewById (R.id.clMain);
         slider = (SliderLayout) findViewById (R.id.slider);
@@ -157,8 +157,17 @@ public class PropertyDetailActivity extends AppCompatActivity {
         fabMaps.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
-                Intent intent = new Intent (PropertyDetailActivity.this, PropertyLocationActivity.class);
-                startActivity (intent);
+    
+                try {
+                    Double.parseDouble (propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE));
+                    Double.parseDouble (propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LONGITUDE));
+                    Intent intent = new Intent (PropertyDetailActivity.this, PropertyLocationActivity.class);
+                    startActivity (intent);
+                } catch (Exception e) {
+                    e.printStackTrace ();
+                    Utils.showToast (PropertyDetailActivity.this, "No Map Details", false);
+                }
+                
             }
         });
     }
@@ -214,6 +223,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
             @Override
             public void onPageSelected (int position) {
                 tvSliderPosition.setText ((position + 1) + " of " + bannerList.size ());
+                tvSliderPosition.setVisibility (View.VISIBLE);
             }
             
             @Override
@@ -239,7 +249,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
             }
         });
     
-        tvSliderPosition.setVisibility (View.VISIBLE);
+    
     }
     
     private void getPropertyDetails () {
@@ -430,25 +440,14 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 final WebView webView = (WebView) dialog.findViewById (R.id.webview);
                 
                 switch (menuItem.getItemId ()) {
-                    case R.id.action_are_you_realtors:
-                        dialog.setTitle ("Are you Realtor");
-                        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_REALTOR));
-                        webView.loadDataWithBaseURL ("www.google.com", spannableStringBuilder.toString (), "text/html", "UTF-8", "");
-                        dialog.show ();
-                        return true;
-                    case R.id.action_place_and_offer:
-                        dialog.setTitle ("Place an Offer");
-                        SpannableStringBuilder spannableStringBuilder2 = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OFFER));
-                        webView.loadDataWithBaseURL ("www.google.com", spannableStringBuilder2.toString (), "text/html", "UTF-8", "");
-                        dialog.show ();
-                        return true;
+    
                     case R.id.action_access_possession:
                         dialog.setTitle ("Access / Possession");
                         SpannableStringBuilder spannableStringBuilder3 = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ACCESS));
                         webView.loadDataWithBaseURL ("www.google.com", spannableStringBuilder3.toString (), "text/html", "UTF-8", "");
                         dialog.show ();
                         return true;
-                    
+    
                 }
                 return false;
             }

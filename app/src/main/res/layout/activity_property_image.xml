@@ -92,7 +92,17 @@
                     android:layout_centerVertical="true"
                     android:padding="@dimen/activity_margin_small"
                     android:src="@drawable/ic_grid"
-                    android:visibility="visible"/>
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tvGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/activity_margin_small"
+                    android:text="GRID"
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold"/>
             </RelativeLayout>
             <TextView
                 android:layout_width="wrap_content"

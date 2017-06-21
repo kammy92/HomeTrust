@@ -72,8 +72,8 @@ public class FilterActivity extends AppCompatActivity {
     String bathrooms;
     FilterDetailsPref filterDetailsPref;
     private String[] priceList = new String[] {"0", "100K", "200K", "300k", "400K", "400K+"};
-    private String[] bedroomList = new String[] {"ANY", "2-3", "3-4", "4+"};
-    private String[] bathroomList = new String[] {"ANY", "2-3", "3-4", "4+"};
+    private String[] bedroomList = new String[] {"ANY", "2+", "3+", "4+"};
+    private String[] bathroomList = new String[] {"ANY", "2+", "3+", "4+"};
     private String[] locationList = new String[] {"0", "2", "4", "6", "8+"};
     private String[] statusList = new String[] {"All", "Available", "Pending", "Sold", "Closed", "Offer Window Closing"};
     

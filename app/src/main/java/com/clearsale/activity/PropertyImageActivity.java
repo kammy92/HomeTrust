@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.clearsale.R;
 import com.clearsale.utils.AppConfigTags;
@@ -51,6 +52,7 @@ public class PropertyImageActivity extends AppCompatActivity implements GridClic
     PropertyDetailsPref propertyDetailsPref;
     ImageView ivGridView;
     RecyclerView rvGridImages;
+    TextView tvGrid;
     private int currentPos;
     
     @Override
@@ -70,6 +72,7 @@ public class PropertyImageActivity extends AppCompatActivity implements GridClic
         rvHorizontalImages = (RecyclerView) findViewById (R.id.imagesHorizontalList);
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
         mToolbar = (Toolbar) findViewById (R.id.toolbar);
+        tvGrid = (TextView) findViewById (R.id.tvGrid);
     }
     
     private void initData () {
@@ -131,6 +134,29 @@ public class PropertyImageActivity extends AppCompatActivity implements GridClic
     }
     
     private void initListener () {
+    
+        tvGrid.setOnClickListener (new View.OnClickListener ()
+    
+        {
+            @Override
+            public void onClick (View view) {
+                if (grid_view) {
+                    grid_view = false;
+                    rvGridImages.setVisibility (View.GONE);
+                    rvHorizontalImages.setVisibility (View.VISIBLE);
+                    mViewPager.setVisibility (View.VISIBLE);
+                } else {
+                    grid_view = true;
+                    mViewPager.setVisibility (View.GONE);
+                    rvHorizontalImages.setVisibility (View.GONE);
+                    rvGridImages.setVisibility (View.VISIBLE);
+                }
+            
+            }
+        });
+        
+        
+        
         ivGridView.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {

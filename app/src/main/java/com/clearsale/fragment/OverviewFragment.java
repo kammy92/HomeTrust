@@ -2,6 +2,7 @@ package com.clearsale.fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.text.SpannableStringBuilder;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -28,6 +31,7 @@ import com.clearsale.utils.BuyerDetailsPref;
 import com.clearsale.utils.Constants;
 import com.clearsale.utils.NetworkConnection;
 import com.clearsale.utils.PropertyDetailsPref;
+import com.clearsale.utils.SetTypeFace;
 import com.clearsale.utils.Utils;
 
 import org.json.JSONObject;
@@ -37,6 +41,8 @@ import org.jsoup.nodes.Document;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+
+import static com.clearsale.R.id.etOfferUsd;
 
 
 /**
@@ -74,6 +80,12 @@ public class OverviewFragment extends Fragment {
     TextView tv4;
     boolean show = true;
     
+    CardView cardview4;
+    Button btShowMoreRealtor;
+    boolean showRealtor = true;
+    WebView webViewRealtor;
+    TextView tv6;
+    
     
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,12 +116,17 @@ public class OverviewFragment extends Fragment {
         
         tvOverView = (TextView) rootView.findViewById (R.id.tvOverView);
         webView = (WebView) rootView.findViewById (R.id.webView1);
-        etOfferAmount = (EditText) rootView.findViewById (R.id.etOfferUsd);
+        etOfferAmount = (EditText) rootView.findViewById (etOfferUsd);
         etOfferDescription = (EditText) rootView.findViewById (R.id.etOfferDetail);
         cbAttendedAccess = (CheckBox) rootView.findViewById (R.id.cbAttendedAccess);
         tvSubmit = (TextView) rootView.findViewById (R.id.tvSubmit);
         progressDialog = new ProgressDialog (getActivity ());
         cvPropertyOffer = (CardView) rootView.findViewById (R.id.cardview2);
+    
+        cardview4 = (CardView) rootView.findViewById (R.id.cardview4);
+        btShowMoreRealtor = (Button) rootView.findViewById (R.id.btShowMoreRealtor);
+        webViewRealtor = (WebView) rootView.findViewById (R.id.webViewRealtor);
+        tv6 = (TextView) rootView.findViewById (R.id.tv6);
         // clMain = (CoordinatorLayout)rootView.findViewById(R.id.clMain);
         
     }
@@ -151,6 +168,11 @@ public class OverviewFragment extends Fragment {
             tv4.setVisibility (View.GONE);
             cvPropertyOffer.setVisibility (View.GONE);
         }
+    
+        SpannableStringBuilder spannableStringBuilderRealtor = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR));
+        Log.e ("Realtor", spannableStringBuilderRealtor.toString ());
+        webViewRealtor.loadDataWithBaseURL ("www.google.com", spannableStringBuilderRealtor.toString (), "text/html", "UTF-8", "");
+
     }
     
     private void initListener () {
@@ -175,7 +197,30 @@ public class OverviewFragment extends Fragment {
                 }
             }
         });
-        
+    
+        btShowMoreRealtor.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                if (showRealtor) {
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                    cardview4.animate ();
+                    cardview4.setLayoutParams (params);
+                    btShowMoreRealtor.setText ("SHOW LESS");
+                    showRealtor = false;
+                } else {
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, 500);
+                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                    cardview4.setLayoutParams (params);
+                    btShowMoreRealtor.setText ("SHOW MORE");
+                    showRealtor = true;
+                }
+            }
+        });
+
+
         tvSubmit.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
@@ -186,6 +231,51 @@ public class OverviewFragment extends Fragment {
                 }
                 sendBidCredentialsToServer (etOfferAmount.getText ().toString ().trim (), etOfferDescription.getText ().toString ().trim (), checked);
             }
+        });
+    
+        tv4.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                MaterialDialog dialog = new MaterialDialog.Builder (getActivity ())
+                    
+                        .limitIconToDefaultSize ()
+                        .canceledOnTouchOutside (false)
+                        .onNegative (new MaterialDialog.SingleButtonCallback () {
+                            @Override
+                            public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            
+                                dialog.dismiss ();
+                            }
+                        })
+                        .negativeText ("CANCEL")
+                        .onPositive (new MaterialDialog.SingleButtonCallback () {
+                            @Override
+                            public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                final String etOfferAmount = ((EditText) dialog.getCustomView ().findViewById (R.id.etOfferUsd)).getText ().toString ();
+                                final String etOfferDescription = ((EditText) dialog.getCustomView ().findViewById (R.id.etOfferDetail)).getText ().toString ();
+                                CheckBox cbAttendedAccess = (CheckBox) dialog.getCustomView ().findViewById (R.id.cbAttendedAccess);
+                                if (cbAttendedAccess.isChecked ()) {
+                                    checked = 1;
+                                } else {
+                                    checked = 0;
+                                }
+                                sendBidCredentialsToServer (etOfferAmount, etOfferDescription, checked);
+                                dialog.dismiss ();
+                            }
+                        })
+                        .positiveText ("SUBMIT")
+                        .positiveColor (getResources ().getColor (R.color.primary))
+                        .customView (R.layout.dialog_place_an_offer, false)
+                        .typeface (SetTypeFace.getTypeface (getActivity ()), SetTypeFace.getTypeface (getActivity ()))
+                        .build ();
+                final WebView webView = (WebView) dialog.findViewById (R.id.webView1);
+                // final Button btShowMore1 = (Button) dialog.findViewById (R.id.btShowMore1);
+                SpannableStringBuilder spannableStringBuilder2 = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OFFER));
+                webView.loadDataWithBaseURL ("www.google.com", spannableStringBuilder2.toString (), "text/html", "UTF-8", "");
+                dialog.show ();
+            
+            }
+
         });
     }
     
