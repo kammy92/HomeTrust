@@ -71,6 +71,10 @@
             android:name=".activity.AllPropertyLocationActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".activity.ScheduleTourActivity"
+            android:screenOrientation="portrait"/>
+
 
         <service android:name="com.clearsale.service.MyFirebaseMessagingService">
             <intent-filter>

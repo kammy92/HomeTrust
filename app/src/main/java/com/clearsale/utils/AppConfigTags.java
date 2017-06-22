@@ -118,6 +118,15 @@ public class AppConfigTags {
     public static String FILTER_PRICE_MAX = "filter_price_max";
     public static String FILTER_LOCATION = "filter_location";
     
+    public static String SCHEDULE_ACCESS_TOKEN = "access_token";
+    public static String SCHEDULE_ACCESS_TOKEN_ID = "access_token_id";
+    public static String SCHEDULE_USER_DESCRIPTION = "user_description";
+    public static String SCHEDULE_DATE = "access_start_data";
+    public static String SCHEDULE_TIME = "time_frame";
+    public static String SCHEDULE_NUMBER_OF_USER = "number_of_user";
+    public static String SCHEDULE_NEW_PEOPLE = "new_people";
+    public static String SCHEDULE_COMMENT = "user_comment";
+    public static String SCHEDULE_ADDRESS = "user_address";
     
     
     

@@ -4,15 +4,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview1"
+
+        <android.support.v7.widget.CardView android:id="@+id/cardview1"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
@@ -22,6 +23,7 @@
             android:layout_marginTop="@dimen/activity_margin_small"
             card_view:cardCornerRadius="@dimen/cardview_default_radius"
             card_view:cardElevation="@dimen/cardview_default_elevation">
+
             <RelativeLayout
                 android:id="@+id/rlFooter"
                 android:layout_width="match_parent"
@@ -39,6 +41,7 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="@dimen/activity_margin_small"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/tvPropertyRate"
                         android:layout_width="wrap_content"
@@ -48,6 +51,7 @@
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
                         android:visibility="visible"/>
+
                     <TextView
                         android:id="@+id/tvBuildYear"
                         android:layout_width="wrap_content"
@@ -56,6 +60,7 @@
                         android:textColor="@color/app_text_color_light"
                         android:textSize="@dimen/text_size_medium"
                         android:visibility="gone"/>
+
                     <TextView
                         android:id="@+id/tvAddress1"
                         android:layout_width="wrap_content"
@@ -63,6 +68,7 @@
                         android:text="Actiknow"
                         android:textColor="@color/app_text_color_light"
                         android:textSize="@dimen/text_size_small"/>
+
                     <TextView
                         android:id="@+id/tvAddress2"
                         android:layout_width="wrap_content"
@@ -71,6 +77,7 @@
                         android:textColor="@color/app_text_color_light"
                         android:textSize="@dimen/text_size_extra_small"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,6 +102,7 @@
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_medium"
                             android:textStyle="bold"/>
+
                         <TextView
                             android:id="@+id/tv1"
                             android:layout_width="wrap_content"
@@ -105,6 +113,7 @@
                             android:textColor="@color/app_text_color_light"
                             android:textSize="@dimen/text_size_small"/>
                     </LinearLayout>
+
                     <TextView
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
@@ -113,10 +122,12 @@
                         android:gravity="center">
 
                     </TextView>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/tvBathroom"
                             android:layout_width="wrap_content"
@@ -127,6 +138,7 @@
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_medium"
                             android:textStyle="bold"/>
+
                         <TextView
                             android:id="@+id/tv2"
                             android:layout_width="wrap_content"
@@ -137,16 +149,18 @@
                             android:textColor="@color/app_text_color_light"
                             android:textSize="@dimen/text_size_small"/>
                     </LinearLayout>
+
                     <TextView
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/activity_margin_extra_small"
-                        android:background="@color/text_color_grey_dark">
-                    </TextView>
+                        android:background="@color/text_color_grey_dark"></TextView>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/tvSqFeet"
                             android:layout_width="wrap_content"
@@ -157,6 +171,7 @@
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_medium"
                             android:textStyle="bold"/>
+
                         <TextView
                             android:id="@+id/tv3"
                             android:layout_width="wrap_content"
@@ -189,18 +204,17 @@
             android:textStyle="bold"/>
 
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview2"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv4"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small"
-            android:visibility="gone"
-            card_view:cardCornerRadius="@dimen/cardview_default_radius"
-            card_view:cardElevation="@dimen/cardview_default_elevation">
+        <android.support.v7.widget.CardView android:id="@+id/cardview2"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/tv4"
+                                            android:layout_marginLeft="@dimen/activity_margin_small"
+                                            android:layout_marginRight="@dimen/activity_margin_small"
+                                            android:visibility="gone"
+                                            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                                            card_view:cardElevation="@dimen/cardview_default_elevation">
 
             <LinearLayout
                 android:id="@+id/llPropertyOffer"
@@ -232,6 +246,7 @@
                     android:padding="@dimen/edittext_padding"
                     android:textColorHint="@color/hint_text_color"
                     android:textSize="@dimen/text_size_medium"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -240,6 +255,7 @@
                     android:textColor="@color/app_text_color_light"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold"/>
+
                 <EditText
                     android:id="@+id/etOfferDetail"
                     android:layout_width="match_parent"
@@ -338,30 +354,33 @@
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold"/>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview3"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/tv5"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small">
+        <android.support.v7.widget.CardView android:id="@+id/cardview3"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="200dp"
+                                            android:layout_below="@+id/tv5"
+                                            android:layout_marginBottom="@dimen/activity_margin_small"
+                                            android:layout_marginLeft="@dimen/activity_margin_small"
+                                            android:layout_marginRight="@dimen/activity_margin_small">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:id="@+id/llWebView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/activity_margin_small"
                     android:orientation="vertical">
+
                     <WebView
                         android:id="@+id/webView1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
+
                     <TextView
                         android:id="@+id/tvOverView"
                         android:layout_width="match_parent"
@@ -370,6 +389,7 @@
                         android:textSize="@dimen/text_size_small"
                         android:visibility="gone"/>
                 </LinearLayout>
+
                 <Button
                     android:id="@+id/btShowMore"
                     android:layout_width="match_parent"
@@ -385,10 +405,26 @@
         </android.support.v7.widget.CardView>
 
         <TextView
-            android:id="@+id/tv6"
+            android:id="@+id/tvScheduleTour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cardview3"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small"
+            android:layout_marginTop="@dimen/activity_margin_small"
+            android:background="@drawable/rounded_button"
+            android:gravity="center"
+            android:padding="@dimen/activity_margin_small"
+            android:text="SCHEDULE TOUR"
+            android:textColor="@color/text_color_white"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvScheduleTour"
             android:layout_marginTop="@dimen/activity_margin_small"
             android:padding="@dimen/activity_margin_small"
             android:text="ARE YOU REALTORS"
@@ -396,31 +432,34 @@
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold"/>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview4"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/tv6"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small"
-            android:visibility="visible">
+        <android.support.v7.widget.CardView android:id="@+id/cardview4"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="200dp"
+                                            android:layout_below="@+id/tv6"
+                                            android:layout_marginBottom="@dimen/activity_margin_small"
+                                            android:layout_marginLeft="@dimen/activity_margin_small"
+                                            android:layout_marginRight="@dimen/activity_margin_small"
+                                            android:visibility="visible">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:id="@+id/llWebViewRealtor"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/activity_margin_small"
                     android:orientation="vertical">
+
                     <WebView
                         android:id="@+id/webViewRealtor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
+
                     <TextView
                         android:id="@+id/tvRealtor"
                         android:layout_width="match_parent"
@@ -429,6 +468,7 @@
                         android:textSize="@dimen/text_size_small"
                         android:visibility="gone"/>
                 </LinearLayout>
+
                 <Button
                     android:id="@+id/btShowMoreRealtor"
                     android:layout_width="match_parent"
@@ -444,64 +484,7 @@
         </android.support.v7.widget.CardView>
 
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:visibility="gone"
-            card_view:cardCornerRadius="@dimen/cardview_default_radius"
-            card_view:cardElevation="@dimen/cardview_default_elevation">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvNextTour"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/activity_margin_extra_small"
-                        android:text="Next Available Tour"
-                        android:textColor="@color/text_color_black"
-                        android:textSize="@dimen/text_size_small"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvNextTour"
-                        android:paddingBottom="@dimen/activity_margin_extra_small"
-                        android:paddingLeft="@dimen/activity_margin_extra_small"
-                        android:text="Today at 10 am"
-                        android:textColor="@color/text_color_black"
-                        android:textSize="@dimen/text_size_small"/>
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/tvScheduleTour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/activity_margin_extra_small"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_button"
-                    android:gravity="center"
-                    android:padding="@dimen/activity_margin_extra_small"
-                    android:text="SCHEDULE TOUR"
-                    android:textColor="@color/app_text_color_dark"
-                    android:textSize="@dimen/text_size_small"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
 
 
     </RelativeLayout>

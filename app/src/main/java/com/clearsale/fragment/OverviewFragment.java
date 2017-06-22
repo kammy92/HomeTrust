@@ -1,6 +1,7 @@
 package com.clearsale.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.clearsale.R;
+import com.clearsale.activity.ScheduleTourActivity;
 import com.clearsale.utils.AppConfigTags;
 import com.clearsale.utils.AppConfigURL;
 import com.clearsale.utils.BuyerDetailsPref;
@@ -41,8 +43,6 @@ import org.jsoup.nodes.Document;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
-
-import static com.clearsale.R.id.etOfferUsd;
 
 
 /**
@@ -86,6 +86,8 @@ public class OverviewFragment extends Fragment {
     WebView webViewRealtor;
     TextView tv6;
     
+    TextView tvScheduleTour;
+    
     
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -112,11 +114,10 @@ public class OverviewFragment extends Fragment {
         tvAddress1 = (TextView) rootView.findViewById (R.id.tvAddress1);
         tvAddress2 = (TextView) rootView.findViewById (R.id.tvAddress2);
         tvSqFeet = (TextView) rootView.findViewById (R.id.tvSqFeet);
-        
-        
+    
+        tvScheduleTour = (TextView) rootView.findViewById (R.id.tvScheduleTour);
         tvOverView = (TextView) rootView.findViewById (R.id.tvOverView);
         webView = (WebView) rootView.findViewById (R.id.webView1);
-        etOfferAmount = (EditText) rootView.findViewById (etOfferUsd);
         etOfferDescription = (EditText) rootView.findViewById (R.id.etOfferDetail);
         cbAttendedAccess = (CheckBox) rootView.findViewById (R.id.cbAttendedAccess);
         tvSubmit = (TextView) rootView.findViewById (R.id.tvSubmit);
@@ -277,6 +278,16 @@ public class OverviewFragment extends Fragment {
             }
 
         });
+    
+        tvScheduleTour.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                Intent scheduleTour = new Intent (getActivity (), ScheduleTourActivity.class);
+                scheduleTour.putExtra (AppConfigTags.PROPERTY_ID, propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_ID));
+                startActivity (scheduleTour);
+            }
+        });
+     
     }
     
     
