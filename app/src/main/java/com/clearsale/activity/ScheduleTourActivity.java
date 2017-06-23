@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -46,6 +47,7 @@ public class ScheduleTourActivity extends AppCompatActivity {
     List<ScheduleTour> scheduleTourList = new ArrayList<> ();
     ScheduleTourAdapter scheduleTourAdapter;
     int property_id = 0;
+    RelativeLayout rlBack;
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -54,8 +56,8 @@ public class ScheduleTourActivity extends AppCompatActivity {
         initView ();
         getExtras ();
         initData ();
+        initListener ();
         getScheduleList ();
-        //  initListener();
     }
     
     private void getExtras () {
@@ -64,17 +66,44 @@ public class ScheduleTourActivity extends AppCompatActivity {
     }
     
     private void initData () {
+        swipeRefreshLayout.setRefreshing (true);
         scheduleTourAdapter = new ScheduleTourAdapter (this, scheduleTourList);
         rvScheduleTour.setAdapter (scheduleTourAdapter);
         rvScheduleTour.setHasFixedSize (true);
         rvScheduleTour.setLayoutManager (new LinearLayoutManager (this, LinearLayoutManager.VERTICAL, false));
         rvScheduleTour.setItemAnimator (new DefaultItemAnimator ());
+        Utils.setTypefaceToAllViews (this, rlBack);
     }
     
     private void initView () {
+        rlBack = (RelativeLayout) findViewById (R.id.rlBack);
         rvScheduleTour = (RecyclerView) findViewById (R.id.rvScheduleTour);
         clMain = (CoordinatorLayout) findViewById (R.id.clMain);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById (R.id.swipe_refresh_layout);
+    }
+    
+    private void initListener () {
+        rlBack.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View v) {
+                finish ();
+                overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+        swipeRefreshLayout.setOnRefreshListener (new SwipeRefreshLayout.OnRefreshListener () {
+            @Override
+            public void onRefresh () {
+                swipeRefreshLayout.setRefreshing (true);
+                getScheduleList ();
+            }
+        });
+        
+    }
+    
+    @Override
+    public void onBackPressed () {
+        finish ();
+        overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
     }
     
     private void getScheduleList () {

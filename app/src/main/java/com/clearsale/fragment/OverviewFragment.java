@@ -2,6 +2,7 @@ package com.clearsale.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -61,7 +62,7 @@ public class OverviewFragment extends Fragment {
     TextView tvBedroom;
     TextView tvBathroom;
     TextView tvPropertyRate;
-    TextView tvBuildYear;
+    TextView tvStatus;
     TextView tvAddress1;
     TextView tvAddress2;
     TextView tvSqFeet;
@@ -110,7 +111,7 @@ public class OverviewFragment extends Fragment {
         tvBedroom = (TextView) rootView.findViewById (R.id.tvBedroom);
         tvBathroom = (TextView) rootView.findViewById (R.id.tvBathroom);
         tvPropertyRate = (TextView) rootView.findViewById (R.id.tvPropertyRate);
-        tvBuildYear = (TextView) rootView.findViewById (R.id.tvBuildYear);
+        tvStatus = (TextView) rootView.findViewById (R.id.tvStatus);
         tvAddress1 = (TextView) rootView.findViewById (R.id.tvAddress1);
         tvAddress2 = (TextView) rootView.findViewById (R.id.tvAddress2);
         tvSqFeet = (TextView) rootView.findViewById (R.id.tvSqFeet);
@@ -145,9 +146,39 @@ public class OverviewFragment extends Fragment {
         tvBedroom.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_BEDROOM));
         tvBathroom.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_BATHROOM));
         tvSqFeet.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_AREA));
-        tvBuildYear.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_YEAR_BUILD));
-        
-        
+        switch (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_STATUS)) {
+            case 1:
+                Drawable img = getActivity ().getResources ().getDrawable (R.drawable.circle_green);
+                img.setBounds (0, 0, 30, 30);
+                tvStatus.setCompoundDrawables (img, null, null, null);
+                tvStatus.setText ("Available");
+                break;
+            case 2:
+                Drawable img2 = getActivity ().getResources ().getDrawable (R.drawable.circle_yellow);
+                img2.setBounds (0, 0, 30, 30);
+                tvStatus.setCompoundDrawables (img2, null, null, null);
+                tvStatus.setText ("Pending");
+                break;
+            case 3:
+                Drawable img3 = getActivity ().getResources ().getDrawable (R.drawable.circle_red);
+                img3.setBounds (0, 0, 30, 30);
+                tvStatus.setCompoundDrawables (img3, null, null, null);
+                tvStatus.setText ("Sold");
+                break;
+            case 4:
+                Drawable img4 = getActivity ().getResources ().getDrawable (R.drawable.circle_red);
+                img4.setBounds (0, 0, 30, 30);
+                tvStatus.setCompoundDrawables (img4, null, null, null);
+                tvStatus.setText ("Closed");
+                break;
+            case 9:
+                Drawable img9 = getActivity ().getResources ().getDrawable (R.drawable.circle_red);
+                img9.setBounds (0, 0, 30, 30);
+                tvStatus.setCompoundDrawables (img9, null, null, null);
+                tvStatus.setText ("Offer Window Closing");
+                break;
+        }
+    
         Document doc = Jsoup.parse (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW));
         
         
@@ -160,7 +191,6 @@ public class OverviewFragment extends Fragment {
         webSettings.setStandardFontFamily (Constants.font_name);
         
         Utils.setTypefaceToAllViews (getActivity (), tvSubmit);
-        
         
         if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_STATUS) == 1) {
             tv4.setVisibility (View.VISIBLE);
@@ -189,9 +219,10 @@ public class OverviewFragment extends Fragment {
                     btShowMore.setText ("SHOW LESS");
                     show = false;
                 } else {
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, 500);
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, 300);
                     params.addRule (RelativeLayout.BELOW, R.id.tv5);
                     params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                    cardView3.animate ();
                     cardView3.setLayoutParams (params);
                     btShowMore.setText ("SHOW MORE");
                     show = true;
@@ -211,9 +242,10 @@ public class OverviewFragment extends Fragment {
                     btShowMoreRealtor.setText ("SHOW LESS");
                     showRealtor = false;
                 } else {
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, 500);
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, 300);
                     params.addRule (RelativeLayout.BELOW, R.id.tv6);
                     params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                    cardview4.animate ();
                     cardview4.setLayoutParams (params);
                     btShowMoreRealtor.setText ("SHOW MORE");
                     showRealtor = true;
@@ -238,7 +270,6 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onClick (View view) {
                 MaterialDialog dialog = new MaterialDialog.Builder (getActivity ())
-                    
                         .limitIconToDefaultSize ()
                         .canceledOnTouchOutside (false)
                         .onNegative (new MaterialDialog.SingleButtonCallback () {
@@ -260,7 +291,11 @@ public class OverviewFragment extends Fragment {
                                 } else {
                                     checked = 0;
                                 }
-                                sendBidCredentialsToServer (etOfferAmount, etOfferDescription, checked);
+                                if (etOfferAmount.length () > 0) {
+                                    sendBidCredentialsToServer (etOfferAmount, etOfferDescription, checked);
+                                } else {
+                                    Utils.showToast (getActivity (), "Please Enter Amount", false);
+                                }
                                 dialog.dismiss ();
                             }
                         })
@@ -269,6 +304,8 @@ public class OverviewFragment extends Fragment {
                         .customView (R.layout.dialog_place_an_offer, false)
                         .typeface (SetTypeFace.getTypeface (getActivity ()), SetTypeFace.getTypeface (getActivity ()))
                         .build ();
+    
+    
                 final WebView webView = (WebView) dialog.findViewById (R.id.webView1);
                 // final Button btShowMore1 = (Button) dialog.findViewById (R.id.btShowMore1);
                 SpannableStringBuilder spannableStringBuilder2 = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OFFER));
@@ -289,7 +326,6 @@ public class OverviewFragment extends Fragment {
         });
      
     }
-    
     
     private void sendBidCredentialsToServer (final String offerAmount, final String offerDescription, final int checked) {
         if (NetworkConnection.isNetworkAvailable (getActivity ())) {
@@ -359,5 +395,3 @@ public class OverviewFragment extends Fragment {
         
     }
 }
-
-

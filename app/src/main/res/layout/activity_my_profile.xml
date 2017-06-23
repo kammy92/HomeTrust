@@ -162,6 +162,32 @@
                         android:layout_marginRight="@dimen/activity_margin"
                         android:layout_marginTop="@dimen/activity_margin"
                         android:background="@drawable/edit_text_background"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/edittext_padding"
+                            android:text="@string/activity_edit_profile_ques3"
+                            android:textSize="@dimen/text_size_medium"
+                        />
+
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/activity_margin_small"
+                            android:layout_marginLeft="@dimen/activity_margin_extra_small"
+                            android:layout_marginRight="@dimen/activity_margin_extra_small"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_margin"
+                        android:layout_marginRight="@dimen/activity_margin"
+                        android:layout_marginTop="@dimen/activity_margin"
+                        android:background="@drawable/edit_text_background"
                         android:orientation="vertical"
                         android:visibility="visible">
                         <TextView
@@ -346,32 +372,6 @@
 
                             </LinearLayout>
                         </HorizontalScrollView>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_margin"
-                        android:layout_marginRight="@dimen/activity_margin"
-                        android:layout_marginTop="@dimen/activity_margin"
-                        android:background="@drawable/edit_text_background"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/edittext_padding"
-                            android:text="@string/activity_edit_profile_ques3"
-                            android:textSize="@dimen/text_size_medium"
-                        />
-
-
-                        <com.jaredrummler.materialspinner.MaterialSpinner
-                            android:id="@+id/spinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/activity_margin_small"
-                            android:layout_marginLeft="@dimen/activity_margin_extra_small"
-                            android:layout_marginRight="@dimen/activity_margin_extra_small"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
