@@ -118,7 +118,7 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
     @Override
     public void onStreetViewPanoramaReady (StreetViewPanorama streetViewPanorama) {
         streetViewPanorama.setPosition (new LatLng (latitude, longitude));
-//        streetViewPanorama.setPosition(new LatLng(28.5750297,77.0687423));
+//        streetViewPanorama.setPosition(new LatLng(39.5575492,-104.7034232));
         StreetViewPanoramaCamera camera = new StreetViewPanoramaCamera.Builder ()
                 .zoom (streetViewPanorama.getPanoramaCamera ().zoom + 0.5f)
                 .tilt (streetViewPanorama.getPanoramaCamera ().tilt)

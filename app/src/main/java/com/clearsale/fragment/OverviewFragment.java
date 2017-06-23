@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -45,6 +47,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
+import static com.clearsale.R.id.cardview3;
+
 
 /**
  * Created by l on 23/03/2017.
@@ -66,6 +70,20 @@ public class OverviewFragment extends Fragment {
     TextView tvAddress1;
     TextView tvAddress2;
     TextView tvSqFeet;
+    
+    
+    TextView tvType;
+    TextView tvKeyZoining;
+    TextView tvKeyRentalFix;
+    TextView tvYearOfConstruction;
+    TextView tvAddition;
+    TextView tvBedroomExisting;
+    TextView tvBathroomExisting;
+    TextView tvARVEstimate;
+    TextView tvFixEstimate;
+    TextView tvLotSize;
+    TextView tvTotalSquareFeet;
+    
     
     EditText etOfferAmount;
     EditText etOfferDescription;
@@ -104,8 +122,8 @@ public class OverviewFragment extends Fragment {
     
     private void initView (View rootView) {
         tv4 = (TextView) rootView.findViewById (R.id.tv4);
-        
-        cardView3 = (CardView) rootView.findViewById (R.id.cardview3);
+    
+        cardView3 = (CardView) rootView.findViewById (cardview3);
         btShowMore = (Button) rootView.findViewById (R.id.btShowMore);
         
         tvBedroom = (TextView) rootView.findViewById (R.id.tvBedroom);
@@ -130,7 +148,19 @@ public class OverviewFragment extends Fragment {
         webViewRealtor = (WebView) rootView.findViewById (R.id.webViewRealtor);
         tv6 = (TextView) rootView.findViewById (R.id.tv6);
         // clMain = (CoordinatorLayout)rootView.findViewById(R.id.clMain);
-        
+    
+    
+        tvType = (TextView) rootView.findViewById (R.id.tvKeyType);
+        tvKeyZoining = (TextView) rootView.findViewById (R.id.tvKeyZoining);
+        tvKeyRentalFix = (TextView) rootView.findViewById (R.id.tvKeyRentalFix);
+        tvYearOfConstruction = (TextView) rootView.findViewById (R.id.tvYearOfConstruction);
+        tvBedroomExisting = (TextView) rootView.findViewById (R.id.tvBedroomExisting);
+        tvBathroomExisting = (TextView) rootView.findViewById (R.id.tvBathroomExisting);
+        tvARVEstimate = (TextView) rootView.findViewById (R.id.tvARVEstimate);
+        tvAddition = (TextView) rootView.findViewById (R.id.tvAddition);
+        tvFixEstimate = (TextView) rootView.findViewById (R.id.tvFixEstimate);
+        tvLotSize = (TextView) rootView.findViewById (R.id.tvLotSize);
+        tvTotalSquareFeet = (TextView) rootView.findViewById (R.id.tvTotalSquareFeet);
     }
     
     private void initData () {
@@ -203,7 +233,25 @@ public class OverviewFragment extends Fragment {
         SpannableStringBuilder spannableStringBuilderRealtor = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR));
         Log.e ("Realtor", spannableStringBuilderRealtor.toString ());
         webViewRealtor.loadDataWithBaseURL ("www.google.com", spannableStringBuilderRealtor.toString (), "text/html", "UTF-8", "");
-
+    
+    
+        tvType.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_TYPE));
+        tvKeyZoining.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_ZOINING));
+        tvKeyRentalFix.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_RENTAL_FIX));
+        tvYearOfConstruction.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_BUILD_YEAR));
+        tvBedroomExisting.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_BEDROOM_EXISTING));
+        tvBathroomExisting.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_BATH_EXISTING));
+        tvARVEstimate.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_ARV_ESTIMATE));
+        tvFixEstimate.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_FIX_ESTIMATE));
+        tvAddition.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_ADDITION));
+        tvLotSize.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_LOT_SQFT));
+        tvTotalSquareFeet.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_TOTAL_SQUARE_FEET));
+    
+        if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1) {
+            tvScheduleTour.setVisibility (View.VISIBLE);
+        } else {
+            tvScheduleTour.setVisibility (View.GONE);
+        }
     }
     
     private void initListener () {
@@ -211,21 +259,57 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onClick (View view) {
                 if (show) {
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    params.addRule (RelativeLayout.BELOW, R.id.tv5);
-                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
-                    cardView3.animate ();
-                    cardView3.setLayoutParams (params);
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv5);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardView3.setLayoutParams (params);
                     btShowMore.setText ("SHOW LESS");
                     show = false;
+    
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+//                            Log.e ("karman", "wrap contant height", + cardView3.get);
+                            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                            params.addRule (RelativeLayout.BELOW, R.id.tv5);
+                            params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+            
+                            //39.559035,-104.70355899999998
+                            //39.5575492,-104.7034232
+                            cardView3.setLayoutParams (params);
+                        }
+                    };
+                    a.setDuration (2000); // in ms
+                    cardView3.startAnimation (a);
                 } else {
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, 300);
-                    params.addRule (RelativeLayout.BELOW, R.id.tv5);
-                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
-                    cardView3.animate ();
-                    cardView3.setLayoutParams (params);
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv5);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardView3.setLayoutParams (params);
                     btShowMore.setText ("SHOW MORE");
                     show = true;
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            if ((1.0f - interpolatedTime) < 1.0f) {
+                                if ((cardView3.getHeight () * (1.0f - interpolatedTime)) <= Utils.pxFromDp (getActivity (), 200.0f)) {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tv5);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardView3.setLayoutParams (params);
+                    
+                                } else {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (cardView3.getHeight () * (1.0f - interpolatedTime)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tv5);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardView3.setLayoutParams (params);
+                    
+                                }
+                            }
+                        }
+                    };
+                    a.setDuration (2000); // in ms
+                    cardView3.startAnimation (a);
                 }
             }
         });
@@ -234,21 +318,55 @@ public class OverviewFragment extends Fragment {
             @Override
             public void onClick (View view) {
                 if (showRealtor) {
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
-                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
-                    cardview4.animate ();
-                    cardview4.setLayoutParams (params);
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardview4.setLayoutParams (params);
                     btShowMoreRealtor.setText ("SHOW LESS");
                     showRealtor = false;
+    
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                            params.addRule (RelativeLayout.BELOW, R.id.tv6);
+                            params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                            cardview4.setLayoutParams (params);
+                        }
+                    };
+                    a.setDuration (1500); // in ms
+                    cardview4.startAnimation (a);
                 } else {
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, 300);
-                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
-                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
-                    cardview4.animate ();
-                    cardview4.setLayoutParams (params);
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardview4.setLayoutParams (params);
                     btShowMoreRealtor.setText ("SHOW MORE");
                     showRealtor = true;
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+            
+                            if ((1.0f - interpolatedTime) < 1.0f) {
+                                if ((cardview4.getHeight () * (1.0f - interpolatedTime)) <= Utils.pxFromDp (getActivity (), 200.0f)) {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardview4.setLayoutParams (params);
+                    
+                                } else {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (cardview4.getHeight () * (1.0f - interpolatedTime)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardview4.setLayoutParams (params);
+                    
+                                }
+                            }
+            
+                        }
+                    };
+                    a.setDuration (2000); // in ms
+                    cardview4.startAnimation (a);
                 }
             }
         });

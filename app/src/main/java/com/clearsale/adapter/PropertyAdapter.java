@@ -166,7 +166,7 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHo
             holder.slider.addSlider (slider);
         }
         holder.slider.getPagerIndicator ().setVisibility (View.GONE);
-        holder.slider.setPresetTransformer (SliderLayout.Transformer.Default);
+        holder.slider.setPresetTransformer (SliderLayout.Transformer.Stack);
         holder.slider.setCustomAnimation (new DescriptionAnimation ());
         holder.slider.setDuration (15000);
         holder.slider.addOnPageChangeListener (new ViewPagerEx.OnPageChangeListener () {

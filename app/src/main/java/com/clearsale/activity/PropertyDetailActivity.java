@@ -212,7 +212,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         
         slider.setIndicatorVisibility (PagerIndicator.IndicatorVisibility.Invisible);
         slider.getPagerIndicator ().setVisibility (View.INVISIBLE);
-        slider.setPresetTransformer (SliderLayout.Transformer.Default);
+        slider.setPresetTransformer (SliderLayout.Transformer.Stack);
         slider.setCustomAnimation (new DescriptionAnimation ());
         slider.addOnPageChangeListener (new ViewPagerEx.OnPageChangeListener () {
             @Override
@@ -286,12 +286,25 @@ public class PropertyDetailActivity extends AppCompatActivity {
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_REALTOR, jsonObj.getString (AppConfigTags.PROPERTY_REALTOR));
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS, jsonObj.getString (AppConfigTags.PROPERTY_COMPS));
     
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_ADDITION, jsonObj.getString (AppConfigTags.BUYSELL_ADDITION));
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_ARV_ESTIMATE, jsonObj.getString (AppConfigTags.BUYSELL_ARV_ESTIMATE));
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_BATH_EXISTING, jsonObj.getString (AppConfigTags.BUYSELL_BATH_EXISTING));
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_BEDROOM_EXISTING, jsonObj.getString (AppConfigTags.BUYSELL_BEDROOM_EXISTING));
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_BUILD_YEAR, jsonObj.getString (AppConfigTags.BUYSELL_BUILD_YEAR));
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_FIX_ESTIMATE, jsonObj.getString (AppConfigTags.BUYSELL_FIX_ESTIMATE));
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_LOT_SQFT, jsonObj.getString (AppConfigTags.BUYSELL_LOT_SQFT));
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_RENTAL_FIX, jsonObj.getString (AppConfigTags.BUYSELL_RENTAL_FIX));
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_TOTAL_SQUARE_FEET, jsonObj.getString (AppConfigTags.BUYSELL_TOTAL_SQUARE_FEET));
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_TYPE, jsonObj.getString (AppConfigTags.BUYSELL_TYPE));
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_ZOINING, jsonObj.getString (AppConfigTags.BUYSELL_ZOINING));
+                                        
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS_ADDRESSES, jsonObj.getJSONArray (AppConfigTags.PROPERTY_COMPS_ADDRESSES).toString ());
     
                                         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_ID, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_ID));
                                         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_STATUS));
-                                        
-                                        
+    
+                                        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_TOUR_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_TOUR_STATUS));
+    
                                         JSONArray jsonArrayPropertyImages = jsonObj.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES, jsonArrayPropertyImages.toString ());
                                         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, jsonArrayPropertyImages.length ());

@@ -28,6 +28,20 @@ public class PropertyDetailsPref {
     public static String PROPERTY_AUCTION_ID = "auction_id";
     public static String PROPERTY_AUCTION_STATUS = "auction_status";
     
+    public static String PROPERTY_KEY_TYPE = "property_key_type";
+    public static String PROPERTY_KEY_ZOINING = "property_key_zoining";
+    public static String PROPERTY_KEY_RENTAL_FIX = "property_key_rental_fix";
+    public static String PROPERTY_KEY_BUILD_YEAR = "property_key_year_of_construction";
+    public static String PROPERTY_KEY_LOT_SQFT = "property_key_lot_sqj";
+    public static String PROPERTY_KEY_ADDITION = "property_key_addition";
+    public static String PROPERTY_KEY_BEDROOM_EXISTING = "property_key_bedroom_existing";
+    public static String PROPERTY_KEY_BATH_EXISTING = "property_key_bath_existing";
+    public static String PROPERTY_KEY_TOTAL_SQUARE_FEET = "property_key_total_square_feet";
+    public static String PROPERTY_KEY_ARV_ESTIMATE = "property_key_arv_estimate";
+    public static String PROPERTY_KEY_FIX_ESTIMATE = "property_key_fix_estimate";
+    
+    public static String PROPERTY_TOUR_STATUS = "tour_status";
+    
     private static PropertyDetailsPref propertyDetailsPref;
     private String PROPERTY_DETAILS = "PROPERTY_DETAILS";
     

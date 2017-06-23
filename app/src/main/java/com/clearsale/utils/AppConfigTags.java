@@ -98,6 +98,20 @@ public class AppConfigTags {
     public static String PROPERTY_REALTOR = "property_realtor";
     public static String PROPERTY_OFFER = "is_offer";
     
+    public static String PROPERTY_TOUR_STATUS = "tour_status";
+    
+    public static String BUYSELL_TYPE = "buysell_type";
+    public static String BUYSELL_ZOINING = "buysell_zoining";
+    public static String BUYSELL_RENTAL_FIX = "buysell_rental_fix";
+    public static String BUYSELL_BUILD_YEAR = "buysell_year_of_construction";
+    public static String BUYSELL_LOT_SQFT = "buysell_lot_sqj";
+    public static String BUYSELL_ADDITION = "buysell_addition";
+    public static String BUYSELL_BEDROOM_EXISTING = "buysell_bedroom_existing";
+    public static String BUYSELL_BATH_EXISTING = "buysell_bath_existing";
+    public static String BUYSELL_TOTAL_SQUARE_FEET = "buysell_total_square_feet";
+    public static String BUYSELL_ARV_ESTIMATE = "buysell_arv_estimate";
+    public static String BUYSELL_FIX_ESTIMATE = "buysell_fix_estimate";
+    
     
     public static String PROPERTY_BID_AMOUNT = "bid_amt";
     public static String PROPERTY_BID_COMMENTS = "bid_comments";

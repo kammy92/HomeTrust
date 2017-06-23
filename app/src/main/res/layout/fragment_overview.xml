@@ -184,8 +184,6 @@
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
-
-
         <TextView
             android:id="@+id/tv4"
             android:layout_width="match_parent"
@@ -420,11 +418,333 @@
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold"/>
 
+
+        <TextView
+            android:id="@+id/tv7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvScheduleTour"
+            android:layout_marginTop="@dimen/activity_margin_small"
+            android:padding="@dimen/activity_margin_small"
+            android:text="KEY DETAILS"
+            android:textColor="@color/app_text_color_dark"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview5"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv7"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small"
+            android:visibility="visible">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="Type"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"
+                        />
+
+                        <TextView
+                            android:id="@+id/tvKeyType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="type"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="Zoining"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvKeyZoining"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/tableRow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="Rental Fix"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvKeyRentalFix"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="Year Build"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvYearOfConstruction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tableRow6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="Lot Size (Sqft)"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvLotSize"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tableRow7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="Addition"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvAddition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tableRow8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="Bedroom Existing"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvBedroomExisting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tableRow9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="Bathroom Existing"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvBathroomExisting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tableRow20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="Total Sqft"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvTotalSquareFeet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tableRow10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="ARV Estimate"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvARVEstimate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tableRow11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:text="Fix Estimate"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvFixEstimate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/activity_margin_extra_small"
+                            android:textColor="@color/app_text_color_dark"
+                            android:textSize="@dimen/text_size_extra_small"/>
+
+                    </TableRow>
+
+                </TableLayout>
+                <Button
+                    android:id="@+id/btShowMoreKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/text_color_white"
+                    android:gravity="center"
+                    android:text="SHOW MORE"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
         <TextView
             android:id="@+id/tv6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvScheduleTour"
+            android:layout_below="@+id/cardview5"
             android:layout_marginTop="@dimen/activity_margin_small"
             android:padding="@dimen/activity_margin_small"
             android:text="ARE YOU REALTORS"
