@@ -119,7 +119,9 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHo
         holder.tv2.setTypeface (SetTypeFace.getTypeface (activity));
         holder.tv3.setTypeface (SetTypeFace.getTypeface (activity));
         holder.tvSliderPosition.setTypeface (SetTypeFace.getTypeface (activity));
+        holder.tvYear.setTypeface (SetTypeFace.getTypeface (activity));
     
+        holder.tvYear.setText (property.getYear_built ());
         holder.tvPropertyPrice.setText (property.getPrice ());
         holder.tvAddress1.setText (property.getAddress1 ());
         holder.tvAddress2.setText (property.getAddress2 ());
@@ -337,6 +339,7 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHo
         TextView tvAddress2;
         TextView tvPropertyPrice;
         TextView tvBuiltYear;
+        TextView tvYear;
         TextView tvBeds;
         TextView tvBaths;
         TextView tvSqFeet;
@@ -367,6 +370,7 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHo
             tvAcceptingOffer = (TextView) view.findViewById(R.id.tvAcceptingOffer);
             tvAddress1 = (TextView) view.findViewById(R.id.tvAddress1);
             tvAddress2 = (TextView) view.findViewById(R.id.tvAddress2);
+            tvYear = (TextView) view.findViewById (R.id.tvYear);
             tvBeds = (TextView) view.findViewById (R.id.tvBedroom);
             tvBaths = (TextView) view.findViewById (R.id.tvBathroom);
             tvSqFeet = (TextView) view.findViewById (R.id.tvSqFeet);

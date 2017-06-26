@@ -165,6 +165,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvYear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="6"
+                        android:textColor="@color/text_color_white"
+                        android:textSize="@dimen/text_size_medium"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/tv4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Year"
+                        android:textColor="@color/text_color_white"
+                        android:textSize="@dimen/text_size_extreme_small"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/activity_margin_extra_small"
+                    android:background="@color/text_color_grey_dark"
+                    android:gravity="center">
+                </TextView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tvBedroom"
