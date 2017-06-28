@@ -304,7 +304,9 @@ public class PropertyDetailActivity extends AppCompatActivity {
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ACCESS, jsonObj.getString (AppConfigTags.PROPERTY_ACCESS));
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_REALTOR, jsonObj.getString (AppConfigTags.PROPERTY_REALTOR));
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS, jsonObj.getString (AppConfigTags.PROPERTY_COMPS));
+                                        
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_DETAILS, jsonObj.getString (AppConfigTags.PROPERTY_KEY_DETAILS));
+                                        
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_ADDITION, jsonObj.getString (AppConfigTags.BUYSELL_ADDITION));
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_ARV_ESTIMATE, jsonObj.getString (AppConfigTags.BUYSELL_ARV_ESTIMATE));
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_BATH_EXISTING, jsonObj.getString (AppConfigTags.BUYSELL_BATH_EXISTING));

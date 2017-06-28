@@ -2,14 +2,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <android.support.design.widget.CoordinatorLayout
+    <androd.support.design.widget.CoordinatorLayout
         android:id="@+id/clMain"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible">
-
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBar"
             android:layout_width="match_parent"
@@ -143,14 +142,12 @@
                 app:tabIndicatorColor="@color/text_color_white"
                 app:tabSelectedTextColor="@color/text_color_white"/>
         </android.support.design.widget.AppBarLayout>
-
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/appBar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabMap"
             android:layout_width="wrap_content"
@@ -161,8 +158,9 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/activity_margin"
             android:background="@color/colorPrimary"
-            android:src="@android:drawable/ic_dialog_map"
+            android:src="@drawable/ic_map"
+
             android:visibility="visible"
             app:backgroundTint="@color/colorPrimary"/>
-    </android.support.design.widget.CoordinatorLayout>
+    </androd.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

@@ -158,7 +158,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="4">
+                    android:weightSum="5">
                     <TextView
                         android:id="@+id/tvBedAny"
                         android:layout_width="0dp"
@@ -167,8 +167,18 @@
                         android:layout_weight="1"
                         android:background="@drawable/state_button_unselected"
                         android:gravity="center"
-                        android:padding="@dimen/activity_margin"
+                        android:padding="@dimen/activity_margin_small"
                         android:text="ANY"/>
+                    <TextView
+                        android:id="@+id/tvBed1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_margin_small"
+                        android:layout_weight="1"
+                        android:background="@drawable/state_button_unselected"
+                        android:gravity="center"
+                        android:padding="@dimen/activity_margin_small"
+                        android:text="1+"/>
                     <TextView
                         android:id="@+id/tvBed2"
                         android:layout_width="0dp"
@@ -177,8 +187,8 @@
                         android:layout_weight="1"
                         android:background="@drawable/state_button_unselected"
                         android:gravity="center"
-                        android:padding="@dimen/activity_margin"
-                        android:text="2-3"
+                        android:padding="@dimen/activity_margin_small"
+                        android:text="2+"
                     />
 
 
@@ -190,8 +200,8 @@
                         android:layout_weight="1"
                         android:background="@drawable/state_button_unselected"
                         android:gravity="center"
-                        android:padding="@dimen/activity_margin"
-                        android:text="3-4"/>
+                        android:padding="@dimen/activity_margin_small"
+                        android:text="3+"/>
                     <TextView
                         android:id="@+id/tvBed4"
                         android:layout_width="0dp"
@@ -200,7 +210,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/state_button_unselected"
                         android:gravity="center"
-                        android:padding="@dimen/activity_margin"
+                        android:padding="@dimen/activity_margin_small"
                         android:text="4+"
                     />
                 </LinearLayout>
@@ -216,7 +226,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="4">
+                    android:weightSum="5">
                     <TextView
                         android:id="@+id/tvBathAny"
                         android:layout_width="0dp"
@@ -225,8 +235,18 @@
                         android:layout_weight="1"
                         android:background="@drawable/state_button_unselected"
                         android:gravity="center"
-                        android:padding="@dimen/activity_margin"
+                        android:padding="@dimen/activity_margin_small"
                         android:text="ANY"/>
+                    <TextView
+                        android:id="@+id/tvBath1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_margin_small"
+                        android:layout_weight="1"
+                        android:background="@drawable/state_button_unselected"
+                        android:gravity="center"
+                        android:padding="@dimen/activity_margin_small"
+                        android:text="1+"/>
                     <TextView
                         android:id="@+id/tvBath2"
                         android:layout_width="0dp"
@@ -235,8 +255,8 @@
                         android:layout_weight="1"
                         android:background="@drawable/state_button_unselected"
                         android:gravity="center"
-                        android:padding="@dimen/activity_margin"
-                        android:text="2-3"/>
+                        android:padding="@dimen/activity_margin_small"
+                        android:text="2+"/>
 
 
                     <TextView
@@ -247,8 +267,8 @@
                         android:layout_weight="1"
                         android:background="@drawable/state_button_unselected"
                         android:gravity="center"
-                        android:padding="@dimen/activity_margin"
-                        android:text="3-4"/>
+                        android:padding="@dimen/activity_margin_small"
+                        android:text="3+"/>
                     <TextView
                         android:id="@+id/tvBath4"
                         android:layout_width="0dp"
@@ -257,7 +277,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/state_button_unselected"
                         android:gravity="center"
-                        android:padding="@dimen/activity_margin"
+                        android:padding="@dimen/activity_margin_small"
                         android:text="4+"
                     />
                 </LinearLayout>

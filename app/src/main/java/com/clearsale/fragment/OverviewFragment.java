@@ -250,6 +250,10 @@ public class OverviewFragment extends Fragment {
         webViewRealtor.loadDataWithBaseURL ("www.google.com", spannableStringBuilderRealtor.toString (), "text/html", "UTF-8", "");
     
     
+        SpannableStringBuilder spannableStringBuilderKeyDetail = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS));
+        Log.e ("KeyDetail", spannableStringBuilderKeyDetail.toString ());
+        webViewKeyDetail.loadDataWithBaseURL ("www.google.com", spannableStringBuilderKeyDetail.toString (), "text/html", "UTF-8", "");
+    
         tvType.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_TYPE));
         tvKeyZoining.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_ZOINING));
         tvKeyRentalFix.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_RENTAL_FIX));
@@ -288,9 +292,6 @@ public class OverviewFragment extends Fragment {
                             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                             params.addRule (RelativeLayout.BELOW, R.id.tv5);
                             params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
-            
-                            //39.559035,-104.70355899999998
-                            //39.5575492,-104.7034232
                             cardView3.setLayoutParams (params);
                         }
                     };
@@ -312,13 +313,11 @@ public class OverviewFragment extends Fragment {
                                     params.addRule (RelativeLayout.BELOW, R.id.tv5);
                                     params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
                                     cardView3.setLayoutParams (params);
-                    
                                 } else {
                                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (cardView3.getHeight () * (1.0f - interpolatedTime)));
                                     params.addRule (RelativeLayout.BELOW, R.id.tv5);
                                     params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
                                     cardView3.setLayoutParams (params);
-                    
                                 }
                             }
                         }
@@ -339,7 +338,6 @@ public class OverviewFragment extends Fragment {
 //                    cardview4.setLayoutParams (params);
                     btShowMoreRealtor.setText ("SHOW LESS");
                     showRealtor = false;
-    
                     Animation a = new Animation () {
                         @Override
                         protected void applyTransformation (float interpolatedTime, Transformation t) {
@@ -426,9 +424,8 @@ public class OverviewFragment extends Fragment {
                                     params.addRule (RelativeLayout.BELOW, R.id.tv7);
                                     params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
                                     cardview6.setLayoutParams (params);
-                                
                                 } else {
-                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (cardview4.getHeight () * (1.0f - interpolatedTime)));
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (cardview6.getHeight () * (1.0f - interpolatedTime)));
                                     params.addRule (RelativeLayout.BELOW, R.id.tv7);
                                     params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
                                     cardview6.setLayoutParams (params);
