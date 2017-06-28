@@ -19,6 +19,7 @@ public class PropertyDetailsPref {
     public static String PROPERTY_ARV = "property_arv";
     public static String PROPERTY_OVERVIEW = "property_overview";
     public static String PROPERTY_COMPS = "property_comps";
+    public static String PROPERTY_KEY_DETAILS = "property_key_details";
     public static String PROPERTY_COMPS_ADDRESSES = "property_comps_addresses";
     public static String PROPERTY_ACCESS = "property_access";
     public static String PROPERTY_REALTOR = "property_realtor";

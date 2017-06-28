@@ -25,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -79,6 +80,8 @@ public class PropertyDetailActivity extends AppCompatActivity {
     RelativeLayout rlBack;
     FloatingActionButton fabMaps;
     RelativeLayout rlMain;
+    boolean isFavourite;
+    ImageView ivFavourite;
     private SliderLayout slider;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
     private TabLayout tabLayout;
@@ -106,6 +109,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
         clMain = (CoordinatorLayout) findViewById (R.id.clMain);
         slider = (SliderLayout) findViewById (R.id.slider);
+        ivFavourite = (ImageView) findViewById (R.id.ivFavourite);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById (R.id.collapsing_toolbar);
         toolbar = (Toolbar) findViewById (R.id.toolbar);
         tabLayout = (TabLayout) findViewById (R.id.tabs);
@@ -168,6 +172,21 @@ public class PropertyDetailActivity extends AppCompatActivity {
                     Utils.showToast (PropertyDetailActivity.this, "No Map Details", false);
                 }
                 
+            }
+        });
+    
+        ivFavourite.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View v) {
+                if (isFavourite) {
+                    isFavourite = false;
+                    ivFavourite.setImageResource (R.drawable.ic_heart);
+                    updateFavouriteStatus (false, property_id);
+                } else {
+                    isFavourite = true;
+                    ivFavourite.setImageResource (R.drawable.ic_heart_filled);
+                    updateFavouriteStatus (true, property_id);
+                }
             }
         });
     }
@@ -285,7 +304,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ACCESS, jsonObj.getString (AppConfigTags.PROPERTY_ACCESS));
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_REALTOR, jsonObj.getString (AppConfigTags.PROPERTY_REALTOR));
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS, jsonObj.getString (AppConfigTags.PROPERTY_COMPS));
-    
+                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_DETAILS, jsonObj.getString (AppConfigTags.PROPERTY_KEY_DETAILS));
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_ADDITION, jsonObj.getString (AppConfigTags.BUYSELL_ADDITION));
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_ARV_ESTIMATE, jsonObj.getString (AppConfigTags.BUYSELL_ARV_ESTIMATE));
                                         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_BATH_EXISTING, jsonObj.getString (AppConfigTags.BUYSELL_BATH_EXISTING));
@@ -315,6 +334,13 @@ public class PropertyDetailActivity extends AppCompatActivity {
 //                                            propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES + j, jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
                                         }
                                         initSlider ();
+    
+                                        if (jsonObj.getBoolean (AppConfigTags.PROPERTY_IS_FAVOURITE)) {
+                                            ivFavourite.setImageResource (R.drawable.ic_heart_filled);
+                                        } else {
+                                            ivFavourite.setImageResource (R.drawable.ic_heart);
+                                        }
+    
     
                                         //    String address1 = jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS);
                                         //  String city=jsonObj.getString(AppConfigTags.PROPERTY_CITY_NAME);
@@ -472,6 +498,69 @@ public class PropertyDetailActivity extends AppCompatActivity {
             actionBar.setHomeButtonEnabled (false);
             actionBar.setDisplayShowTitleEnabled (false);
         } catch (Exception ignored) {
+        }
+    }
+    
+    public void updateFavouriteStatus (final boolean favourite, final int property_id) {
+        if (NetworkConnection.isNetworkAvailable (this)) {
+            Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_TESTIMONIALS, true);
+            StringRequest strRequest1 = new StringRequest (Request.Method.POST, AppConfigURL.URL_TESTIMONIALS,
+                    new com.android.volley.Response.Listener<String> () {
+                        @Override
+                        public void onResponse (String response) {
+                            Utils.showLog (Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
+                            if (response != null) {
+                                try {
+                                    JSONObject jsonObj = new JSONObject (response);
+                                    boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
+                                    String message = jsonObj.getString (AppConfigTags.MESSAGE);
+                                    if (! error) {
+                                        if (favourite) {
+                                            
+                                        } else {
+                                        }
+                                    } else {
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace ();
+                                }
+                            } else {
+                                Utils.showLog (Log.WARN, AppConfigTags.SERVER_RESPONSE, AppConfigTags.DIDNT_RECEIVE_ANY_DATA_FROM_SERVER, true);
+                            }
+                        }
+                    },
+                    new com.android.volley.Response.ErrorListener () {
+                        @Override
+                        public void onErrorResponse (VolleyError error) {
+                            Utils.showLog (Log.ERROR, AppConfigTags.VOLLEY_ERROR, error.toString (), true);
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams () throws AuthFailureError {
+                    BuyerDetailsPref buyerDetailsPref = BuyerDetailsPref.getInstance ();
+                    Map<String, String> params = new Hashtable<String, String> ();
+                    params.put (AppConfigTags.TYPE, "property_favourite");
+                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (PropertyDetailActivity.this, BuyerDetailsPref.BUYER_ID)));
+                    params.put (AppConfigTags.PROPERTY_ID, String.valueOf (property_id));
+                    if (favourite) {
+                        params.put (AppConfigTags.IS_FAVOURITE, String.valueOf (1));
+                    } else {
+                        params.put (AppConfigTags.IS_FAVOURITE, String.valueOf (0));
+                    }
+                    Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
+                    return params;
+                }
+                
+                @Override
+                public Map<String, String> getHeaders () throws AuthFailureError {
+                    Map<String, String> params = new HashMap<> ();
+                    params.put (AppConfigTags.HEADER_API_KEY, Constants.api_key);
+                    Utils.showLog (Log.INFO, AppConfigTags.HEADERS_SENT_TO_THE_SERVER, "" + params, false);
+                    return params;
+                }
+            };
+            Utils.sendRequest (strRequest1, 60);
+        } else {
         }
     }
     

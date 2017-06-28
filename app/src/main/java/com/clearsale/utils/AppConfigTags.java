@@ -96,6 +96,7 @@ public class AppConfigTags {
     public static String PROPERTY_COMP_LONGITUDE = "property_comp_longitude";
     public static String PROPERTY_ACCESS = "property_access";
     public static String PROPERTY_REALTOR = "property_realtor";
+    public static String PROPERTY_KEY_DETAILS = "property_key_details";
     public static String PROPERTY_OFFER = "is_offer";
     
     public static String PROPERTY_TOUR_STATUS = "tour_status";

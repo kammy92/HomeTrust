@@ -147,24 +147,6 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHo
                             activity.overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     });
-
-//            DefaultSliderView defaultSliderView = new DefaultSliderView (activity);
-//            defaultSliderView
-//                    .image (image)
-//                    .setScaleType (BaseSliderView.ScaleType.Fit)
-//                    .setOnSliderClickListener (new BaseSliderView.OnSliderClickListener () {
-//                        @Override
-//                        public void onSliderClick (BaseSliderView slider) {
-//                            Intent intent = new Intent (activity, PropertyDetailActivity.class);
-//                            intent.putExtra (AppConfigTags.PROPERTY_ID, property.getId ());
-//                            activity.startActivity (intent);
-//                            activity.overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
-//                        }
-//                    });
-//
-//            defaultSliderView.bundle (new Bundle ());
-            // defaultSliderView.getBundle ().putString ("extra", String.valueOf (s));
-//            holder.slider.addSlider (defaultSliderView);
             holder.slider.addSlider (slider);
         }
         holder.slider.getPagerIndicator ().setVisibility (View.GONE);
