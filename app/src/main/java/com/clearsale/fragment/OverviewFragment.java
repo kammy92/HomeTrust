@@ -48,6 +48,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import static com.clearsale.R.id.cardview3;
+import static com.clearsale.R.id.cardview8;
 
 
 /**
@@ -108,6 +109,14 @@ public class OverviewFragment extends Fragment {
     WebView webViewKeyDetail;
     Button btShowMoreKeyDetail;
     boolean showKeyDetail = true;
+    
+    TextView tv8;
+    CardView cardView8;
+    Button btShowMoreAccessPossession;
+    WebView webViewAccessPossession;
+    boolean showAccessPossession = true;
+    
+    
     TextView tv7;
     CardView cardview6;
     
@@ -175,6 +184,10 @@ public class OverviewFragment extends Fragment {
         cardview6 = (CardView) rootView.findViewById (R.id.cardview6);
         tv7 = (TextView) rootView.findViewById (R.id.tv7);
     
+        webViewAccessPossession = (WebView) rootView.findViewById (R.id.webViewAccessPossession);
+        btShowMoreAccessPossession = (Button) rootView.findViewById (R.id.btShowMoreAccessPossession);
+        cardView8 = (CardView) rootView.findViewById (cardview8);
+        tv8 = (TextView) rootView.findViewById (R.id.tv8);
     }
     
     private void initData () {
@@ -194,31 +207,31 @@ public class OverviewFragment extends Fragment {
         switch (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_STATUS)) {
             case 1:
                 Drawable img = getActivity ().getResources ().getDrawable (R.drawable.circle_green);
-                img.setBounds (0, 0, 30, 30);
+                img.setBounds (0, 0, 20, 20);
                 tvStatus.setCompoundDrawables (img, null, null, null);
                 tvStatus.setText ("Available");
                 break;
             case 2:
                 Drawable img2 = getActivity ().getResources ().getDrawable (R.drawable.circle_yellow);
-                img2.setBounds (0, 0, 30, 30);
+                img2.setBounds (0, 0,20, 20);
                 tvStatus.setCompoundDrawables (img2, null, null, null);
                 tvStatus.setText ("Pending");
                 break;
             case 3:
                 Drawable img3 = getActivity ().getResources ().getDrawable (R.drawable.circle_red);
-                img3.setBounds (0, 0, 30, 30);
+                img3.setBounds (0, 0, 20, 20);
                 tvStatus.setCompoundDrawables (img3, null, null, null);
                 tvStatus.setText ("Sold");
                 break;
             case 4:
                 Drawable img4 = getActivity ().getResources ().getDrawable (R.drawable.circle_red);
-                img4.setBounds (0, 0, 30, 30);
+                img4.setBounds (0, 0, 20, 20);
                 tvStatus.setCompoundDrawables (img4, null, null, null);
                 tvStatus.setText ("Closed");
                 break;
             case 9:
                 Drawable img9 = getActivity ().getResources ().getDrawable (R.drawable.circle_red);
-                img9.setBounds (0, 0, 30, 30);
+                img9.setBounds (0, 0, 20, 20);
                 tvStatus.setCompoundDrawables (img9, null, null, null);
                 tvStatus.setText ("Offer Window Closing");
                 break;
@@ -271,6 +284,10 @@ public class OverviewFragment extends Fragment {
         } else {
             tvScheduleTour.setVisibility (View.GONE);
         }
+    
+        SpannableStringBuilder spannableAccessPossession = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ACCESS));
+        Log.e ("AccessPossession", spannableAccessPossession.toString ());
+        webViewAccessPossession.loadDataWithBaseURL ("www.google.com", spannableAccessPossession.toString (), "text/html", "UTF-8", "");
     }
     
     private void initListener () {
@@ -509,7 +526,60 @@ public class OverviewFragment extends Fragment {
                 startActivity (scheduleTour);
             }
         });
-     
+    
+    
+        btShowMoreAccessPossession.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                if (showAccessPossession) {
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardview4.setLayoutParams (params);
+                    btShowMoreAccessPossession.setText ("SHOW LESS");
+                    showAccessPossession = false;
+                
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                            params.addRule (RelativeLayout.BELOW, R.id.tv8);
+                            params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                            cardView8.setLayoutParams (params);
+                        }
+                    };
+                    a.setDuration (1500); // in ms
+                    cardView8.startAnimation (a);
+                } else {
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardview4.setLayoutParams (params);
+                    btShowMoreAccessPossession.setText ("SHOW MORE");
+                    showAccessPossession = true;
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            if ((1.0f - interpolatedTime) < 1.0f) {
+                                if ((cardView8.getHeight () * (1.0f - interpolatedTime)) <= Utils.pxFromDp (getActivity (), 200.0f)) {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tv8);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardView8.setLayoutParams (params);
+                                } else {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (cardView8.getHeight () * (1.0f - interpolatedTime)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tv8);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardView8.setLayoutParams (params);
+                                }
+                            }
+                        }
+                    };
+                    a.setDuration (2000); // in ms
+                    cardView8.startAnimation (a);
+                }
+            }
+        });
     }
     
     private void sendBidCredentialsToServer (final String offerAmount, final String offerDescription, final int checked) {

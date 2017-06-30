@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -15,22 +14,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableStringBuilder;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -45,7 +36,6 @@ import com.clearsale.utils.Constants;
 import com.clearsale.utils.CustomImageSlider;
 import com.clearsale.utils.NetworkConnection;
 import com.clearsale.utils.PropertyDetailsPref;
-import com.clearsale.utils.SetTypeFace;
 import com.clearsale.utils.Utils;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
@@ -95,7 +85,6 @@ public class PropertyDetailActivity extends AppCompatActivity {
         initData ();
         initListener ();
         getExtras ();
-        setUpNavigationDrawer ();
         getPropertyDetails ();
     }
     
@@ -447,60 +436,6 @@ public class PropertyDetailActivity extends AppCompatActivity {
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, 0);
         finish ();
         overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
-    }
-    
-    public boolean onCreateOptionsMenu (Menu menu) {
-        MenuInflater menuInflater = getMenuInflater ();
-        menuInflater.inflate (R.menu.property_detail_menu, menu);
-        return true;
-    }
-    
-    private void setUpNavigationDrawer () {
-        toolbar = (Toolbar) findViewById (R.id.toolbar1);
-        setSupportActionBar (toolbar);
-        ActionBar actionBar = getSupportActionBar ();
-        toolbar.inflateMenu (R.menu.property_detail_menu);
-        
-        toolbar.setOnMenuItemClickListener (new Toolbar.OnMenuItemClickListener () {
-            @Override
-            public boolean onMenuItemClick (MenuItem menuItem) {
-                MaterialDialog dialog = new MaterialDialog.Builder (PropertyDetailActivity.this)
-                        .limitIconToDefaultSize ()
-                        .title ("")
-                        .onPositive (new MaterialDialog.SingleButtonCallback () {
-                            @Override
-                            public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dialog.dismiss ();
-                            }
-                        })
-                        .positiveText ("OK")
-                        .positiveColor (getResources ().getColor (R.color.app_text_color_dark))
-                        .customView (R.layout.dialog_webview, false)
-                        .typeface (SetTypeFace.getTypeface (PropertyDetailActivity.this), SetTypeFace.getTypeface (PropertyDetailActivity.this))
-                        .build ();
-                final WebView webView = (WebView) dialog.findViewById (R.id.webview);
-                
-                switch (menuItem.getItemId ()) {
-    
-                    case R.id.action_access_possession:
-                        dialog.setTitle ("Access / Possession");
-                        SpannableStringBuilder spannableStringBuilder3 = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ACCESS));
-                        webView.loadDataWithBaseURL ("www.google.com", spannableStringBuilder3.toString (), "text/html", "UTF-8", "");
-                        dialog.show ();
-                        return true;
-    
-                }
-                return false;
-            }
-        });
-        
-        try {
-            assert actionBar != null;
-            actionBar.setDisplayHomeAsUpEnabled (false);
-            actionBar.setHomeButtonEnabled (false);
-            actionBar.setDisplayShowTitleEnabled (false);
-        } catch (Exception ignored) {
-        }
     }
     
     public void updateFavouriteStatus (final boolean favourite, final int property_id) {

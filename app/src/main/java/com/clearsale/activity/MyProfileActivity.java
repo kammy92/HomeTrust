@@ -79,6 +79,7 @@ public class MyProfileActivity extends AppCompatActivity {
     
     TextView tvColorado;
     TextView tvSeattle;
+    TextView tvTexas;
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -238,6 +239,7 @@ public class MyProfileActivity extends AppCompatActivity {
         stateList.clear ();
         stateList.add ("CO");
         stateList.add ("WA");
+        stateList.add ("TX");
 //        stateList.add ("WA");
     
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String> (this, R.layout.spinner, spinnerItems);

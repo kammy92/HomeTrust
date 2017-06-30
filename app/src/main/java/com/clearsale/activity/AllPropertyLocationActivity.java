@@ -19,6 +19,7 @@ import com.clearsale.utils.AppConfigTags;
 import com.clearsale.utils.AppConfigURL;
 import com.clearsale.utils.BuyerDetailsPref;
 import com.clearsale.utils.Constants;
+import com.clearsale.utils.FilterDetailsPref;
 import com.clearsale.utils.NetworkConnection;
 import com.clearsale.utils.Utils;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -160,8 +161,19 @@ public class AllPropertyLocationActivity extends AppCompatActivity implements Go
                 @Override
                 protected Map<String, String> getParams () throws AuthFailureError {
                     Map<String, String> params = new Hashtable<String, String> ();
+                    FilterDetailsPref filterDetailsPref = FilterDetailsPref.getInstance ();
                     params.put (AppConfigTags.TYPE, AppConfigTags.PROPERTY_LOCATIONS);
                     params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (AllPropertyLocationActivity.this, BuyerDetailsPref.BUYER_ID)));
+                    params.put (AppConfigTags.FILTER, String.valueOf (filterDetailsPref.getBooleanPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_APPLIED)));
+                    if (filterDetailsPref.getBooleanPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_APPLIED)) {
+                        params.put (AppConfigTags.FILTER_BEDROOMS, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_BEDROOMS));
+                        params.put (AppConfigTags.FILTER_BATHROOMS, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_BATHROOMS));
+                        params.put (AppConfigTags.FILTER_STATUS, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_STATUS));
+                        params.put (AppConfigTags.FILTER_CITIES, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_CITIES));
+                        params.put (AppConfigTags.FILTER_PRICE_MIN, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_PRICE_MIN));
+                        params.put (AppConfigTags.FILTER_PRICE_MAX, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_PRICE_MAX));
+                        params.put (AppConfigTags.FILTER_LOCATION, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_LOCATION));
+                    }
                     Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
                 }

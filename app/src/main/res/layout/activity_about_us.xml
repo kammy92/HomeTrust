@@ -85,106 +85,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_margin">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_about_us_text_1"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:text="@string/activity_about_us_text_2"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"/>
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvHyperlink"
+            <WebView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:text="@string/activity_about_us_text_3"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"
-                android:visibility="gone"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:text="@string/activity_about_us_text_4"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:text="@string/activity_about_us_text_5"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:text="@string/activity_about_us_text_6"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:text="@string/activity_about_us_text_7"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:text="@string/activity_about_us_text_8"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:text="@string/activity_about_us_text_9"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"/>
+                android:id="@+id/webviewAboutus"></WebView>
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:text="@string/activity_about_us_text_10"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_about_us_text_11"
-                android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_medium"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_margin"
-                android:gravity="center"
-                android:text="@string/activity_about_us_text_12"
-                android:textColor="@color/primary"
-                android:textSize="@dimen/text_size_extra_large"/>
-        </LinearLayout>
+        </RelativeLayout>
+
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
