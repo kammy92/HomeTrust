@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -44,6 +45,14 @@ public class TestimonialActivity extends AppCompatActivity {
     RelativeLayout rlBack;
     CoordinatorLayout clMain;
     
+    
+    RelativeLayout rlList;
+    RelativeLayout rlInternetConnection;
+    RelativeLayout rlNoResultFound;
+    TextView tvTryAgain;
+    TextView tvRetry;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +68,11 @@ public class TestimonialActivity extends AppCompatActivity {
         rvTestimonials = (RecyclerView) findViewById (R.id.rvTestimonials);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
+        rlInternetConnection = (RelativeLayout) findViewById (R.id.rlInternetConnection);
+        rlNoResultFound = (RelativeLayout) findViewById (R.id.rlNoResultFound);
+        rlList = (RelativeLayout) findViewById (R.id.rlList);
+        tvTryAgain = (TextView) findViewById (R.id.tvTryAgain);
+        tvRetry = (TextView) findViewById (R.id.tvRetry);
     }
 
     private void initData() {
@@ -73,6 +87,28 @@ public class TestimonialActivity extends AppCompatActivity {
     }
 
     private void initListener() {
+        tvRetry.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                rlList.setVisibility (View.VISIBLE);
+                rlInternetConnection.setVisibility (View.GONE);
+                rlNoResultFound.setVisibility (View.GONE);
+                swipeRefreshLayout.setRefreshing (true);
+                getAllTestimonials ();
+            }
+        });
+        tvTryAgain.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                finish ();
+                overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
+
+
+
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -87,7 +123,7 @@ public class TestimonialActivity extends AppCompatActivity {
             }
         });
     }
-    
+
     /*
       private void getAllTestimonial() {
           testimonialList.clear ();
@@ -116,6 +152,9 @@ public class TestimonialActivity extends AppCompatActivity {
                             Utils.showLog (Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
                             if (response != null) {
                                 try {
+                                    rlNoResultFound.setVisibility (View.GONE);
+                                    rlList.setVisibility (View.VISIBLE);
+                                    rlInternetConnection.setVisibility (View.GONE);
                                     JSONObject jsonObj = new JSONObject (response);
                                     boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
@@ -131,6 +170,7 @@ public class TestimonialActivity extends AppCompatActivity {
                                         }
                                         if (jsonArrayTestimonial.length () > 0) {
                                             swipeRefreshLayout.setRefreshing (false);
+                                            rlNoResultFound.setVisibility (View.GONE);
                                         }
                                         testimonialAdapter.notifyDataSetChanged ();
                                     } else {
@@ -162,7 +202,7 @@ public class TestimonialActivity extends AppCompatActivity {
                     Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
                 }
-                
+
                 @Override
                 public Map<String, String> getHeaders () throws AuthFailureError {
                     Map<String, String> params = new HashMap<> ();
@@ -182,6 +222,9 @@ public class TestimonialActivity extends AppCompatActivity {
                     startActivity (dialogIntent);
                 }
             });
+            rlInternetConnection.setVisibility (View.VISIBLE);
+            rlNoResultFound.setVisibility (View.GONE);
+            rlList.setVisibility (View.GONE);
         }
     }
 }

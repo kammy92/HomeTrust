@@ -16,7 +16,7 @@ import com.clearsale.R;
  * Created by Admin on 08-05-2017.
  */
 public class ExpandableTextView extends android.support.v7.widget.AppCompatTextView {
-    private static final int DEFAULT_TRIM_LENGTH = 100;
+    public static final int DEFAULT_TRIM_LENGTH = 100;
     private static final String ELLIPSIS = "  View More..";
     
     private CharSequence originalText;
@@ -31,7 +31,6 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
     
     public ExpandableTextView (Context context, AttributeSet attrs) {
         super (context, attrs);
-        
         TypedArray typedArray = context.obtainStyledAttributes (attrs, R.styleable.ExpandableTextView);
         this.trimLength = typedArray.getInt (R.styleable.ExpandableTextView_trimLength, DEFAULT_TRIM_LENGTH);
         typedArray.recycle ();
@@ -69,7 +68,7 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
         str1.setSpan (new ForegroundColorSpan (getResources ().getColor (R.color.colorPrimary)), 0, str1.length (), 0);
         builder.append (str1);
         if (originalText != null && originalText.length () > trimLength) {
-            return new SpannableStringBuilder (originalText, 0, trimLength + 100).append (str1);
+            return new SpannableStringBuilder (originalText, 0, trimLength + DEFAULT_TRIM_LENGTH).append (str1);
         } else {
             return originalText;
         }

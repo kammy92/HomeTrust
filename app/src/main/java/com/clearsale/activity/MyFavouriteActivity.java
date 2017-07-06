@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -45,7 +46,12 @@ public class MyFavouriteActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
     
     RelativeLayout rlBack;
-    
+    TextView tvRetry;
+    RelativeLayout rlList;
+    RelativeLayout rlInternetConnection;
+    RelativeLayout rlNoFavPropertyFound;
+    TextView StartExploring;
+
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -61,6 +67,11 @@ public class MyFavouriteActivity extends AppCompatActivity {
         rvFavourites = (RecyclerView) findViewById (R.id.rvFavourite);
         clMain = (CoordinatorLayout) findViewById (R.id.clMain);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById (R.id.swipe_refresh_layout);
+        rlList = (RelativeLayout) findViewById (R.id.rlList);
+        rlInternetConnection = (RelativeLayout) findViewById (R.id.rlInternetConnection);
+        rlNoFavPropertyFound = (RelativeLayout) findViewById (R.id.rlNoFavPropertyFound);
+        tvRetry = (TextView) findViewById (R.id.tvRetry);
+        StartExploring = (TextView) findViewById (R.id.StartExploring);
     }
     
     private void initData () {
@@ -75,6 +86,26 @@ public class MyFavouriteActivity extends AppCompatActivity {
     }
     
     private void initListener () {
+        tvRetry.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                rlList.setVisibility (View.VISIBLE);
+                rlInternetConnection.setVisibility (View.GONE);
+                rlNoFavPropertyFound.setVisibility (View.GONE);
+                swipeRefreshLayout.setRefreshing (true);
+                getAllProperties ();
+            }
+        });
+        StartExploring.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                finish ();
+                overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
+
+
         swipeRefreshLayout.setOnRefreshListener (new SwipeRefreshLayout.OnRefreshListener () {
             @Override
             public void onRefresh () {
@@ -119,6 +150,9 @@ public class MyFavouriteActivity extends AppCompatActivity {
                             Utils.showLog (Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
                             if (response != null) {
                                 try {
+                                    rlInternetConnection.setVisibility (View.GONE);
+                                    rlNoFavPropertyFound.setVisibility (View.GONE);
+                                    rlList.setVisibility (View.VISIBLE);
                                     JSONObject jsonObj = new JSONObject (response);
                                     boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
@@ -154,10 +188,25 @@ public class MyFavouriteActivity extends AppCompatActivity {
                                         propertyAdapter.notifyDataSetChanged ();
                                         if (jsonArrayProperty.length () > 0) {
                                             swipeRefreshLayout.setRefreshing (false);
-                                        }
+                                            rlNoFavPropertyFound.setVisibility (View.GONE);
+                                        }/*else
+                                        {
+                                            swipeRefreshLayout.setRefreshing (true);
+                                            rlNoFavPropertyFound.setVisibility(View.GONE);
+                                        }*/
                                         
                                     } else {
                                         Utils.showSnackBar (MyFavouriteActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
+                                        if (message.equalsIgnoreCase ("No Property Found")) {
+                                            rlInternetConnection.setVisibility (View.GONE);
+                                            rlNoFavPropertyFound.setVisibility (View.VISIBLE);
+                                            rlList.setVisibility (View.VISIBLE);
+                                        } else {
+                                            rlInternetConnection.setVisibility (View.GONE);
+                                            rlNoFavPropertyFound.setVisibility (View.GONE);
+                                            rlList.setVisibility (View.VISIBLE);
+        
+                                        }
                                     }
                                 } catch (Exception e) {
                                     Utils.showSnackBar (MyFavouriteActivity.this, clMain, getResources ().getString (R.string.snackbar_text_exception_occurred), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
@@ -207,6 +256,9 @@ public class MyFavouriteActivity extends AppCompatActivity {
                     startActivity (dialogIntent);
                 }
             });
+            rlInternetConnection.setVisibility (View.VISIBLE);
+            rlList.setVisibility (View.GONE);
+            rlNoFavPropertyFound.setVisibility (View.GONE);
         }
     }
 }

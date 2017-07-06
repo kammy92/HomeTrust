@@ -1,6 +1,10 @@
 [
     {
-        "merged": "D:\\Karman\\AndroidStudioProjects\\HomeTrust2\\linkedin-sdk\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ic_launcher.png",
-        "source": "D:\\Karman\\AndroidStudioProjects\\HomeTrust2\\linkedin-sdk\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+        "merged": "/home/kammy/karman/android/studio-projects/HomeTrust/linkedin-sdk/build/intermediates/res/merged/release/drawable-hdpi-v4/ic_launcher.png",
+        "source": "/home/kammy/karman/android/studio-projects/HomeTrust/linkedin-sdk/src/main/res/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/kammy/karman/android/studio-projects/HomeTrust/D:\\Karman\\AndroidStudioProjects\\HomeTrust2\\linkedin-sdk\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "/home/kammy/karman/android/studio-projects/HomeTrust/D:\\Karman\\AndroidStudioProjects\\HomeTrust2\\linkedin-sdk\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
     }
 ]

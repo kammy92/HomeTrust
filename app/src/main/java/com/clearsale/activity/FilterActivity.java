@@ -400,33 +400,33 @@ public class FilterActivity extends AppCompatActivity {
             }
             
             if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_PRICE_MAX).equalsIgnoreCase (priceList[0])) {
-                rangeView.setEnd (1);
+                rangeView.setEnd (0);
             } else if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_PRICE_MAX).equalsIgnoreCase (priceList[1])) {
-                rangeView.setEnd (2);
+                rangeView.setEnd (1);
             } else if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_PRICE_MAX).equalsIgnoreCase (priceList[2])) {
-                rangeView.setEnd (3);
+                rangeView.setEnd (2);
             } else if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_PRICE_MAX).equalsIgnoreCase (priceList[3])) {
-                rangeView.setEnd (4);
+                rangeView.setEnd (3);
             } else if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_PRICE_MAX).equalsIgnoreCase (priceList[4])) {
-                rangeView.setEnd (5);
+                rangeView.setEnd (4);
             } else if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_PRICE_MAX).equalsIgnoreCase (priceList[5])) {
-                rangeView.setEnd (6);
+                rangeView.setEnd (5);
             } else {
-                rangeView.setEnd (6);
+                rangeView.setEnd (5);
             }
             
             if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_LOCATION).equalsIgnoreCase (locationList[0])) {
-                rangeViewLocation.setEnd (1);
+                rangeViewLocation.setEnd (0);
             } else if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_LOCATION).equalsIgnoreCase (locationList[1])) {
-                rangeViewLocation.setEnd (2);
+                rangeViewLocation.setEnd (1);
             } else if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_LOCATION).equalsIgnoreCase (locationList[2])) {
-                rangeViewLocation.setEnd (3);
+                rangeViewLocation.setEnd (2);
             } else if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_LOCATION).equalsIgnoreCase (locationList[3])) {
-                rangeViewLocation.setEnd (4);
+                rangeViewLocation.setEnd (3);
             } else if (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_LOCATION).equalsIgnoreCase (locationList[4])) {
-                rangeViewLocation.setEnd (5);
+                rangeViewLocation.setEnd (4);
             } else {
-                rangeViewLocation.setEnd (5);
+                rangeViewLocation.setEnd (4);
             }
             
             for (int i = 0; i < llCities.getChildCount (); i++) {
@@ -441,7 +441,7 @@ public class FilterActivity extends AppCompatActivity {
             
         } else {
             price_min = "" + priceList[rangeView.getStart ()];
-            price_max = "" + priceList[rangeView.getEnd () - 1];
+            price_max = "" + priceList[rangeView.getEnd ()];
             location = "" + locationList[rangeView.getEnd () - 1];
             bathrooms = bathroomList[0];
             bedrooms = bedroomList[0];

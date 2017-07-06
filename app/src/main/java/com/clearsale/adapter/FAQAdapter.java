@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.clearsale.R;
 import com.clearsale.model.FAQ;
+import com.clearsale.utils.ExpandableTextView;
 import com.clearsale.utils.SetTypeFace;
 
 import java.util.ArrayList;
@@ -40,7 +41,16 @@ public class FAQAdapter extends RecyclerView.Adapter<FAQAdapter.ViewHolder> {
         holder.tvQuestion.setTypeface (SetTypeFace.getTypeface (activity));
     
         holder.tvQuestion.setText (faq.getQuestion ());
-        holder.tvAnswer.setText (faq.getAnswer ());
+        if (faq.getAnswer ().length () > (ExpandableTextView.DEFAULT_TRIM_LENGTH + ExpandableTextView.DEFAULT_TRIM_LENGTH)) {
+            holder.tvAnswer.setText (faq.getAnswer ());
+            holder.tvAnswer.setTrimLength (ExpandableTextView.DEFAULT_TRIM_LENGTH);
+            holder.tvAnswer.setVisibility (View.VISIBLE);
+            holder.tvAnswer2.setVisibility (View.GONE);
+        } else {
+            holder.tvAnswer2.setText (faq.getAnswer ());
+            holder.tvAnswer2.setVisibility (View.VISIBLE);
+            holder.tvAnswer.setVisibility (View.GONE);
+        }
         
         final ViewHolder tempholder = holder;
     }
@@ -60,13 +70,15 @@ public class FAQAdapter extends RecyclerView.Adapter<FAQAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvQuestion;
-        TextView tvAnswer;
-
-
+        com.clearsale.utils.ExpandableTextView tvAnswer;
+        TextView tvAnswer2;
+    
+    
         public ViewHolder(View view) {
             super(view);
             tvQuestion = (TextView) view.findViewById(R.id.tvQuestion);
-            tvAnswer = (TextView) view.findViewById(R.id.tvAnswers);
+            tvAnswer = (com.clearsale.utils.ExpandableTextView) view.findViewById (R.id.tvAnswers);
+            tvAnswer2 = (TextView) view.findViewById (R.id.tvAnswers2);
             view.setOnClickListener(this);
         }
 

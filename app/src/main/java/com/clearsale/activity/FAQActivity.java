@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -43,6 +44,9 @@ public class FAQActivity extends AppCompatActivity {
     CoordinatorLayout clMain;
     SwipeRefreshLayout swipeRefreshLayout;
     RelativeLayout rlBack;
+    RelativeLayout rlList;
+    RelativeLayout rlInternetConnection;
+    TextView tvRetry;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,9 @@ public class FAQActivity extends AppCompatActivity {
         clMain = (CoordinatorLayout) findViewById(R.id.clMain);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
+        rlList = (RelativeLayout) findViewById (R.id.rlList);
+        rlInternetConnection = (RelativeLayout) findViewById (R.id.rlInternetConnection);
+        tvRetry = (TextView) findViewById (R.id.tvRetry);
     }
 
     private void initData() {
@@ -79,6 +86,14 @@ public class FAQActivity extends AppCompatActivity {
     }
     
     private void initListener() {
+        tvRetry.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                rlInternetConnection.setVisibility (View.GONE);
+                swipeRefreshLayout.setRefreshing (true);
+                getFAQList ();
+            }
+        });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -106,6 +121,8 @@ public class FAQActivity extends AppCompatActivity {
                             Utils.showLog(Log.INFO,AppConfigTags.SERVER_RESPONSE, response, true);
                             if (response != null) {
                                 try {
+                                    rlInternetConnection.setVisibility (View.GONE);
+                                    rlList.setVisibility (View.VISIBLE);
                                     JSONObject jsonObj = new JSONObject(response);
                                     boolean error = jsonObj.getBoolean(AppConfigTags.ERROR);
                                     String message = jsonObj.getString(AppConfigTags.MESSAGE);
@@ -171,6 +188,9 @@ public class FAQActivity extends AppCompatActivity {
                     startActivity(dialogIntent);
                 }
             });
+            rlInternetConnection.setVisibility (View.VISIBLE);
+            rlList.setVisibility (View.GONE);
+
         }
     }
     

@@ -29,6 +29,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -113,6 +115,11 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivOverflow;
     Menu menu2;
     ImageView ivNavigation;
+    RelativeLayout rlList;
+    RelativeLayout rlInternetConnection;
+    RelativeLayout rlNoResultFound;
+    TextView tvRetry;
+    TextView tvResetFilter;
     private AccountHeader headerResult = null;
     private Drawer result = null;
     
@@ -151,6 +158,13 @@ public class MainActivity extends AppCompatActivity {
         ivOverflow = (ImageView) findViewById (R.id.ivOverflow);
         ivNavigation = (ImageView) findViewById (R.id.ivNavigation);
         ivMaps = (ImageView) findViewById (R.id.ivMaps);
+    
+        rlInternetConnection = (RelativeLayout) findViewById (R.id.rlInternetConnection);
+        rlNoResultFound = (RelativeLayout) findViewById (R.id.rlNoResultFound);
+        rlList = (RelativeLayout) findViewById (R.id.rlList);
+        tvRetry = (TextView) findViewById (R.id.tvRetry);
+        tvResetFilter = (TextView) findViewById (R.id.tvResetFilter);
+    
     }
     
     private void initData () {
@@ -218,6 +232,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick (View v) {
                 Intent intent = new Intent (MainActivity.this, AllPropertyLocationActivity.class);
                 startActivity (intent);
+            }
+        });
+    
+        tvResetFilter.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View v) {
+                Intent intent4 = new Intent (MainActivity.this, FilterActivity.class);
+                startActivity (intent4);
+                overridePendingTransition (R.anim.slide_in_up, R.anim.slide_out_up);
+            }
+        });
+    
+    
+        tvRetry.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                rlList.setVisibility (View.VISIBLE);
+                rlInternetConnection.setVisibility (View.GONE);
+                rlNoResultFound.setVisibility (View.GONE);
+                swipeRefreshLayout.setRefreshing (true);
+                getAllProperties ();
             }
         });
     }
@@ -380,6 +415,10 @@ public class MainActivity extends AppCompatActivity {
                             Utils.showLog (Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
                             if (response != null) {
                                 try {
+                                    rlInternetConnection.setVisibility (View.GONE);
+                                    rlList.setVisibility (View.VISIBLE);
+                                    rlNoResultFound.setVisibility (View.GONE);
+    
                                     JSONObject jsonObj = new JSONObject (response);
                                     boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
@@ -427,10 +466,16 @@ public class MainActivity extends AppCompatActivity {
                                         
                                         propertyAdapter.notifyDataSetChanged ();
                                         if (jsonArrayProperty.length () > 0) {
+                                            if (filterDetailsPref.getBooleanPref (MainActivity.this, FilterDetailsPref.FILTER_APPLIED))
+                                                rlNoResultFound.setVisibility (View.GONE);
                                             swipeRefreshLayout.setRefreshing (false);
                                         }
                                     } else {
                                         Utils.showSnackBar (MainActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
+                                        if (message.equalsIgnoreCase ("no property available"))
+                                            rlNoResultFound.setVisibility (View.VISIBLE);
+                                        else
+                                            rlNoResultFound.setVisibility (View.GONE);
                                     }
                                 } catch (Exception e) {
                                     Utils.showSnackBar (MainActivity.this, clMain, getResources ().getString (R.string.snackbar_text_exception_occurred), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
@@ -489,6 +534,9 @@ public class MainActivity extends AppCompatActivity {
                     startActivity (dialogIntent);
                 }
             });
+            rlInternetConnection.setVisibility (View.VISIBLE);
+            rlList.setVisibility (View.GONE);
+            rlNoResultFound.setVisibility (View.GONE);
         }
     }
     
@@ -637,7 +685,7 @@ public class MainActivity extends AppCompatActivity {
                 .addDrawerItems (
                         new PrimaryDrawerItem ().withName ("Home").withIcon (FontAwesome.Icon.faw_home).withIdentifier (1).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("My Favourites").withIcon (FontAwesome.Icon.faw_heart).withIdentifier (2).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("How It Works").withIcon (FontAwesome.Icon.faw_info).withIdentifier (3).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new PrimaryDrawerItem ().withName ("How It Works").withIcon (FontAwesome.Icon.faw_handshake_o).withIdentifier (3).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("About Us").withIcon (FontAwesome.Icon.faw_info).withIdentifier (4).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Testimonials").withIcon (FontAwesome.Icon.faw_comments).withIdentifier (5).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Contact Us").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (6).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
