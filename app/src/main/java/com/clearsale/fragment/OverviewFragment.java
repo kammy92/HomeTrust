@@ -482,6 +482,7 @@ public class OverviewFragment extends Fragment {
                             }
                         })
                         .negativeText ("CANCEL")
+                        .typeface (SetTypeFace.getTypeface (getActivity ()), SetTypeFace.getTypeface (getActivity ()))
                         .onPositive (new MaterialDialog.SingleButtonCallback () {
                             @Override
                             public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

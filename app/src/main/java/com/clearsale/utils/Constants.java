@@ -15,7 +15,7 @@ public class Constants {
     public static int user_id = 0;
     public static String user_mail = "user_email";
     public static String app_link_uri = "android-app://com.actiknow.bloodkonnect/http/host/path";
-    public static String font_name = "Graphik.otf";
+    public static String font_name = "librefranklin-regular.ttf";
     public static double latitude = 0.0;
     public static double longitude = 0.0;
     public static int splash_screen_first_time = 0; // 0 => default

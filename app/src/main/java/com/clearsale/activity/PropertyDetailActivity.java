@@ -169,11 +169,11 @@ public class PropertyDetailActivity extends AppCompatActivity {
             public void onClick (View v) {
                 if (isFavourite) {
                     isFavourite = false;
-                    ivFavourite.setImageResource (R.drawable.ic_heart);
+                    ivFavourite.setImageResource (R.drawable.ic_heart1);
                     updateFavouriteStatus (false, property_id);
                 } else {
                     isFavourite = true;
-                    ivFavourite.setImageResource (R.drawable.ic_heart_filled);
+                    ivFavourite.setImageResource (R.drawable.ic_heart_filled1);
                     updateFavouriteStatus (true, property_id);
                 }
             }
@@ -327,9 +327,9 @@ public class PropertyDetailActivity extends AppCompatActivity {
                                         initSlider ();
     
                                         if (jsonObj.getBoolean (AppConfigTags.PROPERTY_IS_FAVOURITE)) {
-                                            ivFavourite.setImageResource (R.drawable.ic_heart_filled);
+                                            ivFavourite.setImageResource (R.drawable.ic_heart_filled1);
                                         } else {
-                                            ivFavourite.setImageResource (R.drawable.ic_heart);
+                                            ivFavourite.setImageResource (R.drawable.ic_heart1);
                                         }
     
     

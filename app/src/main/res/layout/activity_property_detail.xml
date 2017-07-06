@@ -126,7 +126,7 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:padding="@dimen/activity_margin_small"
-                                android:src="@drawable/ic_heart"/>
+                                android:src="@drawable/ic_heart1"/>
                         </RelativeLayout>
                     </android.support.v7.widget.Toolbar>
                 </RelativeLayout>

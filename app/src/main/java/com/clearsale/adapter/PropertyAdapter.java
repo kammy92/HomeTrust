@@ -196,9 +196,9 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHo
         holder.slider.setPresetIndicator (SliderLayout.PresetIndicators.Center_Bottom);
     
         if (property.is_favourite ()) {
-            holder.ivFavourite.setImageResource (R.drawable.ic_heart_filled);
+            holder.ivFavourite.setImageResource (R.drawable.ic_heart_filled1);
         } else {
-            holder.ivFavourite.setImageResource (R.drawable.ic_heart);
+            holder.ivFavourite.setImageResource (R.drawable.ic_heart1);
         }
     
         holder.ivFavourite.setOnClickListener (new View.OnClickListener () {
@@ -206,11 +206,11 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHo
             public void onClick (View v) {
                 if (property.is_favourite ()) {
                     property.setIs_favourite (false);
-                    holder.ivFavourite.setImageResource (R.drawable.ic_heart);
+                    holder.ivFavourite.setImageResource (R.drawable.ic_heart1);
                     updateFavouriteStatus (false, property.getId ());
                 } else {
                     property.setIs_favourite (true);
-                    holder.ivFavourite.setImageResource (R.drawable.ic_heart_filled);
+                    holder.ivFavourite.setImageResource (R.drawable.ic_heart_filled1);
                     updateFavouriteStatus (true, property.getId ());
                 }
             }

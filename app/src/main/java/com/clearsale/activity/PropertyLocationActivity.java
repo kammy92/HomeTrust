@@ -107,7 +107,7 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
                         .title (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1)
                                 + ", " + propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2))
                         .draggable (false)
-                        .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_map_marker))
+                        .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_marker))
         );
         mAddress.setTag (0);
         mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (latitude, longitude), 15.0f));

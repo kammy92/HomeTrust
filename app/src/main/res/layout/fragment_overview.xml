@@ -10,16 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/cardview1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small"
-            android:layout_marginTop="@dimen/activity_margin_small"
-            card_view:cardCornerRadius="@dimen/cardview_default_radius"
-            card_view:cardElevation="@dimen/cardview_default_elevation">
+        <android.support.v7.widget.CardView android:id="@+id/cardview1"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="@dimen/activity_margin_small"
+                                            android:layout_marginRight="@dimen/activity_margin_small"
+                                            android:layout_marginTop="@dimen/activity_margin_small"
+                                            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                                            card_view:cardElevation="@dimen/cardview_default_elevation">
 
             <RelativeLayout
                 android:id="@+id/rlFooter"
@@ -236,17 +236,17 @@
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/cardview2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv4"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small"
-            android:visibility="gone"
-            card_view:cardCornerRadius="@dimen/cardview_default_radius"
-            card_view:cardElevation="@dimen/cardview_default_elevation">
+        <android.support.v7.widget.CardView android:id="@+id/cardview2"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/tv4"
+                                            android:layout_marginLeft="@dimen/activity_margin_small"
+                                            android:layout_marginRight="@dimen/activity_margin_small"
+                                            android:visibility="gone"
+                                            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                                            card_view:cardElevation="@dimen/cardview_default_elevation">
 
             <LinearLayout
                 android:id="@+id/llPropertyOffer"
@@ -383,13 +383,13 @@
             android:textSize="@dimen/text_size_small"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/cardview3"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/tv5"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small">
+        <android.support.v7.widget.CardView android:id="@+id/cardview3"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="200dp"
+                                            android:layout_below="@+id/tv5"
+                                            android:layout_marginLeft="@dimen/activity_margin_small"
+                                            android:layout_marginRight="@dimen/activity_margin_small">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -460,15 +460,15 @@
             android:textSize="@dimen/text_size_small"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/cardview5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv7"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small"
-            android:visibility="gone">
+        <android.support.v7.widget.CardView android:id="@+id/cardview5"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/tv7"
+                                            android:layout_marginBottom="@dimen/activity_margin_small"
+                                            android:layout_marginLeft="@dimen/activity_margin_small"
+                                            android:layout_marginRight="@dimen/activity_margin_small"
+                                            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -770,13 +770,13 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/cardview6"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/tv7"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small">
+        <android.support.v7.widget.CardView android:id="@+id/cardview6"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="200dp"
+                                            android:layout_below="@+id/tv7"
+                                            android:layout_marginLeft="@dimen/activity_margin_small"
+                                            android:layout_marginRight="@dimen/activity_margin_small">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -826,18 +826,18 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/cardview6"
             android:padding="@dimen/activity_margin_small"
-            android:text="ARE YOU REALTOR"
+            android:text="ARE YOU AN AGENT?"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_small"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/cardview4"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/tv6"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small">
+        <android.support.v7.widget.CardView android:id="@+id/cardview4"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="200dp"
+                                            android:layout_below="@+id/tv6"
+                                            android:layout_marginLeft="@dimen/activity_margin_small"
+                                            android:layout_marginRight="@dimen/activity_margin_small">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -893,14 +893,14 @@
             android:textSize="@dimen/text_size_small"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/cardview8"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/tv8"
-            android:layout_marginBottom="@dimen/activity_margin_small"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small">
+        <android.support.v7.widget.CardView android:id="@+id/cardview8"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="200dp"
+                                            android:layout_below="@+id/tv8"
+                                            android:layout_marginBottom="@dimen/activity_margin_small"
+                                            android:layout_marginLeft="@dimen/activity_margin_small"
+                                            android:layout_marginRight="@dimen/activity_margin_small">
 
             <RelativeLayout
                 android:layout_width="match_parent"
