@@ -663,9 +663,17 @@ public class MainActivity extends AppCompatActivity {
                 .withDividerBelowHeader (true)
                 .withHeaderBackground (R.drawable.drawer_bg)
                 .withSavedInstance (savedInstanceState)
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        Intent intent = new Intent(MainActivity.this, MyProfileActivity.class);
+                        startActivity(intent);
+                        return false;
+                    }
+                })
                 .build ();
     
-    
+
         if (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_IMAGE).length () != 0) {
             headerResult.addProfiles (new ProfileDrawerItem ()
                     .withIcon (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_IMAGE))
@@ -684,7 +692,7 @@ public class MainActivity extends AppCompatActivity {
 //                .withItemAnimator (new AlphaCrossFadeAnimator ())
                 .addDrawerItems (
                         new PrimaryDrawerItem ().withName ("Home").withIcon (FontAwesome.Icon.faw_home).withIdentifier (1).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("My Favourites").withIcon (FontAwesome.Icon.faw_heart).withIdentifier (2).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new PrimaryDrawerItem().withName("My Favorites").withIcon(FontAwesome.Icon.faw_heart).withIdentifier(2).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("How It Works").withIcon (FontAwesome.Icon.faw_handshake_o).withIdentifier (3).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("About Us").withIcon (FontAwesome.Icon.faw_info).withIdentifier (4).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Testimonials").withIcon (FontAwesome.Icon.faw_comments).withIdentifier (5).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),

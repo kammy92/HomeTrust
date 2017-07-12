@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/clMain"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -19,9 +19,9 @@
             android:theme="@style/AppTheme.AppBarOverlay"
             android:visibility="visible">
 
-            <android.support.v7.widget.Toolbar android:id="@+id/toolbar1"
+            <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/toolbar1"
                                                style="@style/Widget.MyApp.ActionBar"
-                                               xmlns:android="http://schemas.android.com/apk/res/android"
                                                android:layout_width="match_parent"
                                                android:layout_height="wrap_content"
                                                android:animateLayoutChanges="true"
@@ -83,8 +83,8 @@
                     android:textSize="15sp"
                     android:textStyle="bold"/>
 
-                <me.bendik.simplerangeview.SimpleRangeView android:id="@+id/rangeview_location"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
+                <me.bendik.simplerangeview.SimpleRangeView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/rangeview_location"
                                                            android:layout_width="match_parent"
                                                            android:layout_height="wrap_content"
                                                            app:count="5"
@@ -98,12 +98,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Range"
+                    android:text="Price Range"
                     android:textSize="15sp"
                     android:textStyle="bold"/>
 
-                <me.bendik.simplerangeview.SimpleRangeView android:id="@+id/fixed_rangeview"
-                                                           xmlns:app="http://schemas.android.com/apk/res-auto"
+                <me.bendik.simplerangeview.SimpleRangeView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/fixed_rangeview"
                                                            android:layout_width="match_parent"
                                                            android:layout_height="wrap_content"
                                                            app:count="6"

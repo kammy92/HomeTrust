@@ -10,11 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView android:id="@+id/cardview1"
-                                            xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cardview1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
                                             android:layout_marginLeft="@dimen/activity_margin_small"
                                             android:layout_marginRight="@dimen/activity_margin_small"
                                             android:layout_marginTop="@dimen/activity_margin_small"
@@ -220,176 +220,25 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <TextView
-            android:id="@+id/tv4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cardview1"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small"
-            android:layout_marginTop="@dimen/activity_margin_small"
-            android:background="@drawable/rounded_button"
-            android:gravity="center"
-            android:padding="@dimen/activity_margin_small"
-            android:text="PLACE AN OFFER"
-            android:textColor="@color/text_color_white"
-            android:textSize="@dimen/text_size_medium"
-            android:textStyle="bold" />
 
-        <android.support.v7.widget.CardView android:id="@+id/cardview2"
-                                            xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_below="@+id/tv4"
-                                            android:layout_marginLeft="@dimen/activity_margin_small"
-                                            android:layout_marginRight="@dimen/activity_margin_small"
-                                            android:visibility="gone"
-                                            card_view:cardCornerRadius="@dimen/cardview_default_radius"
-                                            card_view:cardElevation="@dimen/cardview_default_elevation">
-
-            <LinearLayout
-                android:id="@+id/llPropertyOffer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardview1"
-                android:layout_margin="@dimen/activity_margin_small"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/activity_property_detail_text_best_offer"
-                    android:textColor="@color/app_text_color_light"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
-
-
-                <EditText
-                    android:id="@+id/etOfferUsd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_text_background"
-                    android:hint="@string/activity_property_detail_hint_usd"
-                    android:inputType="number"
-                    android:lines="1"
-                    android:padding="@dimen/edittext_padding"
-                    android:textColorHint="@color/hint_text_color"
-                    android:textSize="@dimen/text_size_medium" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_margin_extra_small"
-                    android:text="@string/activity_property_detail_text_offer_detail"
-                    android:textColor="@color/app_text_color_light"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etOfferDetail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_text_background"
-                    android:gravity="top"
-                    android:inputType="textMultiLine"
-                    android:lines="1"
-                    android:padding="@dimen/edittext_padding"
-                    android:textColorHint="@color/hint_text_color"
-                    android:textSize="@dimen/text_size_medium" />
-
-                <com.clearsale.utils.ExpandableTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_margin_extra_small"
-                    android:text="@string/activity_property_detail_text_offer_detail2"
-                    android:textColor="@color/app_text_color_light" />
-
-                <CheckBox
-                    android:id="@+id/cbAttendedAccess"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_margin_extra_small"
-                    android:text="@string/activity_property_detail_text_attended_access"
-                    android:textColor="@color/app_text_color_light"
-                    android:textSize="@dimen/text_size_small" />
-
-                <com.clearsale.utils.ExpandableTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_margin_extra_small"
-                    android:text="@string/activity_property_detail_text_note"
-                    android:textColor="@color/app_text_color_light" />
-
-
-                <TextView
-                    android:id="@+id/tvSubmit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_margin_small"
-                    android:background="@drawable/rounded_button"
-                    android:elevation="@dimen/button_elevation"
-                    android:gravity="center"
-                    android:padding="@dimen/button_padding"
-                    android:text="@string/activity_contact_button_submit"
-                    android:textColor="@color/text_color_white"
-                    android:textSize="@dimen/text_size_extra_large"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-        <!--
-                <android.support.v7.widget.CardView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_margin_small"
-                    android:layout_marginRight="@dimen/activity_margin_small"
-                    android:layout_marginLeft="@dimen/activity_margin_small"
-                    card_view:cardCornerRadius="@dimen/cardview_default_radius"
-                    card_view:cardElevation="@dimen/cardview_default_elevation"
-                    android:layout_below="@+id/cardview2">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/activity_margin_small">
-
-                        <WebView
-                            android:id="@+id/webView1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-
-                        <TextView
-                            android:id="@+id/tvOverView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_small"
-                            android:textColor="@color/app_text_color_light"
-                            android:visibility="gone"/>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-        -->
         <TextView
             android:id="@+id/tv5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cardview2"
+            android:layout_below="@+id/cardview1"
             android:padding="@dimen/activity_margin_small"
             android:text="DESCRIPTION"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_small"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.CardView android:id="@+id/cardview3"
-                                            xmlns:android="http://schemas.android.com/apk/res/android"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="200dp"
-                                            android:layout_below="@+id/tv5"
-                                            android:layout_marginLeft="@dimen/activity_margin_small"
-                                            android:layout_marginRight="@dimen/activity_margin_small">
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/cardview3"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/tv5"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -433,6 +282,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
+
         <TextView
             android:id="@+id/tvScheduleTour"
             android:layout_width="match_parent"
@@ -444,7 +294,7 @@
             android:background="@drawable/rounded_button"
             android:gravity="center"
             android:padding="@dimen/activity_margin_small"
-            android:text="SCHEDULE TOUR"
+            android:text="REQUEST ACCESS"
             android:textColor="@color/text_color_white"
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold" />
@@ -460,15 +310,15 @@
             android:textSize="@dimen/text_size_small"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.CardView android:id="@+id/cardview5"
-                                            xmlns:android="http://schemas.android.com/apk/res/android"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_below="@+id/tv7"
-                                            android:layout_marginBottom="@dimen/activity_margin_small"
-                                            android:layout_marginLeft="@dimen/activity_margin_small"
-                                            android:layout_marginRight="@dimen/activity_margin_small"
-                                            android:visibility="gone">
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/cardview5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv7"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -770,9 +620,148 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView android:id="@+id/cardview6"
-                                            xmlns:android="http://schemas.android.com/apk/res/android"
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cardview2"
                                             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv4"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small"
+            android:visibility="gone"
+            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+            card_view:cardElevation="@dimen/cardview_default_elevation">
+
+            <LinearLayout
+                android:id="@+id/llPropertyOffer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview1"
+                android:layout_margin="@dimen/activity_margin_small"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_property_detail_text_best_offer"
+                    android:textColor="@color/app_text_color_light"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="bold" />
+
+
+                <EditText
+                    android:id="@+id/etOfferUsd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="@string/activity_property_detail_hint_usd"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:padding="@dimen/edittext_padding"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_extra_small"
+                    android:text="@string/activity_property_detail_text_offer_detail"
+                    android:textColor="@color/app_text_color_light"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etOfferDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_background"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:lines="1"
+                    android:padding="@dimen/edittext_padding"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <com.clearsale.utils.ExpandableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_extra_small"
+                    android:text="@string/activity_property_detail_text_offer_detail2"
+                    android:textColor="@color/app_text_color_light" />
+
+                <CheckBox
+                    android:id="@+id/cbAttendedAccess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_extra_small"
+                    android:text="@string/activity_property_detail_text_attended_access"
+                    android:textColor="@color/app_text_color_light"
+                    android:textSize="@dimen/text_size_small" />
+
+                <com.clearsale.utils.ExpandableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_extra_small"
+                    android:text="@string/activity_property_detail_text_note"
+                    android:textColor="@color/app_text_color_light" />
+
+
+                <TextView
+                    android:id="@+id/tvSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_small"
+                    android:background="@drawable/rounded_button"
+                    android:elevation="@dimen/button_elevation"
+                    android:gravity="center"
+                    android:padding="@dimen/button_padding"
+                    android:text="@string/activity_contact_button_submit"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="@dimen/text_size_extra_large"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <!--
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_margin_small"
+                    android:layout_marginRight="@dimen/activity_margin_small"
+                    android:layout_marginLeft="@dimen/activity_margin_small"
+                    card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                    card_view:cardElevation="@dimen/cardview_default_elevation"
+                    android:layout_below="@+id/cardview2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/activity_margin_small">
+
+                        <WebView
+                            android:id="@+id/webView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                        <TextView
+                            android:id="@+id/tvOverView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textColor="@color/app_text_color_light"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+        -->
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/cardview6"
+            android:layout_width="match_parent"
                                             android:layout_height="200dp"
                                             android:layout_below="@+id/tv7"
                                             android:layout_marginLeft="@dimen/activity_margin_small"
@@ -820,19 +809,54 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
+        <!--    <TextView
+                android:id="@+id/tv4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/activity_margin_small"
+                android:layout_marginRight="@dimen/activity_margin_small"
+                android:layout_marginTop="@dimen/activity_margin_small"
+                android:padding="@dimen/activity_margin_small"
+                android:text="PLACE AN OFFER"
+                android:textColor="@color/text_color_white"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold"
+                android:layout_below="@+id/cardview6"
+                android:layout_alignLeft="@+id/cardview6"
+                android:layout_alignStart="@+id/cardview6" />-->
+
+
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardview6"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small"
+            android:layout_marginTop="@dimen/activity_margin_small"
+            android:background="@drawable/rounded_button"
+            android:gravity="center"
+            android:padding="@dimen/activity_margin_small"
+            android:text="PLACE AN OFFER"
+            android:textColor="@color/text_color_white"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/tv6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cardview6"
+            android:layout_below="@+id/tv4"
             android:padding="@dimen/activity_margin_small"
             android:text="ARE YOU AN AGENT?"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_small"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.CardView android:id="@+id/cardview4"
-                                            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/cardview4"
                                             android:layout_width="match_parent"
                                             android:layout_height="200dp"
                                             android:layout_below="@+id/tv6"
@@ -877,7 +901,8 @@
                     android:text="SHOW MORE"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size_extra_small"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
@@ -888,13 +913,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/cardview4"
             android:padding="@dimen/activity_margin_small"
-            android:text="ACCESS/POSSESSION"
+            android:text="POSSESSION"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_small"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.CardView android:id="@+id/cardview8"
-                                            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/cardview8"
                                             android:layout_width="match_parent"
                                             android:layout_height="200dp"
                                             android:layout_below="@+id/tv8"

@@ -73,11 +73,11 @@ public class FilterActivity extends AppCompatActivity {
     String bedrooms;
     String bathrooms;
     FilterDetailsPref filterDetailsPref;
-    private String[] priceList = new String[] {"0", "100K", "200K", "300k", "400K", "400K+"};
+    private String[] priceList = new String[]{"$0", "$100k", "$200k", "$300k", "$400k", "$500k+"};
     private String[] bedroomList = new String[] {"ANY", "1+","2+", "3+", "4+"};
     private String[] bathroomList = new String[] {"ANY", "1+","2+", "3+", "4+"};
     private String[] locationList = new String[] {"0", "2", "4", "6", "8+"};
-    private String[] statusList = new String[] {"All", "Available", "Pending", "Sold", "Closed", "Offer Window Closing"};
+    private String[] statusList = new String[]{"All", "Available", "Offer Window Closing", "Pending", "Sold", "Closed"};
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -488,11 +488,11 @@ public class FilterActivity extends AppCompatActivity {
                 } else if (item.equalsIgnoreCase (statusList[2])) {
                     status = "2";
                 } else if (item.equalsIgnoreCase (statusList[3])) {
-                    status = "3";
-                } else if (item.equalsIgnoreCase (statusList[4])) {
-                    status = "4";
-                } else if (item.equalsIgnoreCase (statusList[5])) {
                     status = "9";
+                } else if (item.equalsIgnoreCase (statusList[4])) {
+                    status = "3";
+                } else if (item.equalsIgnoreCase (statusList[5])) {
+                    status = "4";
                 }
             }
         });

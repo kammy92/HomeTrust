@@ -3,6 +3,7 @@ package com.clearsale.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.clearsale.R;
 import com.clearsale.utils.AppConfigTags;
@@ -30,9 +31,11 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
     PropertyDetailsPref propertyDetailsPref;
     double latitude;
     double longitude;
+    double lat = 47.144325;
+    double longi = -122.3531977;
     private Marker mAddress;
     private GoogleMap mMap;
-    
+
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -66,6 +69,41 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
     
     @Override
     public boolean onMarkerClick (Marker marker) {
+
+       /* mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, longi), 13.0f));
+
+                mAddress = mMap.addMarker (
+                        new MarkerOptions ().position (new LatLng (lat, longi))
+                                .title (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1)
+                                        + ", " + propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2))
+                                .draggable (false)
+                                .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_marker))
+                );
+                mAddress.setTag (0);
+                mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (lat, longi), 15.0f));
+                //mMap.setOnMarkerClickListener (this);
+            }
+        });
+
+        streetViewPanoramaFragment.getStreetViewPanoramaAsync(new OnStreetViewPanoramaReadyCallback() {
+            @Override
+            public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
+                streetViewPanorama.setPosition (new LatLng (lat, longi));
+//        streetViewPanorama.setPosition(new LatLng(39.5575492,-104.7034232));
+                StreetViewPanoramaCamera camera = new StreetViewPanoramaCamera.Builder ()
+                        .zoom (streetViewPanorama.getPanoramaCamera ().zoom + 0.5f)
+                        .tilt (streetViewPanorama.getPanoramaCamera ().tilt)
+                        .bearing (streetViewPanorama.getPanoramaCamera ().bearing)
+                        .build ();
+                streetViewPanorama.animateTo (camera, 1000);
+            }
+        });
+*/
+        //  mapFragment.getMapAsync (this);
+        //    streetViewPanoramaFragment.getStreetViewPanoramaAsync (this);
 //        Integer clickCount = (Integer) marker.getTag ();
         // Check if a click count was set, then display the click count.
 //        if (clickCount != null) {
@@ -76,6 +114,7 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
 //                            " has been clicked " + clickCount + " times.",
 //                    Toast.LENGTH_SHORT).show ();
 //        }
+        Toast.makeText(this, "" + marker.getPosition(), Toast.LENGTH_SHORT).show();
         return false;
     }
     

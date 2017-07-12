@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/actiknow/AndroidStudioProjects/HomeTrust/linkedin-sdk/build/intermediates/res/merged/release/drawable-xhdpi-v4/ic_launcher.png",
+        "source": "/Users/actiknow/AndroidStudioProjects/HomeTrust/linkedin-sdk/src/main/res/drawable-xhdpi/ic_launcher.png"
+    },
+    {
         "merged": "/home/kammy/karman/android/studio-projects/HomeTrust/D:\\Karman\\AndroidStudioProjects\\HomeTrust2\\linkedin-sdk\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\ic_launcher.png",
         "source": "/home/kammy/karman/android/studio-projects/HomeTrust/D:\\Karman\\AndroidStudioProjects\\HomeTrust2\\linkedin-sdk\\src\\main\\res\\drawable-xhdpi\\ic_launcher.png"
     },

@@ -26,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.clearsale.R;
 import com.clearsale.utils.AppConfigTags;
 import com.clearsale.utils.AppConfigURL;
+import com.clearsale.utils.BuyerDetailsPref;
 import com.clearsale.utils.Constants;
 import com.clearsale.utils.NetworkConnection;
 import com.clearsale.utils.TypefaceSpan;
@@ -50,6 +51,7 @@ public class ContactUsActivity extends AppCompatActivity {
     RelativeLayout rlBack;
     CoordinatorLayout clMain;
     ProgressDialog progressDialog;
+    BuyerDetailsPref buyerDetailsPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,17 @@ public class ContactUsActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        buyerDetailsPref = BuyerDetailsPref.getInstance();
         progressDialog = new ProgressDialog(ContactUsActivity.this);
+        if (buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_NAME).equalsIgnoreCase("")) {
+            etName.setText(buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_NAME));
+        }
+        if (buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_EMAIL).equalsIgnoreCase("")) {
+            etEmail.setText(buyerDetailsPref.getIntPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_EMAIL));
+        }
+        if (buyerDetailsPref.getIntPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_MOBILE) == 0) {
+            etMobile.setText(buyerDetailsPref.getIntPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_MOBILE));
+        }
     }
 
     private void initListener() {
