@@ -91,7 +91,8 @@
                 android:layout_toRightOf="@+id/tvStartDate"
                 android:text="-"
                 android:textColor="@color/app_text_color_dark"
-                android:textSize="@dimen/text_size_small"/>
+                android:textSize="@dimen/text_size_small"
+                android:visibility="gone" />
 
 
         </RelativeLayout>

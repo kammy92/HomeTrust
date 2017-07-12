@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_margin_small"
         android:padding="@dimen/activity_margin_small"
-        android:text="SCHEDULE APPOINTMENT"
+        android:text="SCHEDULE TOUR"
         android:textColor="@color/app_text_color_dark"
         android:textSize="@dimen/text_size_medium"
         android:textStyle="bold"/>
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_margin_extra_small"
-            android:text="I want to receive"
+            android:text="I want to receive notification"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_small"/>
 

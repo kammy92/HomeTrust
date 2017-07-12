@@ -814,4 +814,11 @@ public class MainActivity extends AppCompatActivity {
 //        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_PRICE_MAX, "");
 //        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_STATUS, "");
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // put your code here...
+        getAllProperties();
+    }
 }

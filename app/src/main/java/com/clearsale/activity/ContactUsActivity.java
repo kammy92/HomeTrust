@@ -76,15 +76,13 @@ public class ContactUsActivity extends AppCompatActivity {
     private void initData() {
         buyerDetailsPref = BuyerDetailsPref.getInstance();
         progressDialog = new ProgressDialog(ContactUsActivity.this);
-        if (buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_NAME).equalsIgnoreCase("")) {
+        Log.e("MOBILE", "" + buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_MOBILE));
             etName.setText(buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_NAME));
-        }
-        if (buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_EMAIL).equalsIgnoreCase("")) {
-            etEmail.setText(buyerDetailsPref.getIntPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_EMAIL));
-        }
-        if (buyerDetailsPref.getIntPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_MOBILE) == 0) {
-            etMobile.setText(buyerDetailsPref.getIntPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_MOBILE));
-        }
+
+        etEmail.setText(buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_EMAIL));
+
+        etMobile.setText(buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_MOBILE));
+
     }
 
     private void initListener() {

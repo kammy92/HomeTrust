@@ -20,19 +20,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
+import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PropertyLocationActivity extends AppCompatActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback, OnStreetViewPanoramaReadyCallback {
+public class PropertyLocationActivity extends AppCompatActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback, OnStreetViewPanoramaReadyCallback, StreetViewPanorama.OnStreetViewPanoramaChangeListener {
     SupportMapFragment mapFragment;
+    StreetViewPanorama streetViewPanorama;
     StreetViewPanoramaFragment streetViewPanoramaFragment;
     PropertyDetailsPref propertyDetailsPref;
     double latitude;
     double longitude;
-    double lat = 47.144325;
-    double longi = -122.3531977;
     private Marker mAddress;
     private GoogleMap mMap;
 
@@ -70,6 +70,15 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
     @Override
     public boolean onMarkerClick (Marker marker) {
 
+    /*    LatLng position = marker.getPosition(); //
+        streetViewPanorama.setPosition (new LatLng (position.latitude, position.longitude));
+//        streetViewPanorama.setPosition(new LatLng(39.5575492,-104.7034232));
+        StreetViewPanoramaCamera camera = new StreetViewPanoramaCamera.Builder ()
+                .zoom (streetViewPanorama.getPanoramaCamera ().zoom + 0.5f)
+                .tilt (streetViewPanorama.getPanoramaCamera ().tilt)
+                .bearing (streetViewPanorama.getPanoramaCamera ().bearing)
+                .build ();
+        streetViewPanorama.animateTo (camera, 1000);*/
        /* mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
@@ -156,6 +165,7 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
     
     @Override
     public void onStreetViewPanoramaReady (StreetViewPanorama streetViewPanorama) {
+        this.streetViewPanorama = streetViewPanorama;
         streetViewPanorama.setPosition (new LatLng (latitude, longitude));
 //        streetViewPanorama.setPosition(new LatLng(39.5575492,-104.7034232));
         StreetViewPanoramaCamera camera = new StreetViewPanoramaCamera.Builder ()
@@ -164,6 +174,11 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
                 .bearing (streetViewPanorama.getPanoramaCamera ().bearing)
                 .build ();
         streetViewPanorama.animateTo (camera, 1000);
-        
+
+    }
+
+    @Override
+    public void onStreetViewPanoramaChange(StreetViewPanoramaLocation streetViewPanoramaLocation) {
+
     }
 }

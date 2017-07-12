@@ -64,7 +64,7 @@
     <string name="activity_edit_profile_hint_last_name">Last Name</string>
     <string name="activity_edit_profile_hint_email">Email Address</string>
     <string name="activity_edit_profile_hint_mobile">Mobile Number</string>
-    <string name="activity_edit_profile_ques1">Do you want to buy in Colorado, Seattle or Austin?</string>
+    <string name="activity_edit_profile_ques1">Do you want to buy in Colorado, Seattle or TX?</string>
     <string name="activity_edit_profile_cb_text_co">CO</string>
     <string name="activity_edit_profile_cb_text_wa">WA</string>
     <string name="activity_edit_profile_ques2">I will buy properties in this price range(s). Pick all that apply:</string>
@@ -178,7 +178,7 @@
     <string name="activity_how_it_works_title">How It Works</string>
 
     <string name="activity_my_favourite_back_button">Home</string>
-    <string name="activity_my_favourite_title">My Favourite</string>
+    <string name="activity_my_favourite_title">My Favorite</string>
 
     <string name="activity_my_profile_back_button">Home</string>
     <string name="activity_my_profile_title">My Profile</string>

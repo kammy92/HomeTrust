@@ -25,6 +25,7 @@ import com.clearsale.utils.AppConfigURL;
 import com.clearsale.utils.BuyerDetailsPref;
 import com.clearsale.utils.Constants;
 import com.clearsale.utils.NetworkConnection;
+import com.clearsale.utils.PropertyDetailsPref;
 import com.clearsale.utils.SetTypeFace;
 import com.clearsale.utils.Utils;
 import com.google.android.youtube.player.YouTubeThumbnailView;
@@ -42,6 +43,7 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
     OnItemClickListener mItemClickListener;
     int checked;
     ScheduleTour scheduleTour;
+    PropertyDetailsPref propertyDetailsPref;
     private Activity activity;
     private List<ScheduleTour> scheduleTours = new ArrayList<ScheduleTour> ();
     
@@ -59,13 +61,14 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
     
     @Override
     public void onBindViewHolder (final ViewHolder holder, int position) {//        runEnterAnimation (holder.itemView);
+        propertyDetailsPref = PropertyDetailsPref.getInstance();
         final ScheduleTour scheduleTour = scheduleTours.get (position);
         
         holder.tvAddress.setTypeface (SetTypeFace.getTypeface (activity));
         holder.tvDate.setTypeface (SetTypeFace.getTypeface (activity));
         holder.tvTime.setTypeface (SetTypeFace.getTypeface (activity));
-        
-        holder.tvAddress.setText (scheduleTour.getAddress ());
+
+        holder.tvAddress.setText(propertyDetailsPref.getStringPref(activity, PropertyDetailsPref.PROPERTY_ADDRESS1) + " " + propertyDetailsPref.getStringPref(activity, PropertyDetailsPref.PROPERTY_ADDRESS2));
         holder.tvTime.setText (scheduleTour.getTime ());
         holder.tvDate.setText (scheduleTour.getDate ());
 

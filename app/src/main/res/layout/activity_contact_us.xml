@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/clMain"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background_color"
@@ -18,10 +18,9 @@
             android:animateLayoutChanges="true"
             android:theme="@style/AppTheme.AppBarOverlay"
             android:visibility="visible">
-            <android.support.v7.widget.Toolbar
+            <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/toolbar"
                 style="@style/Widget.MyApp.ActionBar"
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:animateLayoutChanges="true"
@@ -162,7 +161,7 @@
                     android:gravity="top"
                     android:hint="@string/activity_contact_hint_message"
                     android:inputType="textMultiLine"
-                    android:lines="3"
+                    android:lines="1"
                     android:padding="@dimen/edittext_padding"
                     android:textColorHint="@color/hint_text_color"
                     android:textSize="@dimen/text_size_medium"
