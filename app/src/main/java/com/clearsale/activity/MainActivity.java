@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         initListener ();
         initDrawer ();
         isLogin ();
-        getAllProperties ();
+//        getAllProperties ();
         checkPermissions ();
         this.savedInstanceState = savedInstanceState;
     }
@@ -510,6 +510,8 @@ public class MainActivity extends AppCompatActivity {
                         params.put (AppConfigTags.FILTER_PRICE_MIN, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_PRICE_MIN));
                         params.put (AppConfigTags.FILTER_PRICE_MAX, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_PRICE_MAX));
                         params.put (AppConfigTags.FILTER_LOCATION, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_LOCATION));
+                        params.put (AppConfigTags.FILTER_LOCATION_LATITUDE, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_LOCATION_LATITUDE));
+                        params.put (AppConfigTags.FILTER_LOCATION_LONGITUDE, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_LOCATION_LONGITUDE));
                     }
                     Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
@@ -650,36 +652,58 @@ public class MainActivity extends AppCompatActivity {
                 return super.placeholder (ctx, tag);
             }
         });
-        headerResult = new AccountHeaderBuilder ()
-                .withActivity (this)
-                .withCompactStyle (false)
-                .withTypeface (SetTypeFace.getTypeface (MainActivity.this))
-                .withTypeface (SetTypeFace.getTypeface (this))
-                .withPaddingBelowHeader (false)
-                .withSelectionListEnabled (false)
-                .withSelectionListEnabledForSingleProfile (false)
-                .withProfileImagesVisible (true)
-                .withOnlyMainProfileImageVisible (true)
-                .withDividerBelowHeader (true)
-                .withHeaderBackground (R.drawable.drawer_bg)
-                .withSavedInstance (savedInstanceState)
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        Intent intent = new Intent(MainActivity.this, MyProfileActivity.class);
-                        startActivity(intent);
-                        return false;
-                    }
-                })
-                .build ();
     
-
+    
         if (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_IMAGE).length () != 0) {
+            headerResult = new AccountHeaderBuilder ()
+                    .withActivity (this)
+                    .withCompactStyle (false)
+                    .withTypeface (SetTypeFace.getTypeface (MainActivity.this))
+                    .withTypeface (SetTypeFace.getTypeface (this))
+                    .withPaddingBelowHeader (false)
+                    .withSelectionListEnabled (false)
+                    .withSelectionListEnabledForSingleProfile (false)
+                    .withProfileImagesVisible (false)
+                    .withOnlyMainProfileImageVisible (true)
+                    .withDividerBelowHeader (true)
+                    .withHeaderBackground (R.drawable.drawer_bg)
+                    .withSavedInstance (savedInstanceState)
+                    .withOnAccountHeaderListener (new AccountHeader.OnAccountHeaderListener () {
+                        @Override
+                        public boolean onProfileChanged (View view, IProfile profile, boolean currentProfile) {
+                            Intent intent = new Intent (MainActivity.this, MyProfileActivity.class);
+                            startActivity (intent);
+                            return false;
+                        }
+                    })
+                    .build ();
             headerResult.addProfiles (new ProfileDrawerItem ()
                     .withIcon (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_IMAGE))
                     .withName (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_NAME))
                     .withEmail (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_EMAIL)));
         } else {
+            headerResult = new AccountHeaderBuilder ()
+                    .withActivity (this)
+                    .withCompactStyle (false)
+                    .withTypeface (SetTypeFace.getTypeface (MainActivity.this))
+                    .withTypeface (SetTypeFace.getTypeface (this))
+                    .withPaddingBelowHeader (false)
+                    .withSelectionListEnabled (false)
+                    .withSelectionListEnabledForSingleProfile (false)
+                    .withProfileImagesVisible (false)
+                    .withOnlyMainProfileImageVisible (false)
+                    .withDividerBelowHeader (true)
+                    .withHeaderBackground (R.drawable.drawer_bg)
+                    .withSavedInstance (savedInstanceState)
+                    .withOnAccountHeaderListener (new AccountHeader.OnAccountHeaderListener () {
+                        @Override
+                        public boolean onProfileChanged (View view, IProfile profile, boolean currentProfile) {
+                            Intent intent = new Intent (MainActivity.this, MyProfileActivity.class);
+                            startActivity (intent);
+                            return false;
+                        }
+                    })
+                    .build ();
             headerResult.addProfiles (new ProfileDrawerItem ()
                     .withName (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_NAME))
                     .withEmail (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_EMAIL)));
@@ -692,7 +716,7 @@ public class MainActivity extends AppCompatActivity {
 //                .withItemAnimator (new AlphaCrossFadeAnimator ())
                 .addDrawerItems (
                         new PrimaryDrawerItem ().withName ("Home").withIcon (FontAwesome.Icon.faw_home).withIdentifier (1).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem().withName("My Favorites").withIcon(FontAwesome.Icon.faw_heart).withIdentifier(2).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem ().withName ("My Favorites").withIcon (FontAwesome.Icon.faw_heart).withIdentifier (2).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("How It Works").withIcon (FontAwesome.Icon.faw_handshake_o).withIdentifier (3).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("About Us").withIcon (FontAwesome.Icon.faw_info).withIdentifier (4).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Testimonials").withIcon (FontAwesome.Icon.faw_comments).withIdentifier (5).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
@@ -814,11 +838,12 @@ public class MainActivity extends AppCompatActivity {
 //        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_PRICE_MAX, "");
 //        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_STATUS, "");
     }
-
+    
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onResume () {
+        swipeRefreshLayout.setRefreshing (true);
+        super.onResume ();
         // put your code here...
-        getAllProperties();
+        getAllProperties ();
     }
 }

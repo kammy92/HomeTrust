@@ -9,11 +9,12 @@ import android.widget.TextView;
 
 import com.clearsale.R;
 import com.clearsale.model.FAQ;
-import com.clearsale.utils.ExpandableTextView;
 import com.clearsale.utils.SetTypeFace;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.clearsale.utils.Utils.makeTextViewResizable;
 
 
 public class FAQAdapter extends RecyclerView.Adapter<FAQAdapter.ViewHolder> {
@@ -41,17 +42,8 @@ public class FAQAdapter extends RecyclerView.Adapter<FAQAdapter.ViewHolder> {
         holder.tvQuestion.setTypeface (SetTypeFace.getTypeface (activity));
     
         holder.tvQuestion.setText (faq.getQuestion ());
-        if (faq.getAnswer ().length () > (ExpandableTextView.DEFAULT_TRIM_LENGTH + ExpandableTextView.DEFAULT_TRIM_LENGTH)) {
-            holder.tvAnswer.setText (faq.getAnswer ());
-            holder.tvAnswer.setTrimLength (ExpandableTextView.DEFAULT_TRIM_LENGTH);
-            holder.tvAnswer.setVisibility (View.VISIBLE);
-            holder.tvAnswer2.setVisibility (View.GONE);
-        } else {
-            holder.tvAnswer2.setText (faq.getAnswer ());
-            holder.tvAnswer2.setVisibility (View.VISIBLE);
-            holder.tvAnswer.setVisibility (View.GONE);
-        }
-        
+        holder.tvAnswer.setText (faq.getAnswer ());
+        makeTextViewResizable (holder.tvAnswer, 2, "View More", true);
         final ViewHolder tempholder = holder;
     }
 
@@ -70,15 +62,13 @@ public class FAQAdapter extends RecyclerView.Adapter<FAQAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvQuestion;
-        com.clearsale.utils.ExpandableTextView tvAnswer;
-        TextView tvAnswer2;
-    
+        TextView tvAnswer;
+        
     
         public ViewHolder(View view) {
             super(view);
             tvQuestion = (TextView) view.findViewById(R.id.tvQuestion);
-            tvAnswer = (com.clearsale.utils.ExpandableTextView) view.findViewById (R.id.tvAnswers);
-            tvAnswer2 = (TextView) view.findViewById (R.id.tvAnswers2);
+            tvAnswer = (TextView) view.findViewById (R.id.tvAnswers);
             view.setOnClickListener(this);
         }
 

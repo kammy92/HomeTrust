@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,16 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <android.support.v7.widget.CardView
             android:id="@+id/cardview1"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-                                            android:layout_marginLeft="@dimen/activity_margin_small"
-                                            android:layout_marginRight="@dimen/activity_margin_small"
-                                            android:layout_marginTop="@dimen/activity_margin_small"
-                                            card_view:cardCornerRadius="@dimen/cardview_default_radius"
-                                            card_view:cardElevation="@dimen/cardview_default_elevation">
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small"
+            android:layout_marginTop="@dimen/activity_margin_small"
+            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+            card_view:cardElevation="@dimen/cardview_default_elevation">
 
             <RelativeLayout
                 android:id="@+id/rlFooter"
@@ -48,7 +50,7 @@
                         android:textColor="@color/app_text_color_dark"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"
-                        android:visibility="visible" />
+                        android:visibility="visible"/>
 
                     <TextView
                         android:id="@+id/tvStatus"
@@ -58,7 +60,7 @@
                         android:text="Available"
                         android:textColor="@color/app_text_color_light"
                         android:textSize="@dimen/text_size_extra_small"
-                        android:visibility="visible" />
+                        android:visibility="visible"/>
 
                     <TextView
                         android:id="@+id/tvAddress1"
@@ -66,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:text="Actiknow"
                         android:textColor="@color/app_text_color_light"
-                        android:textSize="@dimen/text_size_extreme_small" />
+                        android:textSize="@dimen/text_size_extreme_small"/>
 
                     <TextView
                         android:id="@+id/tvAddress2"
@@ -74,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:text="Dwarka Sector 8"
                         android:textColor="@color/app_text_color_light"
-                        android:textSize="@dimen/text_size_extreme_small" />
+                        android:textSize="@dimen/text_size_extreme_small"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -100,7 +102,7 @@
                             android:text="6"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_medium"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvYear2"
@@ -110,7 +112,7 @@
                             android:gravity="center"
                             android:text="Year"
                             android:textColor="@color/app_text_color_light"
-                            android:textSize="@dimen/text_size_extreme_small" />
+                            android:textSize="@dimen/text_size_extreme_small"/>
                     </LinearLayout>
 
                     <TextView
@@ -135,7 +137,7 @@
                             android:text="6"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_medium"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tv1"
@@ -145,7 +147,7 @@
                             android:gravity="center"
                             android:text="Beds"
                             android:textColor="@color/app_text_color_light"
-                            android:textSize="@dimen/text_size_extreme_small" />
+                            android:textSize="@dimen/text_size_extreme_small"/>
                     </LinearLayout>
 
                     <TextView
@@ -171,7 +173,7 @@
                             android:text="2"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_medium"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tv2"
@@ -181,7 +183,7 @@
                             android:gravity="center"
                             android:text="Baths"
                             android:textColor="@color/app_text_color_light"
-                            android:textSize="@dimen/text_size_extreme_small" />
+                            android:textSize="@dimen/text_size_extreme_small"/>
                     </LinearLayout>
 
                     <TextView
@@ -204,7 +206,7 @@
                             android:text="7137"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_medium"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tv3"
@@ -214,13 +216,11 @@
                             android:gravity="center"
                             android:text="SF"
                             android:textColor="@color/app_text_color_light"
-                            android:textSize="@dimen/text_size_extreme_small" />
+                            android:textSize="@dimen/text_size_extreme_small"/>
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
-
-
         <TextView
             android:id="@+id/tv5"
             android:layout_width="match_parent"
@@ -230,16 +230,15 @@
             android:text="DESCRIPTION"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_small"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:textStyle="bold"/>
+        <android.support.v7.widget.CardView
             android:id="@+id/cardview3"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_below="@+id/tv5"
             android:layout_marginLeft="@dimen/activity_margin_small"
             android:layout_marginRight="@dimen/activity_margin_small">
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -250,14 +249,13 @@
                     android:id="@+id/llWebView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/activity_margin_small"
                     android:orientation="vertical">
 
                     <WebView
                         android:id="@+id/webView1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="30dp" />
+                        android:layout_marginBottom="40dp"/>
 
                     <TextView
                         android:id="@+id/tvOverView"
@@ -265,24 +263,21 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/app_text_color_light"
                         android:textSize="@dimen/text_size_small"
-                        android:visibility="gone" />
+                        android:visibility="gone"/>
                 </LinearLayout>
-
                 <Button
                     android:id="@+id/btShowMore"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/text_color_white"
                     android:gravity="center"
-                    android:text="SHOW MORE"
+                    android:text="MORE"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size_extra_small"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
-
-
         <TextView
             android:id="@+id/tvScheduleTour"
             android:layout_width="match_parent"
@@ -297,8 +292,7 @@
             android:text="REQUEST ACCESS"
             android:textColor="@color/text_color_white"
             android:textSize="@dimen/text_size_medium"
-            android:textStyle="bold" />
-
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/tv7"
             android:layout_width="match_parent"
@@ -308,10 +302,10 @@
             android:text="KEY DETAILS"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_small"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:textStyle="bold"/>
+        <android.support.v7.widget.CardView
             android:id="@+id/cardview5"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv7"
@@ -343,7 +337,7 @@
                             android:text="Type"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvKeyType"
@@ -352,7 +346,7 @@
                             android:padding="@dimen/activity_margin_extra_small"
                             android:text="type"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
+                            android:textSize="@dimen/text_size_extra_small"/>
 
                     </TableRow>
 
@@ -368,7 +362,7 @@
                             android:text="Zoining"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvKeyZoining"
@@ -376,7 +370,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/activity_margin_extra_small"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
+                            android:textSize="@dimen/text_size_extra_small"/>
 
                     </TableRow>
 
@@ -392,7 +386,7 @@
                             android:text="Rental Fix"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvKeyRentalFix"
@@ -400,7 +394,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/activity_margin_extra_small"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
+                            android:textSize="@dimen/text_size_extra_small"/>
 
                     </TableRow>
 
@@ -416,7 +410,7 @@
                             android:text="Year Build"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvYearOfConstruction"
@@ -424,7 +418,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/activity_margin_extra_small"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
+                            android:textSize="@dimen/text_size_extra_small"/>
 
                     </TableRow>
 
@@ -441,7 +435,7 @@
                             android:text="Lot Size (Sqft)"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvLotSize"
@@ -449,7 +443,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/activity_margin_extra_small"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
+                            android:textSize="@dimen/text_size_extra_small"/>
 
                     </TableRow>
 
@@ -466,7 +460,7 @@
                             android:text="Addition"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvAddition"
@@ -474,7 +468,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/activity_margin_extra_small"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
+                            android:textSize="@dimen/text_size_extra_small"/>
 
                     </TableRow>
 
@@ -491,7 +485,7 @@
                             android:text="Bedroom Existing"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvBedroomExisting"
@@ -499,7 +493,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/activity_margin_extra_small"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
+                            android:textSize="@dimen/text_size_extra_small"/>
 
                     </TableRow>
 
@@ -516,7 +510,7 @@
                             android:text="Bathroom Existing"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvBathroomExisting"
@@ -524,7 +518,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/activity_margin_extra_small"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
+                            android:textSize="@dimen/text_size_extra_small"/>
 
                     </TableRow>
 
@@ -541,7 +535,7 @@
                             android:text="Total Sqft"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvTotalSquareFeet"
@@ -549,7 +543,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/activity_margin_extra_small"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
+                            android:textSize="@dimen/text_size_extra_small"/>
 
                     </TableRow>
 
@@ -566,7 +560,7 @@
                             android:text="ARV Estimate"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvARVEstimate"
@@ -574,7 +568,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/activity_margin_extra_small"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
+                            android:textSize="@dimen/text_size_extra_small"/>
 
                     </TableRow>
 
@@ -591,7 +585,7 @@
                             android:text="Fix Estimate"
                             android:textColor="@color/app_text_color_dark"
                             android:textSize="@dimen/text_size_extra_small"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tvFixEstimate"
@@ -599,12 +593,9 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/activity_margin_extra_small"
                             android:textColor="@color/app_text_color_dark"
-                            android:textSize="@dimen/text_size_extra_small" />
-
+                            android:textSize="@dimen/text_size_extra_small"/>
                     </TableRow>
-
                 </TableLayout>
-
                 <Button
                     android:id="@+id/btShowMoreKey"
                     android:layout_width="match_parent"
@@ -612,19 +603,18 @@
                     android:layout_alignParentBottom="true"
                     android:background="@color/text_color_white"
                     android:gravity="center"
-                    android:text="SHOW MORE"
+                    android:text="MORE"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size_small"
                     android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
-
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <android.support.v7.widget.CardView
             android:id="@+id/cardview2"
-                                            android:layout_width="match_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv4"
             android:layout_marginLeft="@dimen/activity_margin_small"
@@ -649,7 +639,7 @@
                     android:text="@string/activity_property_detail_text_best_offer"
                     android:textColor="@color/app_text_color_light"
                     android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
 
                 <EditText
@@ -662,7 +652,7 @@
                     android:lines="1"
                     android:padding="@dimen/edittext_padding"
                     android:textColorHint="@color/hint_text_color"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:textSize="@dimen/text_size_medium"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -671,7 +661,7 @@
                     android:text="@string/activity_property_detail_text_offer_detail"
                     android:textColor="@color/app_text_color_light"
                     android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <EditText
                     android:id="@+id/etOfferDetail"
@@ -683,14 +673,14 @@
                     android:lines="1"
                     android:padding="@dimen/edittext_padding"
                     android:textColorHint="@color/hint_text_color"
-                    android:textSize="@dimen/text_size_medium" />
+                    android:textSize="@dimen/text_size_medium"/>
 
                 <com.clearsale.utils.ExpandableTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_margin_extra_small"
                     android:text="@string/activity_property_detail_text_offer_detail2"
-                    android:textColor="@color/app_text_color_light" />
+                    android:textColor="@color/app_text_color_light"/>
 
                 <CheckBox
                     android:id="@+id/cbAttendedAccess"
@@ -699,14 +689,14 @@
                     android:layout_marginTop="@dimen/activity_margin_extra_small"
                     android:text="@string/activity_property_detail_text_attended_access"
                     android:textColor="@color/app_text_color_light"
-                    android:textSize="@dimen/text_size_small" />
+                    android:textSize="@dimen/text_size_small"/>
 
                 <com.clearsale.utils.ExpandableTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_margin_extra_small"
                     android:text="@string/activity_property_detail_text_note"
-                    android:textColor="@color/app_text_color_light" />
+                    android:textColor="@color/app_text_color_light"/>
 
 
                 <TextView
@@ -721,51 +711,17 @@
                     android:text="@string/activity_contact_button_submit"
                     android:textColor="@color/text_color_white"
                     android:textSize="@dimen/text_size_extra_large"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
-        <!--
-                <android.support.v7.widget.CardView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_margin_small"
-                    android:layout_marginRight="@dimen/activity_margin_small"
-                    android:layout_marginLeft="@dimen/activity_margin_small"
-                    card_view:cardCornerRadius="@dimen/cardview_default_radius"
-                    card_view:cardElevation="@dimen/cardview_default_elevation"
-                    android:layout_below="@+id/cardview2">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/activity_margin_small">
-
-                        <WebView
-                            android:id="@+id/webView1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-
-                        <TextView
-                            android:id="@+id/tvOverView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_small"
-                            android:textColor="@color/app_text_color_light"
-                            android:visibility="gone"/>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-        -->
-
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v7.widget.CardView
             android:id="@+id/cardview6"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-                                            android:layout_height="200dp"
-                                            android:layout_below="@+id/tv7"
-                                            android:layout_marginLeft="@dimen/activity_margin_small"
-                                            android:layout_marginRight="@dimen/activity_margin_small">
+            android:layout_height="200dp"
+            android:layout_below="@+id/tv7"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -777,57 +733,36 @@
                     android:id="@+id/llWebViewKey"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/activity_margin_small"
                     android:orientation="vertical">
 
                     <WebView
                         android:id="@+id/webViewKeyDetail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="30dp" />
+                        android:layout_marginBottom="40dp"/>
 
                     <TextView
                         android:id="@+id/tvKeyDetail"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:textColor="@color/app_text_color_light"
                         android:textSize="@dimen/text_size_small"
-                        android:visibility="gone" />
+                        android:visibility="gone"/>
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/btShowMoreKeyDetail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/text_color_white"
                     android:gravity="center"
-                    android:text="Show Full Details"
+                    android:text="SHOW FULL DETAILS"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size_extra_small"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
-
-        <!--    <TextView
-                android:id="@+id/tv4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button"
-                android:gravity="center"
-                android:layout_marginLeft="@dimen/activity_margin_small"
-                android:layout_marginRight="@dimen/activity_margin_small"
-                android:layout_marginTop="@dimen/activity_margin_small"
-                android:padding="@dimen/activity_margin_small"
-                android:text="PLACE AN OFFER"
-                android:textColor="@color/text_color_white"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="bold"
-                android:layout_below="@+id/cardview6"
-                android:layout_alignLeft="@+id/cardview6"
-                android:layout_alignStart="@+id/cardview6" />-->
-
-
         <TextView
             android:id="@+id/tv4"
             android:layout_width="match_parent"
@@ -842,8 +777,7 @@
             android:text="PLACE AN OFFER"
             android:textColor="@color/text_color_white"
             android:textSize="@dimen/text_size_medium"
-            android:textStyle="bold" />
-
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/tv6"
             android:layout_width="match_parent"
@@ -853,60 +787,39 @@
             android:text="ARE YOU AN AGENT?"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_small"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:textStyle="bold"/>
+        <android.support.v7.widget.CardView
             android:id="@+id/cardview4"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="200dp"
-                                            android:layout_below="@+id/tv6"
-                                            android:layout_marginLeft="@dimen/activity_margin_small"
-                                            android:layout_marginRight="@dimen/activity_margin_small">
-
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv6"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical">
-
                 <LinearLayout
                     android:id="@+id/llWebViewRealtor"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/activity_margin_small"
                     android:orientation="vertical">
-
                     <WebView
                         android:id="@+id/webViewRealtor"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="20dp" />
-
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:id="@+id/tvRealtor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/app_text_color_light"
                         android:textSize="@dimen/text_size_small"
-                        android:visibility="gone" />
+                        android:visibility="gone"/>
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/btShowMoreRealtor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/text_color_white"
-                    android:gravity="center"
-                    android:text="SHOW MORE"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/text_size_extra_small"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
-
-
         <TextView
             android:id="@+id/tv8"
             android:layout_width="match_parent"
@@ -916,56 +829,51 @@
             android:text="POSSESSION"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_small"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:textStyle="bold"/>
+        <android.support.v7.widget.CardView
             android:id="@+id/cardview8"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="200dp"
-                                            android:layout_below="@+id/tv8"
-                                            android:layout_marginBottom="@dimen/activity_margin_small"
-                                            android:layout_marginLeft="@dimen/activity_margin_small"
-                                            android:layout_marginRight="@dimen/activity_margin_small">
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/tv8"
+            android:layout_marginBottom="@dimen/activity_margin_small"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical">
-
                 <LinearLayout
                     android:id="@+id/llWebViewAccessPossession"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/activity_margin_small"
                     android:orientation="vertical">
-
                     <WebView
                         android:id="@+id/webViewAccessPossession"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="30dp" />
-
+                        android:layout_marginBottom="40dp"/>
                     <TextView
                         android:id="@+id/tvAccessPossession"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/app_text_color_light"
                         android:textSize="@dimen/text_size_small"
-                        android:visibility="gone" />
+                        android:visibility="gone"/>
                 </LinearLayout>
-
                 <Button
                     android:id="@+id/btShowMoreAccessPossession"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/text_color_white"
                     android:gravity="center"
-                    android:text="SHOW MORE"
+                    android:text="MORE"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size_extra_small"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
     </RelativeLayout>

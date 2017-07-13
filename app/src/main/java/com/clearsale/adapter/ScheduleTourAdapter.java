@@ -71,10 +71,7 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
         holder.tvAddress.setText(propertyDetailsPref.getStringPref(activity, PropertyDetailsPref.PROPERTY_ADDRESS1) + " " + propertyDetailsPref.getStringPref(activity, PropertyDetailsPref.PROPERTY_ADDRESS2));
         holder.tvTime.setText (scheduleTour.getTime ());
         holder.tvDate.setText (scheduleTour.getDate ());
-
 //        Glide.with(activity).load("").placeholder(testimonial.getImage2()).into(holder.ivVideo);
-        
-        
     }
     
     @Override

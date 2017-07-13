@@ -127,7 +127,7 @@ public class AllPropertyLocationActivity extends AppCompatActivity implements Go
                                                     new MarkerOptions ().position (new LatLng (jsonObjectAllProperty.getDouble (AppConfigTags.PROPERTY_LATITUDE), jsonObjectAllProperty.getDouble (AppConfigTags.PROPERTY_LONGITUDE)))
                                                             .title (jsonObjectAllProperty.getString (AppConfigTags.PROPERTY_ADDRESS))
                                                             .draggable (false)
-                                                            .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_marker))
+                                                            .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_map_marker))
                                             ).setTag (jsonObjectAllProperty.getInt (AppConfigTags.PROPERTY_ID));
                                             mMap.setOnMarkerClickListener (AllPropertyLocationActivity.this);
                                             mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (jsonObjectAllProperty.getDouble (AppConfigTags.PROPERTY_LATITUDE), jsonObjectAllProperty.getDouble (AppConfigTags.PROPERTY_LONGITUDE)), 8.0f));

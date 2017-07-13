@@ -132,6 +132,8 @@ public class AppConfigTags {
     public static String FILTER_PRICE_MIN = "filter_price_min";
     public static String FILTER_PRICE_MAX = "filter_price_max";
     public static String FILTER_LOCATION = "filter_location";
+    public static String FILTER_LOCATION_LATITUDE = "filter_location_latitude";
+    public static String FILTER_LOCATION_LONGITUDE = "filter_location_longitude";
     
     public static String SCHEDULE_ACCESS_TOKEN = "access_token";
     public static String SCHEDULE_ACCESS_TOKEN_ID = "access_token_id";

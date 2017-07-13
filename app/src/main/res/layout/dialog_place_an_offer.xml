@@ -5,155 +5,124 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <!--<LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <TextView
+            android:id="@+id/tv5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">-->
-
-        <TextView
-        android:id="@+id/tv5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_margin_small"
-        android:padding="@dimen/activity_margin_small"
-        android:text="PLACE AN OFFER"
-        android:textColor="@color/app_text_color_dark"
-        android:textSize="@dimen/text_size_medium"
-        android:textStyle="bold"/>
-
-    <LinearLayout
-        android:id="@+id/llPropertyOffer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv5"
-        android:layout_margin="@dimen/activity_margin_small"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/activity_property_detail_text_best_offer"
-            android:textColor="@color/app_text_color_light"
+            android:layout_marginTop="@dimen/activity_margin_small"
+            android:padding="@dimen/activity_margin_small"
+            android:text="PLACE AN OFFER"
+            android:textColor="@color/app_text_color_dark"
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold"/>
 
-
-        <EditText
-            android:id="@+id/etOfferUsd"
+        <LinearLayout
+            android:id="@+id/llPropertyOffer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_background"
-            android:hint="@string/activity_property_detail_hint_usd"
-            android:inputType="number"
-            android:lines="1"
-            android:padding="@dimen/edittext_padding"
-            android:textColorHint="@color/hint_text_color"
-            android:textSize="@dimen/text_size_medium"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_extra_small"
-            android:text="@string/activity_property_detail_text_offer_detail"
-            android:textColor="@color/app_text_color_light"
-            android:textSize="@dimen/text_size_medium"
-            android:textStyle="bold"/>
-        <EditText
-            android:id="@+id/etOfferDetail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_background"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:lines="1"
-            android:padding="@dimen/edittext_padding"
-            android:textColorHint="@color/hint_text_color"
-            android:textSize="@dimen/text_size_medium"/>
-
-        <CheckBox
-            android:id="@+id/cbAttendedAccess"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_extra_small"
-            android:text="@string/activity_property_detail_text_attended_access"
-            android:textColor="@color/app_text_color_light"
-            android:textSize="@dimen/text_size_small"/>
-
-    </LinearLayout>
-
-
-        <!--</LinearLayout>-->
-
-
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/cardviewOffer"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/llPropertyOffer"
-        android:layout_marginBottom="@dimen/activity_margin_small"
-        android:layout_marginLeft="@dimen/activity_margin_small"
-        android:layout_marginRight="@dimen/activity_margin_small">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
+            android:layout_below="@+id/tv5"
+            android:layout_marginLeft="@dimen/activity_margin_small"
+            android:layout_marginRight="@dimen/activity_margin_small"
             android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/llWebView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/activity_margin_small"
-                android:orientation="vertical">
-                <WebView
-                    android:id="@+id/webView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp" />
-                <TextView
-                    android:id="@+id/tvOverView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/app_text_color_light"
-                    android:textSize="@dimen/text_size_small"
-                    android:visibility="gone"/>
-            </LinearLayout>
-
-
-            <Button
-                android:id="@+id/btShowMoreDialog"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_property_detail_text_best_offer"
+                android:textColor="@color/app_text_color_light"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/etOfferUsd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@color/text_color_white"
-                android:gravity="center"
-                android:text="SHOW MORE"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/text_size_small"
-                android:visibility="visible"
-
-                />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
-
+                android:background="@drawable/edit_text_background"
+                android:hint="@string/activity_property_detail_hint_usd"
+                android:inputType="number"
+                android:lines="1"
+                android:padding="@dimen/edittext_padding"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="@dimen/text_size_medium"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin_extra_small"
+                android:text="@string/activity_property_detail_text_offer_detail"
+                android:textColor="@color/app_text_color_light"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/etOfferDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:lines="1"
+                android:padding="@dimen/edittext_padding"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="@dimen/text_size_medium"/>
+            <CheckBox
+                android:id="@+id/cbAttendedAccess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin_extra_small"
+                android:text="@string/activity_property_detail_text_attended_access"
+                android:textColor="@color/app_text_color_light"
+                android:textSize="@dimen/text_size_small"/>
+        </LinearLayout>
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardviewOffer"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/llPropertyOffer"
+            android:layout_margin="@dimen/activity_margin_small">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/llWebView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <WebView
+                        android:id="@+id/webView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="40dp"/>
+                    <TextView
+                        android:id="@+id/tvOverView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/app_text_color_light"
+                        android:textSize="@dimen/text_size_small"
+                        android:visibility="gone"/>
+                </LinearLayout>
+                <Button
+                    android:id="@+id/btShowMoreDialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/text_color_white"
+                    android:gravity="center"
+                    android:text="MORE"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="visible"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
         <com.clearsale.utils.ExpandableTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cardviewOffer"
             android:layout_margin="@dimen/activity_margin_small"
-            android:layout_marginTop="@dimen/activity_margin_extra_small"
             android:text="@string/activity_property_detail_text_offer_detail2"
             android:textColor="@color/app_text_color_light"
-            android:textSize="@dimen/text_size_small" />
-
-
+            android:textSize="@dimen/text_size_small"/>
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

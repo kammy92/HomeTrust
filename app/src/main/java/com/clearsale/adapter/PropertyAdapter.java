@@ -130,7 +130,6 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHo
         holder.tvSqFeet.setText (property.getArea ());
         holder.tvBuiltYear.setText ("Year built : " + property.getYear_built ());
     
-    
         holder.slider.removeAllSliders ();
         for (int i = 0; i < property.getImageList ().size (); i++) {
             String image = property.getImageList ().get (i);

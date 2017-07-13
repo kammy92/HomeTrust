@@ -1,13 +1,14 @@
 package com.clearsale.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.clearsale.R;
 import com.clearsale.utils.AppConfigTags;
 import com.clearsale.utils.PropertyDetailsPref;
+import com.clearsale.utils.Utils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -33,9 +34,10 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
     PropertyDetailsPref propertyDetailsPref;
     double latitude;
     double longitude;
+    ProgressDialog progressDialog;
     private Marker mAddress;
     private GoogleMap mMap;
-
+    
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -43,9 +45,7 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
         initView ();
         initData ();
         initListener ();
-        
     }
-    
     
     private void initView () {
         mapFragment = (SupportMapFragment) getSupportFragmentManager ().findFragmentById (R.id.map);
@@ -55,6 +55,8 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
     }
     
     private void initData () {
+        progressDialog = new ProgressDialog (this);
+        Utils.showProgressDialog (progressDialog, "Loading Map", true);
         propertyDetailsPref = PropertyDetailsPref.getInstance ();
         try {
             latitude = Double.parseDouble (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE));
@@ -69,7 +71,6 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
     
     @Override
     public boolean onMarkerClick (Marker marker) {
-
     /*    LatLng position = marker.getPosition(); //
         streetViewPanorama.setPosition (new LatLng (position.latitude, position.longitude));
 //        streetViewPanorama.setPosition(new LatLng(39.5575492,-104.7034232));
@@ -123,7 +124,6 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
 //                            " has been clicked " + clickCount + " times.",
 //                    Toast.LENGTH_SHORT).show ();
 //        }
-        Toast.makeText(this, "" + marker.getPosition(), Toast.LENGTH_SHORT).show();
         return false;
     }
     
@@ -132,7 +132,6 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
         mMap = googleMap;
         try {
             JSONArray jsonArrayPropertyComps = new JSONArray (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_COMPS_ADDRESSES));
-        
             Log.e ("karman", jsonArrayPropertyComps.toString ());
             for (int j = 0; j < jsonArrayPropertyComps.length (); j++) {
                 JSONObject jsonObjectCompsAddressDetails = jsonArrayPropertyComps.getJSONObject (j);
@@ -140,7 +139,7 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
                         new MarkerOptions ().position (new LatLng (Double.parseDouble (jsonObjectCompsAddressDetails.getString (AppConfigTags.PROPERTY_COMP_LATITUDE)), Double.parseDouble (jsonObjectCompsAddressDetails.getString (AppConfigTags.PROPERTY_COMP_LONGITUDE))))
                                 .title (jsonObjectCompsAddressDetails.getString (AppConfigTags.PROPERTY_COMP_ADDRESS))
                                 .draggable (false)
-                                .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_map_comps_marker))
+                                .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_comps_marker))
                 );
             }
         } catch (JSONException e) {
@@ -155,13 +154,12 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
                         .title (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1)
                                 + ", " + propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2))
                         .draggable (false)
-                        .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_marker))
+                        .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_map_marker))
         );
         mAddress.setTag (0);
         mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (latitude, longitude), 15.0f));
         mMap.setOnMarkerClickListener (this);
     }
-    
     
     @Override
     public void onStreetViewPanoramaReady (StreetViewPanorama streetViewPanorama) {
@@ -173,12 +171,11 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
                 .tilt (streetViewPanorama.getPanoramaCamera ().tilt)
                 .bearing (streetViewPanorama.getPanoramaCamera ().bearing)
                 .build ();
-        streetViewPanorama.animateTo (camera, 1000);
-
+        streetViewPanorama.animateTo (camera, 10);
+        progressDialog.dismiss ();
     }
 
     @Override
     public void onStreetViewPanoramaChange(StreetViewPanoramaLocation streetViewPanoramaLocation) {
-
     }
 }

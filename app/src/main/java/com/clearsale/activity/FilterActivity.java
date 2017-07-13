@@ -2,7 +2,9 @@ package com.clearsale.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,8 +17,20 @@ import android.widget.TextView;
 
 import com.clearsale.R;
 import com.clearsale.utils.FilterDetailsPref;
+import com.clearsale.utils.GPSTracker;
 import com.clearsale.utils.SetTypeFace;
 import com.clearsale.utils.Utils;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import org.jetbrains.annotations.NotNull;
@@ -37,6 +51,11 @@ import me.bendik.simplerangeview.SimpleRangeView;
 
 public class FilterActivity extends AppCompatActivity {
     
+    public static int PERMISSION_REQUEST_CODE = 11;
+    final int CURRENT_LOCATION_REQUEST_CODE = 1;
+    GoogleApiClient client;
+    Double currentLatitude = 0.0;
+    Double currentLongitude = 0.0;
     
     RelativeLayout rlBack;
     ProgressDialog progressDialog;
@@ -73,11 +92,11 @@ public class FilterActivity extends AppCompatActivity {
     String bedrooms;
     String bathrooms;
     FilterDetailsPref filterDetailsPref;
-    private String[] priceList = new String[]{"$0", "$100k", "$200k", "$300k", "$400k", "$500k+"};
-    private String[] bedroomList = new String[] {"ANY", "1+","2+", "3+", "4+"};
-    private String[] bathroomList = new String[] {"ANY", "1+","2+", "3+", "4+"};
+    private String[] priceList = new String[] {"$0", "$100k", "$200k", "$300k", "$400k", "$500k+"};
+    private String[] bedroomList = new String[] {"ANY", "1+", "2+", "3+", "4+"};
+    private String[] bathroomList = new String[] {"ANY", "1+", "2+", "3+", "4+"};
     private String[] locationList = new String[] {"0", "2", "4", "6", "8+"};
-    private String[] statusList = new String[]{"All", "Available", "Offer Window Closing", "Pending", "Sold", "Closed"};
+    private String[] statusList = new String[] {"All", "Available", "Offer Window Closing", "Pending", "Sold", "Closed"};
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -86,7 +105,74 @@ public class FilterActivity extends AppCompatActivity {
         initView ();
         initData ();
         initListener ();
+        initLocation (CURRENT_LOCATION_REQUEST_CODE);
         getPreferencesData ();
+    }
+    
+    private void initLocation (final int request_code) {
+        GoogleApiClient googleApiClient;
+        googleApiClient = new GoogleApiClient.Builder (this)
+                .addApi (LocationServices.API)
+                .addConnectionCallbacks (new GoogleApiClient.ConnectionCallbacks () {
+                    @Override
+                    public void onConnected (@android.support.annotation.Nullable Bundle bundle) {
+                    }
+                    
+                    @Override
+                    public void onConnectionSuspended (int i) {
+                    }
+                })
+                .addOnConnectionFailedListener (new GoogleApiClient.OnConnectionFailedListener () {
+                    @Override
+                    public void onConnectionFailed (@NonNull ConnectionResult connectionResult) {
+                    }
+                }).build ();
+        googleApiClient.connect ();
+        
+        LocationRequest locationRequest2 = LocationRequest.create ();
+        locationRequest2.setPriority (LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest2.setInterval (30 * 1000);
+        locationRequest2.setFastestInterval (5 * 1000);
+        LocationSettingsRequest.Builder builder2 = new LocationSettingsRequest.Builder ().addLocationRequest (locationRequest2);
+        builder2.setAlwaysShow (true); //this is the key ingredient
+        
+        PendingResult<LocationSettingsResult> result2 =
+                LocationServices.SettingsApi.checkLocationSettings (googleApiClient, builder2.build ());
+        result2.setResultCallback (new ResultCallback<LocationSettingsResult> () {
+            @Override
+            public void onResult (LocationSettingsResult result) {
+                final Status status = result.getStatus ();
+                final LocationSettingsStates state = result.getLocationSettingsStates ();
+                switch (status.getStatusCode ()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        // All location settings are satisfied. The client can initialize location requests here.
+                        switch (request_code) {
+                            case CURRENT_LOCATION_REQUEST_CODE:
+                                GPSTracker gps = new GPSTracker (FilterActivity.this);
+                                if (gps.canGetLocation ()) {
+                                    currentLatitude = gps.getLatitude ();
+                                    currentLongitude = gps.getLongitude ();
+                                    
+                                    Log.e ("current latitude", "lat" + currentLatitude);
+                                    Log.e ("current longitude", "long" + currentLongitude);
+                                    
+                                }
+                                break;
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        // Location settings are not satisfied. But could be fixed by showing the user a dialog.
+                        try {
+                            status.startResolutionForResult (FilterActivity.this, request_code);
+                        } catch (IntentSender.SendIntentException e) {
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        // Location settings are not satisfied. However, we have no way to fix the settings so we won't show the dialog.
+                        break;
+                }
+            }
+        });
     }
     
     private void initView () {
@@ -338,7 +424,6 @@ public class FilterActivity extends AppCompatActivity {
                 tvBath4.setTextColor (getResources ().getColor (R.color.app_text_color_dark));
             }
             
-            
             switch (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_STATUS)) {
                 case "0":
                     spinner.setSelectedIndex (0);
@@ -346,16 +431,16 @@ public class FilterActivity extends AppCompatActivity {
                 case "1":
                     spinner.setSelectedIndex (1);
                     break;
-                case "2":
+                case "9":
                     spinner.setSelectedIndex (2);
                     break;
-                case "3":
+                case "2":
                     spinner.setSelectedIndex (3);
                     break;
-                case "4":
+                case "3":
                     spinner.setSelectedIndex (4);
                     break;
-                case "9":
+                case "4":
                     spinner.setSelectedIndex (5);
                     break;
             }
@@ -433,9 +518,16 @@ public class FilterActivity extends AppCompatActivity {
                 CheckBox cbCity = (CheckBox) llCities.getChildAt (i);
                 String cities[] = filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_CITIES).trim ().split (",");
                 for (int j = 0; j < cities.length; j++) {
-                    if (cbCity.getId () == Integer.parseInt (cities[j])) {
-                        cbCity.setChecked (true);
+                    cbCity.setChecked (false);
+                }
+                try {
+                    for (int j = 0; j < cities.length; j++) {
+                        if (cbCity.getId () == Integer.parseInt (cities[j])) {
+                            cbCity.setChecked (true);
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace ();
                 }
             }
             
@@ -486,9 +578,9 @@ public class FilterActivity extends AppCompatActivity {
                 } else if (item.equalsIgnoreCase (statusList[1])) {
                     status = "1";
                 } else if (item.equalsIgnoreCase (statusList[2])) {
-                    status = "2";
-                } else if (item.equalsIgnoreCase (statusList[3])) {
                     status = "9";
+                } else if (item.equalsIgnoreCase (statusList[3])) {
+                    status = "2";
                 } else if (item.equalsIgnoreCase (statusList[4])) {
                     status = "3";
                 } else if (item.equalsIgnoreCase (statusList[5])) {
@@ -547,7 +639,7 @@ public class FilterActivity extends AppCompatActivity {
                     filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_PRICE_MIN, "");
                     filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_PRICE_MAX, "");
                     filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_STATUS, "");
-        
+    
                     Intent intent = new Intent (FilterActivity.this, MainActivity.class);
                     intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity (intent);
@@ -583,6 +675,8 @@ public class FilterActivity extends AppCompatActivity {
                 filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_BEDROOMS, bedrooms);
                 filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_CITIES, cities_csv);
                 filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_LOCATION, location);
+                filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_LOCATION_LATITUDE, String.valueOf (currentLatitude));
+                filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_LOCATION_LONGITUDE, String.valueOf (currentLongitude));
                 filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_PRICE_MIN, price_min);
                 filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_PRICE_MAX, price_max);
                 filterDetailsPref.putStringPref (FilterActivity.this, FilterDetailsPref.FILTER_STATUS, status);

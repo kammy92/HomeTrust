@@ -44,7 +44,7 @@
                 android:padding="@dimen/activity_margin_small"
                 android:text="Tell us what kinds of properties you are looking for, and in what areas.  Join our buyers list. "
                 android:textColor="@color/app_text_color_light"
-                android:textSize="@dimen/text_size_large"
+                android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"/>
 
         </RelativeLayout>

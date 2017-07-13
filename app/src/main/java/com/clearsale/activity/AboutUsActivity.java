@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.clearsale.R;
 import com.clearsale.utils.Constants;
+import com.clearsale.utils.Utils;
 
 
 /**
@@ -47,10 +48,10 @@ public class AboutUsActivity extends AppCompatActivity {
     private void initData() {
         collapsingToolbarLayout.setTitleEnabled (false);
         appBar.setExpanded (true);
-      //  Utils.setTypefaceToAllViews (this, tvHyperlink);
+        Utils.setTypefaceToAllViews (this, rlBack);
     
     
-        String webview = "<p>ClearSale&#39;s parent company, HomeTrust, was founded in 2001 as a locally owned and operated real estate investment business run by a husband/wife team. &nbsp;And 14 years later that&rsquo;s still what we are. &nbsp;Although we have now done over 300 buy/renovate/sell projects (what we call fix &amp; flips), have a multi-million dollar single family rental portfolio that is growing quickly, and a wholesale business, we are at our core a small family run business that strives to create fantastic value for our customers every day. &nbsp;\n" +
+        String webview = "<p style=\"font-family: myFont;\">ClearSale&#39;s parent company, HomeTrust, was founded in 2001 as a locally owned and operated real estate investment business run by a husband/wife team. &nbsp;And 14 years later that&rsquo;s still what we are. &nbsp;Although we have now done over 300 buy/renovate/sell projects (what we call fix &amp; flips), have a multi-million dollar single family rental portfolio that is growing quickly, and a wholesale business, we are at our core a small family run business that strives to create fantastic value for our customers every day. &nbsp;\n" +
                 "   <a href=\"http://www.bbb.org/denver/business-reviews/real-estate-services/hometrust-in-englewood-co-64008443\" >The BBB likes us too: &nbsp;Check out our A+ Rating from the Denver Better Business Bureau. &nbsp;Click here to view.</a></p>\n" +
                 "<p>\n" +
                 "And this is where you come in.</p>\n" +

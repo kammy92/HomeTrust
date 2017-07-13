@@ -3,9 +3,9 @@
                 android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/clMain"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/clMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible">
@@ -33,7 +33,7 @@
                     <com.daimajia.slider.library.SliderLayout
                         android:id="@+id/slider"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="250dp"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
@@ -61,9 +61,10 @@
                             android:textSize="@dimen/text_size_small"
                             android:visibility="gone"/>
                     </RelativeLayout>
-                    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                    <android.support.v7.widget.Toolbar
                         android:id="@+id/toolbar1"
                         style="@style/Widget.MyApp.TransparentActionBar"
+                        xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         android:animateLayoutChanges="true"
@@ -140,6 +141,7 @@
                 android:theme="@style/MyMaterialTheme"
                 app:layout_collapseMode="pin"
                 app:tabIndicatorColor="@color/text_color_white"
+                app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/text_color_white"/>
         </android.support.design.widget.AppBarLayout>
 

@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import com.clearsale.utils.Constants;
 import com.clearsale.utils.CustomImageSlider;
 import com.clearsale.utils.NetworkConnection;
 import com.clearsale.utils.PropertyDetailsPref;
+import com.clearsale.utils.SetTypeFace;
 import com.clearsale.utils.Utils;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
@@ -94,7 +96,6 @@ public class PropertyDetailActivity extends AppCompatActivity {
     }
     
     private void initView () {
-    
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
         clMain = (CoordinatorLayout) findViewById (R.id.clMain);
         slider = (SliderLayout) findViewById (R.id.slider);
@@ -118,6 +119,24 @@ public class PropertyDetailActivity extends AppCompatActivity {
 //        appBar.setExpanded(true);
     
         Utils.setTypefaceToAllViews (this, rlBack);
+        changeTabsFont (tabLayout);
+    }
+    
+    protected void changeTabsFont (TabLayout tabLayout) {
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt (0);
+        int tabsCount = vg.getChildCount ();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt (j);
+            int tabChildsCount = vgTab.getChildCount ();
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt (i);
+                if (tabViewChild instanceof TextView) {
+                    TextView viewChild = (TextView) tabViewChild;
+                    viewChild.setTypeface (SetTypeFace.getTypeface (this));
+//                    viewChild.setAllCaps (false);
+                }
+            }
+        }
     }
     
     private void initListener () {

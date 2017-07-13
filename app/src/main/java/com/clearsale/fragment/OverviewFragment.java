@@ -155,7 +155,6 @@ public class OverviewFragment extends Fragment {
         cvPropertyOffer = (CardView) rootView.findViewById (R.id.cardview2);
 
         cardview4 = (CardView) rootView.findViewById (R.id.cardview4);
-        btShowMoreRealtor = (Button) rootView.findViewById (R.id.btShowMoreRealtor);
         webViewRealtor = (WebView) rootView.findViewById (R.id.webViewRealtor);
         tv6 = (TextView) rootView.findViewById (R.id.tv6);
         // clMain = (CoordinatorLayout)rootView.findViewById(R.id.clMain);
@@ -293,7 +292,7 @@ public class OverviewFragment extends Fragment {
 //                    params.addRule (RelativeLayout.BELOW, R.id.tv5);
 //                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
 //                    cardView3.setLayoutParams (params);
-                    btShowMore.setText ("SHOW LESS");
+                    btShowMore.setText ("LESS");
                     show = false;
 
                     Animation a = new Animation () {
@@ -313,7 +312,7 @@ public class OverviewFragment extends Fragment {
 //                    params.addRule (RelativeLayout.BELOW, R.id.tv5);
 //                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
 //                    cardView3.setLayoutParams (params);
-                    btShowMore.setText ("SHOW MORE");
+                    btShowMore.setText ("MORE");
                     show = true;
                     Animation a = new Animation () {
                         @Override
@@ -338,64 +337,8 @@ public class OverviewFragment extends Fragment {
                 }
             }
         });
-
-        btShowMoreRealtor.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick (View view) {
-                if (showRealtor) {
-//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
-//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
-//                    cardview4.setLayoutParams (params);
-                    btShowMoreRealtor.setText ("SHOW LESS");
-                    showRealtor = false;
-                    Animation a = new Animation () {
-                        @Override
-                        protected void applyTransformation (float interpolatedTime, Transformation t) {
-                            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                            params.addRule(RelativeLayout.BELOW, R.id.llPropertyOffer);
-                            params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
-                            cardview4.setLayoutParams (params);
-                        }
-                    };
-                    a.setDuration (1500); // in ms
-                    cardview4.startAnimation (a);
-                } else {
-//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
-//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
-//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
-//                    cardview4.setLayoutParams (params);
-                    btShowMoreRealtor.setText ("SHOW MORE");
-                    showRealtor = true;
-                    Animation a = new Animation () {
-                        @Override
-                        protected void applyTransformation (float interpolatedTime, Transformation t) {
-
-                            if ((1.0f - interpolatedTime) < 1.0f) {
-                                if ((cardview4.getHeight () * (1.0f - interpolatedTime)) <= Utils.pxFromDp (getActivity (), 200.0f)) {
-                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
-                                    params.addRule(RelativeLayout.BELOW, R.id.llPropertyOffer);
-                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
-                                    cardview4.setLayoutParams (params);
-
-                                } else {
-                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (cardview4.getHeight () * (1.0f - interpolatedTime)));
-                                    params.addRule(RelativeLayout.BELOW, R.id.llPropertyOffer);
-                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
-                                    cardview4.setLayoutParams (params);
-
-                                }
-                            }
-
-                        }
-                    };
-                    a.setDuration (2000); // in ms
-                    cardview4.startAnimation (a);
-                }
-            }
-        });
-
-
+    
+    
         btShowMoreKeyDetail.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
@@ -404,7 +347,7 @@ public class OverviewFragment extends Fragment {
 //                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
 //                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
 //                    cardview4.setLayoutParams (params);
-                    btShowMoreKeyDetail.setText ("SHOW LESS");
+                    btShowMoreKeyDetail.setText ("HIDE FULL DETAILS");
                     showKeyDetail = false;
 
                     Animation a = new Animation () {
@@ -423,7 +366,7 @@ public class OverviewFragment extends Fragment {
 //                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
 //                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
 //                    cardview4.setLayoutParams (params);
-                    btShowMoreKeyDetail.setText ("SHOW MORE");
+                    btShowMoreKeyDetail.setText ("SHOW FULL DETAILS");
                     showKeyDetail = true;
                     Animation a = new Animation () {
                         @Override
@@ -488,7 +431,7 @@ public class OverviewFragment extends Fragment {
 //                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
 //                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
 //                    cardview4.setLayoutParams (params);
-                    btShowMoreAccessPossession.setText ("SHOW LESS");
+                    btShowMoreAccessPossession.setText ("LESS");
                     showAccessPossession = false;
 
                     Animation a = new Animation () {
@@ -507,7 +450,7 @@ public class OverviewFragment extends Fragment {
 //                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
 //                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
 //                    cardview4.setLayoutParams (params);
-                    btShowMoreAccessPossession.setText ("SHOW MORE");
+                    btShowMoreAccessPossession.setText ("MORE");
                     showAccessPossession = true;
                     Animation a = new Animation () {
                         @Override
@@ -544,7 +487,6 @@ public class OverviewFragment extends Fragment {
                 .negativeText("CANCEL")
                 .typeface(SetTypeFace.getTypeface(getActivity()), SetTypeFace.getTypeface(getActivity()))
                 .customView(R.layout.dialog_place_an_offer, false)
-                .typeface(SetTypeFace.getTypeface(getActivity()), SetTypeFace.getTypeface(getActivity()))
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -574,10 +516,10 @@ public class OverviewFragment extends Fragment {
                         dialog.dismiss();
                     }
                 })
-
                 .build();
         positiveAction = dialog.getActionButton(DialogAction.POSITIVE);
         etOfferUsd = (EditText) dialog.getCustomView().findViewById(R.id.etOfferUsd);
+        Utils.setTypefaceToAllViews (getActivity (), etOfferUsd);
         Log.e("Offer", propertyDetailsPref.getStringPref(getActivity(), PropertyDetailsPref.PROPERTY_OFFER));
         final WebView webView = (WebView) dialog.findViewById(R.id.webView1);
         final Button btShowMoreDialog = (Button) dialog.findViewById(R.id.btShowMoreDialog);
@@ -611,7 +553,7 @@ public class OverviewFragment extends Fragment {
 //                    params.addRule (RelativeLayout.BELOW, R.id.tv5);
 //                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
 //                    cardView3.setLayoutParams (params);
-                    btShowMoreDialog.setText("SHOW LESS");
+                    btShowMoreDialog.setText ("LESS");
                     showofferDialog = false;
 
                     Animation a = new Animation() {
@@ -631,7 +573,7 @@ public class OverviewFragment extends Fragment {
 //                    params.addRule (RelativeLayout.BELOW, R.id.tv5);
 //                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
 //                    cardView3.setLayoutParams (params);
-                    btShowMoreDialog.setText("SHOW MORE");
+                    btShowMoreDialog.setText ("MORE");
                     showofferDialog = true;
                     Animation a = new Animation() {
                         @Override
