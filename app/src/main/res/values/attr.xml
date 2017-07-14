@@ -3,4 +3,7 @@
     <declare-styleable name="ExpandableTextView">
         <attr name="trimLength" format="integer"/>
     </declare-styleable>
+    <declare-styleable name="ShimmerView">
+        <attr name="reflectionColor" format="color"/>
+    </declare-styleable>
 </resources>

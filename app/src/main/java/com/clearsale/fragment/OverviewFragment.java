@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.webkit.WebSettings;
@@ -21,6 +22,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -116,8 +118,11 @@ public class OverviewFragment extends Fragment {
     CardView cardview6;
     TextView tvScheduleTour;
     EditText etOfferUsd;
+    RelativeLayout rlDescription;
+    LinearLayout llLoading;
+    Animation animation1, animation2;
     private View positiveAction;
-
+    
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate (R.layout.fragment_overview, container, false);
@@ -126,14 +131,13 @@ public class OverviewFragment extends Fragment {
         initListener ();
         //    getOverviewData();
         return rootView;
-
     }
-
 
     private void initView (View rootView) {
         tv4 = (TextView) rootView.findViewById (R.id.tv4);
 
         cardView3 = (CardView) rootView.findViewById (cardview3);
+        rlDescription = (RelativeLayout) rootView.findViewById (R.id.rlDescription);
         btShowMore = (Button) rootView.findViewById (R.id.btShowMore);
 
         tvYear = (TextView) rootView.findViewById (R.id.tvYear);
@@ -181,12 +185,28 @@ public class OverviewFragment extends Fragment {
         btShowMoreAccessPossession = (Button) rootView.findViewById (R.id.btShowMoreAccessPossession);
         cardView8 = (CardView) rootView.findViewById (cardview8);
         tv8 = (TextView) rootView.findViewById (R.id.tv8);
+    
+        llLoading = (LinearLayout) rootView.findViewById (R.id.llLoading);
     }
 
     private void initData () {
         buyerDetailsPref = BuyerDetailsPref.getInstance ();
         propertyDetailsPref = PropertyDetailsPref.getInstance ();
 
+//        FiftyShadesOf.with (context)
+//                .on (view1, view2, view3)
+//                .start ();
+    
+        animation1 = new AlphaAnimation (0.0f, 1.0f);
+        animation1.setDuration (1000);
+//        animation1.setStartOffset (5000);
+    
+        animation2 = new AlphaAnimation (1.0f, 0.0f);
+        animation2.setDuration (1000);
+//        animation2.setStartOffset (1000);
+    
+        llLoading.startAnimation (animation2);
+                
         tvOverView.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW));
 
 
@@ -231,11 +251,16 @@ public class OverviewFragment extends Fragment {
         }
 
         Document doc = Jsoup.parse (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW));
-
+    
+    
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ARV).length () > 0) {
+//            rlDescription.setVisibility (View.VISIBLE);
+        } else {
+            rlDescription.setVisibility (View.GONE);
+        }
 
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ARV));
         webView.loadDataWithBaseURL ("www.google.com", spannableStringBuilder.toString (), "text/html", "UTF-8", "");
-//        Log.e ("karman", "<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ".otf);}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW));
 
 
         WebSettings webSettings = webView.getSettings ();
@@ -252,25 +277,11 @@ public class OverviewFragment extends Fragment {
         }
 
         SpannableStringBuilder spannableStringBuilderRealtor = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR));
-        Log.e ("Realtor", spannableStringBuilderRealtor.toString ());
         webViewRealtor.loadDataWithBaseURL ("www.google.com", spannableStringBuilderRealtor.toString (), "text/html", "UTF-8", "");
 
 
         SpannableStringBuilder spannableStringBuilderKeyDetail = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS));
-        Log.e ("KeyDetail", spannableStringBuilderKeyDetail.toString ());
         webViewKeyDetail.loadDataWithBaseURL ("www.google.com", spannableStringBuilderKeyDetail.toString (), "text/html", "UTF-8", "");
-
-        tvType.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_TYPE));
-        tvKeyZoining.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_ZOINING));
-        tvKeyRentalFix.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_RENTAL_FIX));
-        tvYearOfConstruction.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_BUILD_YEAR));
-        tvBedroomExisting.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_BEDROOM_EXISTING));
-        tvBathroomExisting.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_BATH_EXISTING));
-        tvARVEstimate.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_ARV_ESTIMATE));
-        tvFixEstimate.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_FIX_ESTIMATE));
-        tvAddition.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_ADDITION));
-        tvLotSize.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_LOT_SQFT));
-        tvTotalSquareFeet.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_TOTAL_SQUARE_FEET));
 
         if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1) {
             tvScheduleTour.setVisibility (View.VISIBLE);
@@ -279,7 +290,6 @@ public class OverviewFragment extends Fragment {
         }
 
         SpannableStringBuilder spannableAccessPossession = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ACCESS));
-        Log.e ("AccessPossession", spannableAccessPossession.toString ());
         webViewAccessPossession.loadDataWithBaseURL ("www.google.com", spannableAccessPossession.toString (), "text/html", "UTF-8", "");
     }
 
@@ -298,7 +308,6 @@ public class OverviewFragment extends Fragment {
                     Animation a = new Animation () {
                         @Override
                         protected void applyTransformation (float interpolatedTime, Transformation t) {
-//                            Log.e ("karman", "wrap contant height", + cardView3.get);
                             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                             params.addRule (RelativeLayout.BELOW, R.id.tv5);
                             params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
@@ -475,6 +484,51 @@ public class OverviewFragment extends Fragment {
                 }
             }
         });
+    
+    
+        animation1.setAnimationListener (new Animation.AnimationListener () {
+        
+            @Override
+            public void onAnimationEnd (Animation arg0) {
+                // start animation2 when animation1 ends (continue)
+                llLoading.startAnimation (animation2);
+            }
+        
+            @Override
+            public void onAnimationRepeat (Animation arg0) {
+                // TODO Auto-generated method stub
+            
+            }
+        
+            @Override
+            public void onAnimationStart (Animation arg0) {
+                // TODO Auto-generated method stub
+            
+            }
+        
+        });
+    
+        animation2.setAnimationListener (new Animation.AnimationListener () {
+        
+            @Override
+            public void onAnimationEnd (Animation arg0) {
+                // start animation1 when animation2 ends (repeat)
+                llLoading.startAnimation (animation1);
+            }
+        
+            @Override
+            public void onAnimationRepeat (Animation arg0) {
+                // TODO Auto-generated method stub
+            
+            }
+        
+            @Override
+            public void onAnimationStart (Animation arg0) {
+                // TODO Auto-generated method stub
+            
+            }
+        
+        });
     }
 
     private void PlaceOffer() {
@@ -520,7 +574,6 @@ public class OverviewFragment extends Fragment {
         positiveAction = dialog.getActionButton(DialogAction.POSITIVE);
         etOfferUsd = (EditText) dialog.getCustomView().findViewById(R.id.etOfferUsd);
         Utils.setTypefaceToAllViews (getActivity (), etOfferUsd);
-        Log.e("Offer", propertyDetailsPref.getStringPref(getActivity(), PropertyDetailsPref.PROPERTY_OFFER));
         final WebView webView = (WebView) dialog.findViewById(R.id.webView1);
         final Button btShowMoreDialog = (Button) dialog.findViewById(R.id.btShowMoreDialog);
         final CardView cardviewOffer = (CardView) dialog.findViewById(R.id.cardviewOffer);
@@ -559,7 +612,6 @@ public class OverviewFragment extends Fragment {
                     Animation a = new Animation() {
                         @Override
                         protected void applyTransformation(float interpolatedTime, Transformation t) {
-//                            Log.e ("karman", "wrap contant height", + cardView3.get);
                             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                             params.addRule(RelativeLayout.BELOW, R.id.llPropertyOffer);
                             params.setMargins((int) (Utils.pxFromDp(getActivity(), 8.0f)), 0, (int) (Utils.pxFromDp(getActivity(), 8.0f)), (int) (Utils.pxFromDp(getActivity(), 8.0f)));
@@ -670,8 +722,6 @@ public class OverviewFragment extends Fragment {
             };
             Utils.sendRequest (strRequest1, 60);
         } else {
-
         }
-
     }
 }

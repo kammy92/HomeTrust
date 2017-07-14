@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -249,18 +251,42 @@ public class SignInFragment extends Fragment {
     }
     
     private void showForgotPasswordDialog () {
-        MaterialDialog dialog = new MaterialDialog.Builder (getActivity ())
+        final MaterialDialog.Builder mBuilder = new MaterialDialog.Builder (getActivity ())
                 .content ("Enter your Email Address")
                 .contentColor (getResources ().getColor (R.color.app_text_color_dark))
                 .inputType (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
                 .typeface (SetTypeFace.getTypeface (getActivity ()), SetTypeFace.getTypeface (getActivity ()))
-                .input ("", "", new MaterialDialog.InputCallback () {
-                    @Override
-                    public void onInput (MaterialDialog dialog, CharSequence input) {
-                        dialog.dismiss ();
-                        sendForgotPasswordRequestToServer (input.toString ());
-                    }
-                }).build ();
+                .alwaysCallInputCallback ()
+                .canceledOnTouchOutside (true)
+                .cancelable (true)
+                .positiveText ("OK");
+    
+        mBuilder.input (null, null, new MaterialDialog.InputCallback () {
+            @Override
+            public void onInput (MaterialDialog dialog, CharSequence input) {
+                // Do something
+                dialog.getActionButton (DialogAction.POSITIVE).setEnabled (true);
+            }
+        });
+    
+        mBuilder.onPositive (new MaterialDialog.SingleButtonCallback () {
+            @Override
+            public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                if (dialog.getInputEditText ().getText ().toString ().length () > 0 && Utils.isValidEmail1 (dialog.getInputEditText ().getText ().toString ())) {
+                    sendForgotPasswordRequestToServer (dialog.getInputEditText ().getText ().toString ());
+                } else {
+                    new MaterialDialog.Builder (getActivity ())
+                            .typeface (SetTypeFace.getTypeface (getActivity ()), SetTypeFace.getTypeface (getActivity ()))
+                            .content ("Invalid Email")
+                            .positiveText ("OK")
+                            .show ();
+                }
+            }
+        });
+    
+        MaterialDialog dialog = mBuilder.build ();
+    
+        dialog.getActionButton (DialogAction.POSITIVE).setEnabled (false);
         dialog.show ();
     }
     

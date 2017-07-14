@@ -142,6 +142,17 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.ViewHo
                         public void onSliderClick (BaseSliderView slider) {
                             Intent intent = new Intent (activity, PropertyDetailActivity.class);
                             intent.putExtra (AppConfigTags.PROPERTY_ID, property.getId ());
+                            intent.putExtra (AppConfigTags.PROPERTY_ADDRESS, property.getAddress1 ());
+                            intent.putExtra (AppConfigTags.PROPERTY_ADDRESS2, property.getAddress2 ());
+                            intent.putExtra (AppConfigTags.PROPERTY_AREA, property.getArea ());
+                            intent.putExtra (AppConfigTags.PROPERTY_BATHROOMS, property.getBathroom ());
+                            intent.putExtra (AppConfigTags.PROPERTY_BEDROOMS, property.getBedroom ());
+                            intent.putExtra (AppConfigTags.PROPERTY_PRICE, property.getPrice ());
+                            intent.putExtra (AppConfigTags.PROPERTY_STATUS, property.getStatus ());
+                            intent.putExtra (AppConfigTags.PROPERTY_BUILT_YEAR, property.getYear_built ());
+                            intent.putExtra (AppConfigTags.PROPERTY_IMAGES, property.getImageList ());
+                            intent.putExtra (AppConfigTags.PROPERTY_IS_FAVOURITE, property.is_favourite ());
+
                             activity.startActivity (intent);
                             activity.overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
                         }

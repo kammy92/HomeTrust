@@ -3,6 +3,7 @@ package com.clearsale.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -46,6 +47,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -74,6 +76,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
     RelativeLayout rlMain;
     boolean isFavourite;
     ImageView ivFavourite;
+    ViewPagerAdapter viewPagerAdapter;
     private SliderLayout slider;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
     private TabLayout tabLayout;
@@ -93,6 +96,58 @@ public class PropertyDetailActivity extends AppCompatActivity {
     private void getExtras () {
         Intent intent = getIntent ();
         property_id = intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0);
+        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID, intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0));
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1, intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS));
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2, intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS2));
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_PRICE, intent.getStringExtra (AppConfigTags.PROPERTY_PRICE));
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_YEAR_BUILD, intent.getStringExtra (AppConfigTags.PROPERTY_BUILT_YEAR));
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BEDROOM, intent.getStringExtra (AppConfigTags.PROPERTY_BEDROOMS));
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BATHROOM, intent.getStringExtra (AppConfigTags.PROPERTY_BATHROOMS));
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AREA, intent.getStringExtra (AppConfigTags.PROPERTY_AREA));
+    
+        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, intent.getIntExtra (AppConfigTags.PROPERTY_STATUS, 0));
+    
+        bannerList = intent.getStringArrayListExtra (AppConfigTags.PROPERTY_IMAGES);
+    
+    
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_STATE, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LONGITUDE, "");
+    
+    
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ARV, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OVERVIEW, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OFFER, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ACCESS, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_REALTOR, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS, "");
+    
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_DETAILS, "");
+    
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS_ADDRESSES, "");
+    
+        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_ID, 0);
+        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_TOUR_STATUS, 0);
+    
+        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, intent.getStringArrayListExtra (AppConfigTags.PROPERTY_IMAGES).size ());
+
+
+//        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES, jsonArrayPropertyImages.toString ());
+//        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, jsonArrayPropertyImages.length ());
+
+//        for (int j = 0; j < jsonArrayPropertyImages.length (); j++) {
+//            JSONObject jsonObjectImages = jsonArrayPropertyImages.getJSONObject (j);
+//            bannerList.add (jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
+////                                            propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES + j, jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
+//        }
+        initSlider ();
+    
+        if (intent.getBooleanExtra (AppConfigTags.PROPERTY_IS_FAVOURITE, false)) {
+            ivFavourite.setImageResource (R.drawable.ic_heart_filled1);
+        } else {
+            ivFavourite.setImageResource (R.drawable.ic_heart1);
+        }
+        setupViewPager (viewPager);
     }
     
     private void initView () {
@@ -109,6 +164,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         fabMaps = (FloatingActionButton) findViewById (R.id.fabMap);
     }
     
+    
     private void initData () {
         propertyDetailsPref = PropertyDetailsPref.getInstance ();
         buyerDetailsPref = BuyerDetailsPref.getInstance ();
@@ -117,9 +173,8 @@ public class PropertyDetailActivity extends AppCompatActivity {
         tabLayout.setTabGravity (TabLayout.GRAVITY_FILL);
         collapsingToolbarLayout.setTitleEnabled (false);
 //        appBar.setExpanded(true);
-    
+        
         Utils.setTypefaceToAllViews (this, rlBack);
-        changeTabsFont (tabLayout);
     }
     
     protected void changeTabsFont (TabLayout tabLayout) {
@@ -275,13 +330,11 @@ public class PropertyDetailActivity extends AppCompatActivity {
 //                }
             }
         });
-    
-    
     }
     
     private void getPropertyDetails () {
         if (NetworkConnection.isNetworkAvailable (PropertyDetailActivity.this)) {
-            Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
+//            Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
             Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_PROPERTY_DETAIL, true);
             StringRequest strRequest1 = new StringRequest (Request.Method.POST, AppConfigURL.URL_PROPERTY_DETAIL,
                     new com.android.volley.Response.Listener<String> () {
@@ -294,82 +347,8 @@ public class PropertyDetailActivity extends AppCompatActivity {
                                     boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
                                     if (! error) {
-    
-                                        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID, jsonObj.getInt (AppConfigTags.PROPERTY_ID));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1, jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2, jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS2));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_STATE, jsonObj.getString (AppConfigTags.PROPERTY_STATE));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE, jsonObj.getString (AppConfigTags.LATITUDE));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LONGITUDE, jsonObj.getString (AppConfigTags.LONGITUDE));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_PRICE, jsonObj.getString (AppConfigTags.PROPERTY_PRICE));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_YEAR_BUILD, jsonObj.getString (AppConfigTags.PROPERTY_BUILT_YEAR));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BEDROOM, jsonObj.getString (AppConfigTags.PROPERTY_BEDROOMS));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BATHROOM, jsonObj.getString (AppConfigTags.PROPERTY_BATHROOMS));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AREA, jsonObj.getString (AppConfigTags.PROPERTY_AREA));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ARV, jsonObj.getString (AppConfigTags.PROPERTY_ARV));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OVERVIEW, jsonObj.getString (AppConfigTags.PROPERTY_OVERVIEW));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OFFER, jsonObj.getString (AppConfigTags.PROPERTY_OFFER));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ACCESS, jsonObj.getString (AppConfigTags.PROPERTY_ACCESS));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_REALTOR, jsonObj.getString (AppConfigTags.PROPERTY_REALTOR));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS, jsonObj.getString (AppConfigTags.PROPERTY_COMPS));
-                                        
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_DETAILS, jsonObj.getString (AppConfigTags.PROPERTY_KEY_DETAILS));
-                                        
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_ADDITION, jsonObj.getString (AppConfigTags.BUYSELL_ADDITION));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_ARV_ESTIMATE, jsonObj.getString (AppConfigTags.BUYSELL_ARV_ESTIMATE));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_BATH_EXISTING, jsonObj.getString (AppConfigTags.BUYSELL_BATH_EXISTING));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_BEDROOM_EXISTING, jsonObj.getString (AppConfigTags.BUYSELL_BEDROOM_EXISTING));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_BUILD_YEAR, jsonObj.getString (AppConfigTags.BUYSELL_BUILD_YEAR));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_FIX_ESTIMATE, jsonObj.getString (AppConfigTags.BUYSELL_FIX_ESTIMATE));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_LOT_SQFT, jsonObj.getString (AppConfigTags.BUYSELL_LOT_SQFT));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_RENTAL_FIX, jsonObj.getString (AppConfigTags.BUYSELL_RENTAL_FIX));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_TOTAL_SQUARE_FEET, jsonObj.getString (AppConfigTags.BUYSELL_TOTAL_SQUARE_FEET));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_TYPE, jsonObj.getString (AppConfigTags.BUYSELL_TYPE));
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_ZOINING, jsonObj.getString (AppConfigTags.BUYSELL_ZOINING));
-                                        
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS_ADDRESSES, jsonObj.getJSONArray (AppConfigTags.PROPERTY_COMPS_ADDRESSES).toString ());
-    
-                                        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_ID, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_ID));
-                                        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_STATUS));
-    
-                                        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_TOUR_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_TOUR_STATUS));
-    
-                                        JSONArray jsonArrayPropertyImages = jsonObj.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
-                                        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES, jsonArrayPropertyImages.toString ());
-                                        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, jsonArrayPropertyImages.length ());
-    
-                                        for (int j = 0; j < jsonArrayPropertyImages.length (); j++) {
-                                            JSONObject jsonObjectImages = jsonArrayPropertyImages.getJSONObject (j);
-                                            bannerList.add (jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
-//                                            propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES + j, jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
-                                        }
-                                        initSlider ();
-    
-                                        if (jsonObj.getBoolean (AppConfigTags.PROPERTY_IS_FAVOURITE)) {
-                                            ivFavourite.setImageResource (R.drawable.ic_heart_filled1);
-                                        } else {
-                                            ivFavourite.setImageResource (R.drawable.ic_heart1);
-                                        }
-    
-    
-                                        //    String address1 = jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS);
-                                        //  String city=jsonObj.getString(AppConfigTags.PROPERTY_CITY_NAME);
-                                        //  state = jsonObj.getString (AppConfigTags.PROPERTY_STATE);
-                                        //  price = jsonObj.getString (AppConfigTags.PROPERTY_PRICE);
-                                        //  yearBuild = jsonObj.getString (AppConfigTags.PROPERTY_BUILT_YEAR);
-                                        //  bedroom = jsonObj.getString (AppConfigTags.PROPERTY_BEDROOMS);
-                                        //  bathroom = jsonObj.getString (AppConfigTags.PROPERTY_BATHROOMS);
-                                        //  area = jsonObj.getString (AppConfigTags.PROPERTY_AREA);
-                                        //  overview = jsonObj.getString (AppConfigTags.PROPERTY_OVERVIEW);
-                                        //  comps = jsonObj.getString (AppConfigTags.PROPERTY_COMPS);
-                                        ///  access = jsonObj.getString (AppConfigTags.PROPERTY_ACCESS);
-                                        // realtor = jsonObj.getString (AppConfigTags.PROPERTY_REALTOR);
-                                        // offer = jsonObj.getString (AppConfigTags.PROPERTY_OFFER);
-    
-                                        setupViewPager (viewPager);
+//                                        new setPropertyDetails ().execute (jsonObj.toString ());
                                     }
-                                    clMain.setVisibility (View.VISIBLE);
-                                    progressDialog.dismiss ();
                                 } catch (Exception e) {
                                     progressDialog.dismiss ();
                                     clMain.setVisibility (View.VISIBLE);
@@ -427,10 +406,10 @@ public class PropertyDetailActivity extends AppCompatActivity {
     }
     
     private void setupViewPager (ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter (getSupportFragmentManager ());
-        adapter.addFragment (new OverviewFragment (), "OVERVIEW");
-        adapter.addFragment (new CompsFragment (), "COMPS");
-        viewPager.setAdapter (adapter);
+        viewPagerAdapter = new ViewPagerAdapter (getSupportFragmentManager ());
+        viewPagerAdapter.addFragment (new OverviewFragment (), "OVERVIEW");
+        viewPagerAdapter.addFragment (new CompsFragment (), "COMPS");
+        viewPager.setAdapter (viewPagerAdapter);
     }
     
     @Override
@@ -451,8 +430,15 @@ public class PropertyDetailActivity extends AppCompatActivity {
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ACCESS, "");
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_REALTOR, "");
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS_ADDRESSES, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OFFER, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ARV, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES, "");
+        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, 0);
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_ID, 0);
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, 0);
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_TOUR_STATUS, "");
+        
         finish ();
         overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
     }
@@ -546,6 +532,65 @@ public class PropertyDetailActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle (int position) {
             return mFragmentTitleList.get (position);
+        }
+    }
+    
+    private class setPropertyDetails extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground (String... params) {
+            try {
+                JSONObject jsonObj = new JSONObject (params[0]);
+                
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_STATE, jsonObj.getString (AppConfigTags.PROPERTY_STATE));
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE, jsonObj.getString (AppConfigTags.LATITUDE));
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LONGITUDE, jsonObj.getString (AppConfigTags.LONGITUDE));
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ARV, jsonObj.getString (AppConfigTags.PROPERTY_ARV));
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OVERVIEW, jsonObj.getString (AppConfigTags.PROPERTY_OVERVIEW));
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OFFER, jsonObj.getString (AppConfigTags.PROPERTY_OFFER));
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ACCESS, jsonObj.getString (AppConfigTags.PROPERTY_ACCESS));
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_REALTOR, jsonObj.getString (AppConfigTags.PROPERTY_REALTOR));
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS, jsonObj.getString (AppConfigTags.PROPERTY_COMPS));
+                
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_DETAILS, jsonObj.getString (AppConfigTags.PROPERTY_KEY_DETAILS));
+                
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS_ADDRESSES, jsonObj.getJSONArray (AppConfigTags.PROPERTY_COMPS_ADDRESSES).toString ());
+                
+                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_ID, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_ID));
+                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_STATUS));
+                
+                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_TOUR_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_TOUR_STATUS));
+                
+                JSONArray jsonArrayPropertyImages = jsonObj.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
+                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES, jsonArrayPropertyImages.toString ());
+                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, jsonArrayPropertyImages.length ());
+                
+                bannerList.clear ();
+                for (int j = 0; j < jsonArrayPropertyImages.length (); j++) {
+                    JSONObject jsonObjectImages = jsonArrayPropertyImages.getJSONObject (j);
+                    bannerList.add (jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace ();
+            }
+            return "Executed";
+        }
+        
+        @Override
+        protected void onPostExecute (String result) {
+            Log.e ("karman", "executed");
+            clMain.setVisibility (View.VISIBLE);
+            progressDialog.dismiss ();
+            initSlider ();
+//            viewPager.getAdapter ().notifyDataSetChanged ();
+            setupViewPager (viewPager);
+        }
+        
+        @Override
+        protected void onPreExecute () {
+        }
+        
+        @Override
+        protected void onProgressUpdate (Void... values) {
         }
     }
 }

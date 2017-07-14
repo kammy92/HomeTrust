@@ -37,6 +37,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
+                        android:background="@drawable/no_image_placeholder"
                         app:auto_cycle="true"
                         app:pager_animation="Accordion"
                         app:pager_animation_span="500"/>
@@ -137,12 +138,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@color/colorPrimary"
+                android:background="@color/app_background_color"
                 android:theme="@style/MyMaterialTheme"
                 app:layout_collapseMode="pin"
-                app:tabIndicatorColor="@color/text_color_white"
+                app:tabIndicatorColor="@color/primary"
                 app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/text_color_white"/>
+                app:tabSelectedTextColor="@color/primary"/>
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager
@@ -150,6 +151,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/appBar"
+            android:background="@color/app_background_color"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <android.support.design.widget.FloatingActionButton
