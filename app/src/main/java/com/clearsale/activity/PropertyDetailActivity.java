@@ -2,7 +2,9 @@ package com.clearsale.activity;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -163,7 +165,6 @@ public class PropertyDetailActivity extends AppCompatActivity {
         tvSliderPosition = (TextView) findViewById (R.id.tvSliderPosition);
         fabMaps = (FloatingActionButton) findViewById (R.id.fabMap);
     }
-    
     
     private void initData () {
         propertyDetailsPref = PropertyDetailsPref.getInstance ();
@@ -347,7 +348,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                                     boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
                                     if (! error) {
-//                                        new setPropertyDetails ().execute (jsonObj.toString ());
+                                        new setPropertyDetails ().execute (jsonObj.toString ());
                                     }
                                 } catch (Exception e) {
                                     progressDialog.dismiss ();
@@ -540,30 +541,52 @@ public class PropertyDetailActivity extends AppCompatActivity {
         protected String doInBackground (String... params) {
             try {
                 JSONObject jsonObj = new JSONObject (params[0]);
-                
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_STATE, jsonObj.getString (AppConfigTags.PROPERTY_STATE));
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE, jsonObj.getString (AppConfigTags.LATITUDE));
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LONGITUDE, jsonObj.getString (AppConfigTags.LONGITUDE));
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ARV, jsonObj.getString (AppConfigTags.PROPERTY_ARV));
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OVERVIEW, jsonObj.getString (AppConfigTags.PROPERTY_OVERVIEW));
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OFFER, jsonObj.getString (AppConfigTags.PROPERTY_OFFER));
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ACCESS, jsonObj.getString (AppConfigTags.PROPERTY_ACCESS));
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_REALTOR, jsonObj.getString (AppConfigTags.PROPERTY_REALTOR));
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS, jsonObj.getString (AppConfigTags.PROPERTY_COMPS));
-                
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_DETAILS, jsonObj.getString (AppConfigTags.PROPERTY_KEY_DETAILS));
-                
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS_ADDRESSES, jsonObj.getJSONArray (AppConfigTags.PROPERTY_COMPS_ADDRESSES).toString ());
-                
-                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_ID, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_ID));
-                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_STATUS));
-                
-                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_TOUR_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_TOUR_STATUS));
-                
                 JSONArray jsonArrayPropertyImages = jsonObj.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
-                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES, jsonArrayPropertyImages.toString ());
-                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, jsonArrayPropertyImages.length ());
-                
+                SharedPreferences.Editor editor = getSharedPreferences ("PROPERTY_DETAILS", Context.MODE_PRIVATE).edit ();
+                editor.putString (PropertyDetailsPref.PROPERTY_STATE, jsonObj.getString (AppConfigTags.PROPERTY_STATE));
+                editor.putString (PropertyDetailsPref.PROPERTY_LATITUDE, jsonObj.getString (AppConfigTags.LATITUDE));
+                editor.putString (PropertyDetailsPref.PROPERTY_LONGITUDE, jsonObj.getString (AppConfigTags.LONGITUDE));
+                editor.putString (PropertyDetailsPref.PROPERTY_ARV, jsonObj.getString (AppConfigTags.PROPERTY_ARV));
+                editor.putString (PropertyDetailsPref.PROPERTY_OVERVIEW, jsonObj.getString (AppConfigTags.PROPERTY_OVERVIEW));
+                editor.putString (PropertyDetailsPref.PROPERTY_OFFER, jsonObj.getString (AppConfigTags.PROPERTY_OFFER));
+                editor.putString (PropertyDetailsPref.PROPERTY_ACCESS, jsonObj.getString (AppConfigTags.PROPERTY_ACCESS));
+                editor.putString (PropertyDetailsPref.PROPERTY_REALTOR, jsonObj.getString (AppConfigTags.PROPERTY_REALTOR));
+                editor.putString (PropertyDetailsPref.PROPERTY_COMPS, jsonObj.getString (AppConfigTags.PROPERTY_COMPS));
+                editor.putString (PropertyDetailsPref.PROPERTY_KEY_DETAILS, jsonObj.getString (AppConfigTags.PROPERTY_KEY_DETAILS));
+                editor.putString (PropertyDetailsPref.PROPERTY_COMPS_ADDRESSES, jsonObj.getJSONArray (AppConfigTags.PROPERTY_COMPS_ADDRESSES).toString ());
+                editor.putString (PropertyDetailsPref.PROPERTY_IMAGES, jsonArrayPropertyImages.toString ());
+    
+                editor.putInt (PropertyDetailsPref.PROPERTY_AUCTION_ID, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_ID));
+                editor.putInt (PropertyDetailsPref.PROPERTY_AUCTION_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_STATUS));
+                editor.putInt (PropertyDetailsPref.PROPERTY_TOUR_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_TOUR_STATUS));
+                editor.putInt (PropertyDetailsPref.PROPERTY_IMAGE_COUNT, jsonArrayPropertyImages.length ());
+    
+                editor.apply ();
+
+
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_STATE, jsonObj.getString (AppConfigTags.PROPERTY_STATE));
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE, jsonObj.getString (AppConfigTags.LATITUDE));
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LONGITUDE, jsonObj.getString (AppConfigTags.LONGITUDE));
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ARV, jsonObj.getString (AppConfigTags.PROPERTY_ARV));
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OVERVIEW, jsonObj.getString (AppConfigTags.PROPERTY_OVERVIEW));
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_OFFER, jsonObj.getString (AppConfigTags.PROPERTY_OFFER));
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ACCESS, jsonObj.getString (AppConfigTags.PROPERTY_ACCESS));
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_REALTOR, jsonObj.getString (AppConfigTags.PROPERTY_REALTOR));
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS, jsonObj.getString (AppConfigTags.PROPERTY_COMPS));
+//
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_KEY_DETAILS, jsonObj.getString (AppConfigTags.PROPERTY_KEY_DETAILS));
+//
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_COMPS_ADDRESSES, jsonObj.getJSONArray (AppConfigTags.PROPERTY_COMPS_ADDRESSES).toString ());
+//
+//                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_ID, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_ID));
+//                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_STATUS));
+//
+//                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_TOUR_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_TOUR_STATUS));
+//
+//                JSONArray jsonArrayPropertyImages = jsonObj.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
+//                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES, jsonArrayPropertyImages.toString ());
+//                propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, jsonArrayPropertyImages.length ());
+//
                 bannerList.clear ();
                 for (int j = 0; j < jsonArrayPropertyImages.length (); j++) {
                     JSONObject jsonObjectImages = jsonArrayPropertyImages.getJSONObject (j);
