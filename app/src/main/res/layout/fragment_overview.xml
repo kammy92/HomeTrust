@@ -1060,8 +1060,6 @@
                     android:layout_marginRight="@dimen/activity_margin"
                     android:background="@drawable/loading_text_bg"/>
             </LinearLayout>
-
-
             <RelativeLayout
                 android:id="@+id/rlRealtor"
                 android:layout_width="match_parent"

@@ -3,6 +3,7 @@ package com.clearsale.fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -45,8 +46,6 @@ import com.clearsale.utils.SetTypeFace;
 import com.clearsale.utils.Utils;
 
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -209,18 +208,17 @@ public class OverviewFragment extends Fragment {
     private void initData () {
         buyerDetailsPref = BuyerDetailsPref.getInstance ();
         propertyDetailsPref = PropertyDetailsPref.getInstance ();
-        
-        animation1 = new AlphaAnimation (0.0f, 1.0f);
-        animation1.setDuration (1000);
-        animation2 = new AlphaAnimation (1.0f, 0.0f);
-        animation2.setDuration (1000);
+    
+        animation1 = new AlphaAnimation (0.5f, 1.0f);
+        animation1.setDuration (2000);
+        animation2 = new AlphaAnimation (1.0f, 0.5f);
+        animation2.setDuration (2000);
         
         llLoading.startAnimation (animation2);
         llLoading2.startAnimation (animation2);
         llLoading3.startAnimation (animation2);
         llLoading4.startAnimation (animation2);
     
-        tvOverView.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW));
         
         tvYear.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_YEAR_BUILD));
         tvAddress1.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ADDRESS1));
@@ -262,9 +260,6 @@ public class OverviewFragment extends Fragment {
                 break;
         }
         
-        Document doc = Jsoup.parse (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW));
-        
-        
         if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ARV).length () > 0) {
             SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ARV));
             webView.loadDataWithBaseURL ("www.google.com", spannableStringBuilder.toString (), "text/html", "UTF-8", "");
@@ -272,7 +267,7 @@ public class OverviewFragment extends Fragment {
         } else {
             rlDescription.setVisibility (View.GONE);
         }
-        
+
         if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS).length () > 0) {
             SpannableStringBuilder spannableStringBuilderKeyDetail = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS));
             webViewKeyDetail.loadDataWithBaseURL ("www.google.com", spannableStringBuilderKeyDetail.toString (), "text/html", "UTF-8", "");
@@ -280,7 +275,7 @@ public class OverviewFragment extends Fragment {
         } else {
             rlKeyDetails.setVisibility (View.GONE);
         }
-        
+    
         if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR).length () > 0) {
             SpannableStringBuilder spannableStringBuilderRealtor = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR));
             webViewRealtor.loadDataWithBaseURL ("www.google.com", spannableStringBuilderRealtor.toString (), "text/html", "UTF-8", "");
@@ -288,7 +283,7 @@ public class OverviewFragment extends Fragment {
         } else {
             rlRealtor.setVisibility (View.GONE);
         }
-        
+    
         if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR).length () > 0) {
             SpannableStringBuilder spannableAccessPossession = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ACCESS));
             webViewAccessPossession.loadDataWithBaseURL ("www.google.com", spannableAccessPossession.toString (), "text/html", "UTF-8", "");
@@ -308,13 +303,11 @@ public class OverviewFragment extends Fragment {
             cvPropertyOffer.setVisibility (View.GONE);
         }
         
-        
         if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1) {
             tvScheduleTour.setVisibility (View.VISIBLE);
         } else {
             tvScheduleTour.setVisibility (View.GONE);
         }
-        
     }
     
     private void initListener () {
@@ -751,4 +744,26 @@ public class OverviewFragment extends Fragment {
         } else {
         }
     }
+    
+    private class setPropertyDetails extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground (String... params) {
+            return "Executed";
+        }
+        
+        @Override
+        protected void onPostExecute (String result) {
+            Log.e ("karman", "executed");
+        }
+        
+        @Override
+        protected void onPreExecute () {
+        }
+        
+        @Override
+        protected void onProgressUpdate (Void... values) {
+        }
+    }
+    
+    
 }

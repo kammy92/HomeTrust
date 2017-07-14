@@ -335,7 +335,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
     
     private void getPropertyDetails () {
         if (NetworkConnection.isNetworkAvailable (PropertyDetailActivity.this)) {
-//            Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
+            Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
             Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_PROPERTY_DETAIL, true);
             StringRequest strRequest1 = new StringRequest (Request.Method.POST, AppConfigURL.URL_PROPERTY_DETAIL,
                     new com.android.volley.Response.Listener<String> () {
