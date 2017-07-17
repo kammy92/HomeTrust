@@ -123,6 +123,6 @@
             android:layout_margin="@dimen/activity_margin_small"
             android:text="@string/activity_property_detail_text_offer_detail2"
             android:textColor="@color/app_text_color_light"
-            android:textSize="@dimen/text_size_small"/>
+            android:textSize="@dimen/text_size_extra_small"/>
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>
