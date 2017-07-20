@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.clearsale.R;
+import com.clearsale.model.Property;
 import com.clearsale.utils.AppConfigTags;
 import com.clearsale.utils.AppConfigURL;
 import com.clearsale.utils.BuyerDetailsPref;
@@ -34,6 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -95,9 +97,22 @@ public class AllPropertyLocationActivity extends AppCompatActivity implements Go
         mMap.setOnInfoWindowClickListener (new GoogleMap.OnInfoWindowClickListener () {
             @Override
             public void onInfoWindowClick (Marker arg0) {
-                int property_id = (int) arg0.getTag ();
+                Property property = (Property) arg0.getTag ();
                 Intent intent = new Intent (AllPropertyLocationActivity.this, PropertyDetailActivity.class);
-                intent.putExtra (AppConfigTags.PROPERTY_ID, property_id);
+    
+                intent.putExtra (AppConfigTags.PROPERTY_ID, property.getId ());
+                intent.putExtra (AppConfigTags.PROPERTY_ADDRESS, property.getAddress1 ());
+                intent.putExtra (AppConfigTags.PROPERTY_ADDRESS2, property.getAddress2 ());
+                intent.putExtra (AppConfigTags.PROPERTY_AREA, property.getArea ());
+                intent.putExtra (AppConfigTags.PROPERTY_BATHROOMS, property.getBathroom ());
+                intent.putExtra (AppConfigTags.PROPERTY_BEDROOMS, property.getBedroom ());
+                intent.putExtra (AppConfigTags.PROPERTY_PRICE, property.getPrice ());
+                intent.putExtra (AppConfigTags.PROPERTY_STATUS, property.getStatus ());
+                intent.putExtra (AppConfigTags.PROPERTY_BUILT_YEAR, property.getYear_built ());
+                intent.putExtra (AppConfigTags.PROPERTY_IMAGES, property.getImageList ());
+                intent.putExtra (AppConfigTags.PROPERTY_IS_FAVOURITE, property.is_favourite ());
+                
+
                 startActivity (intent);
                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -122,15 +137,37 @@ public class AllPropertyLocationActivity extends AppCompatActivity implements Go
                                     if (! error) {
                                         JSONArray jsonArrayAllProperty = jsonObj.getJSONArray (AppConfigTags.PROPERTY_LOCATIONS);
                                         for (int i = 0; i < jsonArrayAllProperty.length (); i++) {
-                                            JSONObject jsonObjectAllProperty = jsonArrayAllProperty.getJSONObject (i);
+                                            JSONObject jsonObjectProperty = jsonArrayAllProperty.getJSONObject (i);
+                                            Property property = new Property (
+                                                    jsonObjectProperty.getInt (AppConfigTags.PROPERTY_ID),
+                                                    jsonObjectProperty.getInt (AppConfigTags.PROPERTY_STATUS),
+                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_PRICE),
+                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_BEDROOMS),
+                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_BATHROOMS),
+                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_AREA),
+                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_BUILT_YEAR),
+                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_ADDRESS),
+                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_CITY),
+                                                    false,
+                                                    jsonObjectProperty.getBoolean (AppConfigTags.PROPERTY_IS_FAVOURITE));
+    
+                                            JSONArray jsonArrayPropertyImages = jsonObjectProperty.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
+                                            ArrayList<String> propertyImages = new ArrayList<> ();
+    
+                                            for (int j = 0; j < jsonArrayPropertyImages.length (); j++) {
+                                                JSONObject jsonObjectImages = jsonArrayPropertyImages.getJSONObject (j);
+                                                propertyImages.add (jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
+                                            }
+                                            property.setImageList (propertyImages);
+    
                                             mMap.addMarker (
-                                                    new MarkerOptions ().position (new LatLng (jsonObjectAllProperty.getDouble (AppConfigTags.PROPERTY_LATITUDE), jsonObjectAllProperty.getDouble (AppConfigTags.PROPERTY_LONGITUDE)))
-                                                            .title (jsonObjectAllProperty.getString (AppConfigTags.PROPERTY_ADDRESS))
+                                                    new MarkerOptions ().position (new LatLng (jsonObjectProperty.getDouble (AppConfigTags.PROPERTY_LATITUDE), jsonObjectProperty.getDouble (AppConfigTags.PROPERTY_LONGITUDE)))
+                                                            .title (jsonObjectProperty.getString (AppConfigTags.PROPERTY_ADDRESS))
                                                             .draggable (false)
                                                             .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_map_marker))
-                                            ).setTag (jsonObjectAllProperty.getInt (AppConfigTags.PROPERTY_ID));
+                                            ).setTag (property);
                                             mMap.setOnMarkerClickListener (AllPropertyLocationActivity.this);
-                                            mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (jsonObjectAllProperty.getDouble (AppConfigTags.PROPERTY_LATITUDE), jsonObjectAllProperty.getDouble (AppConfigTags.PROPERTY_LONGITUDE)), 8.0f));
+                                            mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (jsonObjectProperty.getDouble (AppConfigTags.PROPERTY_LATITUDE), jsonObjectProperty.getDouble (AppConfigTags.PROPERTY_LONGITUDE)), 8.0f));
                                         }
                                         progressDialog.dismiss ();
                                     } else {
@@ -153,7 +190,6 @@ public class AllPropertyLocationActivity extends AppCompatActivity implements Go
                         @Override
                         public void onErrorResponse (VolleyError error) {
                             progressDialog.dismiss ();
-    
                             Utils.showLog (Log.ERROR, AppConfigTags.VOLLEY_ERROR, error.toString (), true);
                             Utils.showSnackBar (AllPropertyLocationActivity.this, clMain, getResources ().getString (R.string.snackbar_text_error_occurred), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
                         }

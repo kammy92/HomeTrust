@@ -63,11 +63,9 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
     public void onBindViewHolder (final ViewHolder holder, int position) {//        runEnterAnimation (holder.itemView);
         propertyDetailsPref = PropertyDetailsPref.getInstance();
         final ScheduleTour scheduleTour = scheduleTours.get (position);
+    
+        Utils.setTypefaceToAllViews (activity, holder.tvAddress);
         
-        holder.tvAddress.setTypeface (SetTypeFace.getTypeface (activity));
-        holder.tvDate.setTypeface (SetTypeFace.getTypeface (activity));
-        holder.tvTime.setTypeface (SetTypeFace.getTypeface (activity));
-
         holder.tvAddress.setText(propertyDetailsPref.getStringPref(activity, PropertyDetailsPref.PROPERTY_ADDRESS1) + " " + propertyDetailsPref.getStringPref(activity, PropertyDetailsPref.PROPERTY_ADDRESS2));
         holder.tvTime.setText (scheduleTour.getTime ());
         holder.tvDate.setText (scheduleTour.getDate ());
@@ -96,6 +94,7 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                         dialog.dismiss ();
                     }
                 })
+                .typeface (SetTypeFace.getTypeface (activity), SetTypeFace.getTypeface (activity))
                 .negativeText ("CANCEL")
                 .onPositive (new MaterialDialog.SingleButtonCallback () {
                     @Override
@@ -103,6 +102,9 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                         final String etComment = ((EditText) dialog.getCustomView ().findViewById (R.id.etComment)).getText ().toString ();
                         final String etNumberOfUsers = ((EditText) dialog.getCustomView ().findViewById (R.id.etNumberOfUsers)).getText ().toString ();
                         final String etAddress = ((EditText) dialog.getCustomView ().findViewById (R.id.etAddress)).getText ().toString ();
+                        TextView tv5 = (TextView) dialog.getCustomView ().findViewById (R.id.tv5);
+                        Utils.setTypefaceToAllViews (activity, tv5);
+                        
                         CheckBox cbReceive = (CheckBox) dialog.getCustomView ().findViewById (R.id.cbReceive);
                         if (cbReceive.isChecked ()) {
                             checked = 1;

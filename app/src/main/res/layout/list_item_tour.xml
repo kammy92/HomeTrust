@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/activity_margin_extra_small"
+        android:layout_margin="@dimen/activity_margin_small"
         android:animateLayoutChanges="true"
         android:orientation="vertical">
 
@@ -26,7 +26,6 @@
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold"
             android:visibility="gone"/>
-
         <RelativeLayout
             android:id="@+id/rlName"
             android:layout_width="match_parent"
@@ -53,8 +52,6 @@
                 android:textColor="@color/app_text_color_dark"
                 android:textSize="@dimen/text_size_small"/>
         </RelativeLayout>
-
-
         <RelativeLayout
             android:id="@+id/rlDate"
             android:layout_width="match_parent"
@@ -96,7 +93,6 @@
 
 
         </RelativeLayout>
-
         <RelativeLayout
             android:id="@+id/rlTime"
             android:layout_width="match_parent"
@@ -123,7 +119,6 @@
                 android:textColor="@color/app_text_color_dark"
                 android:textSize="@dimen/text_size_small"/>
         </RelativeLayout>
-
         <RelativeLayout
             android:id="@+id/rlVenue"
             android:layout_width="match_parent"
@@ -151,14 +146,11 @@
                 android:textSize="@dimen/text_size_small"
                 android:visibility="visible"/>
         </RelativeLayout>
-
         <TextView
             android:id="@+id/tvScheduleATour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlTime"
-            android:layout_marginLeft="@dimen/activity_margin_small"
-            android:layout_marginRight="@dimen/activity_margin_small"
             android:layout_marginTop="@dimen/activity_margin_small"
             android:background="@drawable/rounded_button"
             android:gravity="center"
