@@ -83,7 +83,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.squareup.leakcanary.LeakCanary;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -171,13 +170,13 @@ public class MainActivity extends AppCompatActivity {
     
     private void initData () {
         Bugsnag.init (this);
-    
-        if (LeakCanary.isInAnalyzerProcess (this)) {
+
+//        if (LeakCanary.isInAnalyzerProcess (this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install (getApplication ());
+//            return;
+//        }
+//        LeakCanary.install (getApplication ());
         
         client = new GoogleApiClient.Builder (this).addApi (AppIndex.API).build ();
     

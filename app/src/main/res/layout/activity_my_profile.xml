@@ -82,9 +82,9 @@
                         android:layout_centerVertical="true"
                         android:gravity="center"
                         android:padding="@dimen/activity_margin"
-                        android:text="SAVE"
+                        android:text="Save"
                         android:textColor="@color/text_color_white"
-                        android:textSize="@dimen/text_size_medium"
+                        android:textSize="@dimen/text_size_small"
                         android:textStyle="bold"/>
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
