@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/clMain"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/clMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background_color"
@@ -18,23 +18,23 @@
             android:animateLayoutChanges="true"
             android:theme="@style/AppTheme.AppBarOverlay"
             android:visibility="visible">
-            <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/toolbar"
-                style="@style/Widget.MyApp.ActionBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:animateLayoutChanges="true"
-                android:background="@android:color/transparent"
-                android:contentInsetEnd="0dp"
-                android:contentInsetLeft="0dp"
-                android:contentInsetRight="0dp"
-                android:contentInsetStart="0dp"
-                android:visibility="visible"
-                app:contentInsetEnd="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetRight="0dp"
-                app:contentInsetStart="0dp"
-                app:layout_collapseMode="pin">
+            <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+                                               style="@style/Widget.MyApp.ActionBar"
+                                               xmlns:android="http://schemas.android.com/apk/res/android"
+                                               android:layout_width="match_parent"
+                                               android:layout_height="?attr/actionBarSize"
+                                               android:animateLayoutChanges="true"
+                                               android:background="@android:color/transparent"
+                                               android:contentInsetEnd="0dp"
+                                               android:contentInsetLeft="0dp"
+                                               android:contentInsetRight="0dp"
+                                               android:contentInsetStart="0dp"
+                                               android:visibility="visible"
+                                               app:contentInsetEnd="0dp"
+                                               app:contentInsetLeft="0dp"
+                                               app:contentInsetRight="0dp"
+                                               app:contentInsetStart="0dp"
+                                               app:layout_collapseMode="pin">
                 <RelativeLayout
                     android:id="@+id/toolbar_layout"
                     android:layout_width="match_parent"
@@ -85,13 +85,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/activity_margin"
-                    android:scaleType="center"
-                    android:src="@drawable/logoicon"
-                    android:visibility="gone"/>
 
                 <EditText
                     android:id="@+id/etUserName"

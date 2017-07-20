@@ -38,6 +38,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bugsnag.android.Bugsnag;
 import com.bumptech.glide.Glide;
 import com.clearsale.R;
 import com.clearsale.adapter.PropertyAdapter;
@@ -82,6 +83,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
+import com.squareup.leakcanary.LeakCanary;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -168,6 +170,15 @@ public class MainActivity extends AppCompatActivity {
     }
     
     private void initData () {
+        Bugsnag.init (this);
+    
+        if (LeakCanary.isInAnalyzerProcess (this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install (getApplication ());
+        
         client = new GoogleApiClient.Builder (this).addApi (AppIndex.API).build ();
     
         FacebookSdk.sdkInitialize (this.getApplicationContext ());

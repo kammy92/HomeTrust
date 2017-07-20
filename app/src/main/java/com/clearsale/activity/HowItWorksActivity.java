@@ -80,10 +80,10 @@ public class HowItWorksActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        howItWorkList.add (new HowItWork (1, "Step 1", "Tell us what kinds of properties you are looking for, and in what areas.  Join our buyers list.", "", R.drawable.img1));
-        howItWorkList.add (new HowItWork (2, "Step 2", "With our proprietary marketing systems we find the best properties in foreclosure, bank owned foreclosures, investment properties for sale, handyman deals, fixer uppers, discount homes, distressed property, and buy them at great win-win prices for both us and the home seller.  We then pass these deals along to our preferred buyers who are looking for great investment properties or for just a great house to live in.", "", R.drawable.img2));
+        howItWorkList.add (new HowItWork (1, "Step 1", "Join our preferred buyers list and tell us what kinds of properties you are looking for.", "", R.drawable.img1));
+        howItWorkList.add (new HowItWork (2, "Step 2", "With our proprietary marketing systems we find the best properties at great prices and pass those deals onto you.", "", R.drawable.img2));
         howItWorkList.add (new HowItWork (3, "Step 3", "As soon as we have a new property under contract in your area, you will receive an immediate email alert allowing you to preview the property details and schedule a time to access the property.", "", R.drawable.img3));
-        howItWorkList.add (new HowItWork (4, "Step 4", "Once you have viewed the property with our Property Access Coordinator, you are eligible to place offers on our Available Properties.", "", R.drawable.img4));
+        howItWorkList.add (new HowItWork (4, "Step 4", "Once you have viewed the property  you are eligible to place an offer directly on our site.", "", R.drawable.img4));
 
         addBottomDots(0);
 

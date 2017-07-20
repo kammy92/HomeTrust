@@ -145,9 +145,9 @@ public class PropertyDetailActivity extends AppCompatActivity {
         initSlider ();
     
         if (intent.getBooleanExtra (AppConfigTags.PROPERTY_IS_FAVOURITE, false)) {
-            ivFavourite.setImageResource (R.drawable.ic_heart_filled1);
+            ivFavourite.setImageResource (R.drawable.ic_heart_filled);
         } else {
-            ivFavourite.setImageResource (R.drawable.ic_heart1);
+            ivFavourite.setImageResource (R.drawable.ic_heart);
         }
         setupViewPager (viewPager);
     }
@@ -244,11 +244,11 @@ public class PropertyDetailActivity extends AppCompatActivity {
             public void onClick (View v) {
                 if (isFavourite) {
                     isFavourite = false;
-                    ivFavourite.setImageResource (R.drawable.ic_heart1);
+                    ivFavourite.setImageResource (R.drawable.ic_heart);
                     updateFavouriteStatus (false, property_id);
                 } else {
                     isFavourite = true;
-                    ivFavourite.setImageResource (R.drawable.ic_heart_filled1);
+                    ivFavourite.setImageResource (R.drawable.ic_heart_filled);
                     updateFavouriteStatus (true, property_id);
                 }
             }
@@ -405,6 +405,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
             });
         }
     }
+    
     
     private void setupViewPager (ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter (getSupportFragmentManager ());
