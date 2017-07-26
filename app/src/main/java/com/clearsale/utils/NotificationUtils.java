@@ -18,6 +18,8 @@ import com.clearsale.activity.PropertyDetailActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class NotificationUtils {
 // Notification Type => 1=> new property add, 2=>, 3=>
 // Notification Style => 1=> simple_notification, 2=>inbox_style, 3=>big_text_style, 4=>big_picture_style, 5=> custom layout
@@ -52,12 +54,29 @@ public class NotificationUtils {
     
                 try {
                     JSONObject jsonObject = notification.getPayload ();
-        
+    
+    
+                    ArrayList<String> temp = new ArrayList<String> ();
+                    temp.add (notification.getImage_url ());
+                    
                     Intent notificationIntent = new Intent (mContext, PropertyDetailActivity.class);
+    
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_ID, jsonObject.getInt (AppConfigTags.PROPERTY_ID));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_ADDRESS, jsonObject.getString (AppConfigTags.PROPERTY_ADDRESS));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_ADDRESS2, jsonObject.getString (AppConfigTags.PROPERTY_ADDRESS2));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_AREA, jsonObject.getString (AppConfigTags.PROPERTY_AREA));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BATHROOMS, jsonObject.getString (AppConfigTags.PROPERTY_BATHROOMS));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BEDROOMS, jsonObject.getString (AppConfigTags.PROPERTY_BEDROOMS));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_PRICE, jsonObject.getString (AppConfigTags.PROPERTY_PRICE));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_STATUS, 1);
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BUILT_YEAR, jsonObject.getString (AppConfigTags.PROPERTY_BUILT_YEAR));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_IMAGES, temp);
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_IS_FAVOURITE, false);
+
                     notificationIntent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    pendingIntent = PendingIntent.getActivity (mContext, 0, notificationIntent, 0);
-        
+    
+                    pendingIntent = PendingIntent.getActivity (mContext, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    
                     new_property_small.setImageViewBitmap (R.id.ivNotificationTitle, Utils.textAsBitmap (mContext, notification.getTitle (), 18, Color.WHITE));
         
                     new_property_expanded.setImageViewBitmap (R.id.ivNotificationTitle, Utils.textAsBitmap (mContext, notification.getTitle (), 18, Color.WHITE));

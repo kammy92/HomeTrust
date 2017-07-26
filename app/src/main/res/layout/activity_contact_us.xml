@@ -154,7 +154,7 @@
                     android:gravity="top"
                     android:hint="@string/activity_contact_hint_message"
                     android:inputType="textMultiLine"
-                    android:lines="1"
+                    android:lines="3"
                     android:padding="@dimen/edittext_padding"
                     android:textColorHint="@color/hint_text_color"
                     android:textSize="@dimen/text_size_medium"

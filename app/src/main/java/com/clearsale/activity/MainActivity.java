@@ -169,6 +169,8 @@ public class MainActivity extends AppCompatActivity {
     }
     
     private void initData () {
+    
+    
         Bugsnag.init (this);
 
 //        if (LeakCanary.isInAnalyzerProcess (this)) {

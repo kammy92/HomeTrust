@@ -33,11 +33,8 @@ public class NotificationReceiver extends FirebaseMessagingService {
                 .setContentText(remoteMessage.getNotification().getBody())
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager)
-                        getSystemService(Context.NOTIFICATION_SERVICE);
-
+    
+        NotificationManager notificationManager = (NotificationManager) getSystemService (Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1410, notificationBuilder.build());
     }
 }

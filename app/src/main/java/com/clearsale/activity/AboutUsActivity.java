@@ -51,7 +51,52 @@ public class AboutUsActivity extends AppCompatActivity {
         Utils.setTypefaceToAllViews (this, rlBack);
     
     
-        String webview = "<p style=\"font-family: myFont; font-size: 14px; \" >ClearSale's parent company, HomeTrust, was founded in 2001 as a locally owned and operated real estate investment business run by a husband/wife team.  And 14 years later that’s still what we are.  Although we have now done over 300 buy/renovate/sell projects (what we call fix & flips), have a multi-million dollar single family rental portfolio that is growing quickly, and a wholesale business, we are, at our core, a small family run business that strives to create fantastic value for our customers every day. &nbsp;\n" +
+        String webview = "<div class=\"about-section\" id=\"about\" style=\"font-family: myFont; font-size: 14px;\">\n" +
+                "        <div class=\"container-fluid\">\n" +
+                "            <div class=\"clearfix\"></div>\n" +
+                "                <div class=\"col-md-12\">\n" +
+                "                    <div class=\"full-content about_right \">\n" +
+                "\n" +
+                "                        <p>ClearSale's parent company, HomeTrust, was founded in 2001 as a locally owned and operated real estate investment business run by a husband/wife team.  And 14 years later that’s still what we are.  Although we have now done over 300 buy/renovate/sell projects (what we call fix & flips), have a multi-million dollar single family rental portfolio that is growing quickly, and a wholesale business, we are, at our core, a small family run business that strives to create fantastic value for our customers every day.</p>\n" +
+                "                        <a href=\"http://www.bbb.org/denver/business-reviews/real-estate-services/hometrust-in-englewood-co-64008443\" >The BBB likes us too:  Check out our A+ Rating from the Denver Better Business Bureau.  Click here to view.\n" +
+                "                        </a></p>\n" +
+                "                        <p>\n" +
+                "                            This is where you come in</p>\n" +
+                "                        <p>\n" +
+                "                            We do tens of thousands of dollars of marketing each and every month, utilizing leading edge techniques, just to bring you the best wholesale deals in Metro Denver & Northern Colorado.</p>\n" +
+                "                        <p>\n" +
+                "                            To get our full list of wholesale priced investment properties&hellip; &nbsp;</p>\n" +
+                "                        <p>\n" +
+                "                            <span><a href=\"http://www.clearsale.com/csvbuyer\">&gt;&gt; >> Click here to join our Preferred Buyers List <<\n" +
+                "                                    &lt;&lt;</a></span></p>\n" +
+                "                        <p>\n" +
+                "                            Once you register you’ll be taken to our Metro Denver & Northern Colorado investment properties page. Whenever we get new properties we’ll put them up on that page and notify you by email.\n" +
+                "                        </p>\n" +
+                "                        <h5>Why Should You Work With Us?</h5>\n" +
+                "                        <p>\n" +
+                "                            We’ve already done the work and made the investments to generate a consistent stream of deeply discounted deals.  Because we come across so many great deals (30% – 50% below market value) we simply can’t buy and keep all of these properties ourselves.  \n" +
+                "                        </p>\n" +
+                "                        <h5>Real Estate Investors Looking For Rentals or Rehabs</h5>\n" +
+                "                        <p>\n" +
+                "                            If you’re a real estate investor and are looking for great rental properties that will generate cash flow or <strong> distressed properties</strong> to rehab and resell… we will find those properties for you.  Just tell us what your buying criteria is and we’ll custom search for properties that fit your needs. The beauty of it is you never pay for our service… we make our money by adding on a modest fee once you close on one of our properties.</p>\n" +
+                "                        <p>\n" +
+                "                            In the end, we’ve gotten to where we are today because we’ve focused on becoming really good at finding great deals and passing those deals off to people like you at a huge discount.  That’s all we do.  You can rest assured that we are a great company to work with… we’re just real people just like you.\n" +
+                "                        </p>\n" +
+                "                        <p>\n" +
+                "                            The Acquisitions Team,</p>\n" +
+                "                        <p>\n" +
+                "                            <span style=\"color: rgb(85, 85, 85); font-family: &quot;Helvetica Neue&quot;, Helvetica, sans-serif; font-size: 15px;\">ClearSale &amp; HomeTrust</span></p>\n" +
+                "                        <p>\n" +
+                "                            <span><a href=\"http://www.clearsale.com/csvbuyer\" style=\"margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: baseline; background: transparent; color: rgb(17, 17, 213); text-decoration: none;\" title=\"Complete Your Buyer Profile (Get On Our Priority List)\">&gt;&gt; Click here to join our Preferred Buyers List &lt;&lt;</a></span></p><br><br>\n" +
+                "                        <!--<h6>Call Us Today! 303-816-3170</span></h6>-->\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>";
+    
+    
+        String webview3 = "<p style=\"font-family: myFont; font-size: 14px; \" >ClearSale's parent company, HomeTrust, was founded in 2001 as a locally owned and operated real estate investment business run by a husband/wife team.  And 14 years later that’s still what we are.  Although we have now done over 300 buy/renovate/sell projects (what we call fix & flips), have a multi-million dollar single family rental portfolio that is growing quickly, and a wholesale business, we are, at our core, a small family run business that strives to create fantastic value for our customers every day. &nbsp;\n" +
                 "\t\t\t\t   <a href=\"http://www.bbb.org/denver/business-reviews/real-estate-services/hometrust-in-englewood-co-64008443\" >The BBB likes us too:  Check out our A+ Rating from the Denver Better Business Bureau.  Click here to view.\n" +
                 "</a></p>\n" +
                 "\t\t\t\t\t<p style=\"font-family: myFont; font-size: 14px;\">\n" +

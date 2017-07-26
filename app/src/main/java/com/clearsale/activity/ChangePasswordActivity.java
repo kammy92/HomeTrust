@@ -97,6 +97,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 } else if (!etNewPassword.getText().toString().trim().equalsIgnoreCase(etConfirmPassword.getText().toString().trim())) {
                     etConfirmPassword.setError(s4);
                 } else {
+                    Utils.hideSoftKeyboard (ChangePasswordActivity.this);
                     sendPasswordChangeDetailsToServer (etOldPassword.getText ().toString ().trim (), etNewPassword.getText ().toString ().trim ());
                 }
             }
@@ -181,7 +182,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                             public void run () {
                                                 finish ();
                                             }
-                                        }, 1000);
+                                        }, 4000);
 
                                     } else {
                                         Utils.showSnackBar(ChangePasswordActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);

@@ -71,6 +71,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 import static android.content.Context.ACTIVITY_SERVICE;
 
 /**
@@ -87,11 +90,11 @@ public class Utils {
         } else
             return 0;
     }
-
+    
     public static boolean isValidEmail2 (CharSequence target) {
         return ! TextUtils.isEmpty (target) && android.util.Patterns.EMAIL_ADDRESS.matcher (target).matches ();
     }
-
+    
     public static boolean isValidPassword (String password) {
         if (password.length () > 0) {
             return true;
@@ -99,15 +102,15 @@ public class Utils {
             return false;
         }
     }
-
+    
     public static Bitmap base64ToBitmap (String b64) {
         byte[] imageAsBytes = Base64.decode (b64.getBytes (), Base64.DEFAULT);
         return BitmapFactory.decodeByteArray (imageAsBytes, 0, imageAsBytes.length);
     }
-
+    
     public static String bitmapToBase64 (Bitmap bmp) {
         if (bmp != null) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream ();
             bmp.compress (Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] imageBytes = baos.toByteArray ();
             String encodedImage = Base64.encodeToString (imageBytes, Base64.DEFAULT);
@@ -116,17 +119,17 @@ public class Utils {
             return "";
         }
     }
-
+    
     public static String convertTimeFormat (String dateInOriginalFormat, String originalFormat, String requiredFormat) {
         if (dateInOriginalFormat != "null") {
-            SimpleDateFormat sdf = new SimpleDateFormat(originalFormat);//yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat (originalFormat);//yyyy-MM-dd");
             Date testDate = null;
             try {
                 testDate = sdf.parse (dateInOriginalFormat);
             } catch (Exception ex) {
                 ex.printStackTrace ();
             }
-            SimpleDateFormat formatter = new SimpleDateFormat(requiredFormat);
+            SimpleDateFormat formatter = new SimpleDateFormat (requiredFormat);
             String newFormat = formatter.format (testDate);
             return newFormat;
         } else {
@@ -154,12 +157,12 @@ public class Utils {
         AlertDialog alert = builder.create ();
         alert.show ();
         */
-
-
+    
+    
     public static void showSnackBar (Activity activity, CoordinatorLayout coordinatorLayout, String message, int duration, String button_text, View.OnClickListener onClickListener) {
         final Snackbar snackbar = Snackbar.make (coordinatorLayout, message, duration);
         snackbar.setAction (button_text, onClickListener);
-
+        
         View sbView = snackbar.getView ();
         sbView.setBackgroundColor (activity.getResources ().getColor (R.color.snackbar_background));
         TextView textView = (TextView) sbView.findViewById (android.support.design.R.id.snackbar_text);
@@ -170,7 +173,7 @@ public class Utils {
         textView2.setTypeface (SetTypeFace.getTypeface (activity));
         snackbar.show ();
     }
-
+    
     public static void showToast (Activity activity, String message, boolean duration_long) {
         if (duration_long) {
             Toast.makeText (activity, message, Toast.LENGTH_LONG).show ();
@@ -178,28 +181,27 @@ public class Utils {
             Toast.makeText (activity, message, Toast.LENGTH_SHORT).show ();
         }
     }
-
+    
     public static void setTypefaceToAllViews (Activity activity, View view) {
         Typeface tf = SetTypeFace.getTypeface (activity);
         SetTypeFace.applyTypeface (SetTypeFace.getParentView (view), tf);
     }
-
+    
     public static void showProgressDialog (ProgressDialog progressDialog, String message, boolean cancelable) {
         // Initialize the progressDialog before calling this function
         TextView tvMessage;
         progressDialog.show ();
-        progressDialog.getWindow ().setBackgroundDrawable (new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        progressDialog.getWindow ().setBackgroundDrawable (new ColorDrawable (android.graphics.Color.TRANSPARENT));
         progressDialog.setContentView (R.layout.progress_dialog);
         tvMessage = (TextView) progressDialog.findViewById (R.id.tvProgressDialogMessage);
         if (message != null) {
             tvMessage.setText (message);
             tvMessage.setVisibility (View.VISIBLE);
-        }
-        else
+        } else
             tvMessage.setVisibility (View.GONE);
         progressDialog.setCancelable (cancelable);
     }
-
+    
     public static void showLog (int log_type, String tag, String message, boolean show_flag) {
         if (Constants.show_log) {
             if (show_flag) {
@@ -226,11 +228,11 @@ public class Utils {
             }
         }
     }
-
+    
     public static void showErrorInEditText (EditText editText, String message) {
         editText.setError (message);
     }
-
+    
     public static void hideSoftKeyboard (Activity activity) {
         View view = activity.getCurrentFocus ();
         if (view != null) {
@@ -238,7 +240,7 @@ public class Utils {
             imm.hideSoftInputFromWindow (view.getWindowToken (), 0);
         }
     }
-
+    
     public static boolean isPackageExists (Activity activity, String targetPackage) {
         List<ApplicationInfo> packages;
         PackageManager pm;
@@ -250,7 +252,7 @@ public class Utils {
         }
         return false;
     }
-
+    
     public static void sendRequest (StringRequest strRequest, int timeout_seconds) {
         strRequest.setShouldCache (false);
         int timeout = timeout_seconds * 1000;
@@ -259,27 +261,27 @@ public class Utils {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
-
+    
     public static Bitmap compressBitmap (Bitmap bitmap, Activity activity) {
         int image_quality = 10; // 10
         int max_image_size = 320; // 320
-
+        
         Bitmap decoded = null;
         try {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            ByteArrayOutputStream out = new ByteArrayOutputStream ();
             if (NetworkConnection.isNetworkAvailable (activity)) {
                 bitmap.compress (Bitmap.CompressFormat.JPEG, image_quality, out);
             } else {
                 bitmap.compress (Bitmap.CompressFormat.JPEG, image_quality, out);
             }
-            decoded = Utils.scaleDown (BitmapFactory.decodeStream (new ByteArrayInputStream(out.toByteArray ())), max_image_size, true);
+            decoded = Utils.scaleDown (BitmapFactory.decodeStream (new ByteArrayInputStream (out.toByteArray ())), max_image_size, true);
         } catch (Exception e) {
             e.printStackTrace ();
             Utils.showLog (Log.ERROR, "EXCEPTION", e.getMessage (), true);
         }
         return decoded;
     }
-
+    
     public static Bitmap scaleDown (Bitmap realImage, float maxImageSize, boolean filter) {
         float ratio = Math.min ((float) maxImageSize / realImage.getWidth (), (float) maxImageSize / realImage.getHeight ());
         int width = Math.round ((float) ratio * realImage.getWidth ());
@@ -287,7 +289,7 @@ public class Utils {
         Bitmap newBitmap = Bitmap.createScaledBitmap (realImage, width, height, filter);
         return newBitmap;
     }
-
+    
     public static String getJSONFromAsset (Activity activity, String file_name) {
         String json = null;
         try {
@@ -296,16 +298,16 @@ public class Utils {
             byte[] buffer = new byte[size];
             is.read (buffer);
             is.close ();
-            json = new String(buffer, "UTF-8");
+            json = new String (buffer, "UTF-8");
         } catch (IOException ex) {
             ex.printStackTrace ();
             return null;
         }
         return json;
     }
-
+    
     public static int getHourFromServerTime () {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance ();
         try {
             calendar.setTime (simpleDateFormat.parse (Constants.server_time));
@@ -321,14 +323,14 @@ public class Utils {
         }
         return 0;
     }
-
+    
     public static float convertPixelsToDp (float px, Context context) {
         Resources resources = context.getResources ();
         DisplayMetrics metrics = resources.getDisplayMetrics ();
         float dp = px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return dp;
     }
-
+    
     public static boolean isEnoughMemory (Activity activity) {
         // Before doing something that requires a lot of memory,
         // check to see whether the device is in a low memory state.
@@ -340,7 +342,7 @@ public class Utils {
             return false;
         }
     }
-
+    
     private static ActivityManager.MemoryInfo getAvailableMemory (Activity activity) {
         ActivityManager activityManager = (ActivityManager) activity.getSystemService (ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo ();
@@ -371,29 +373,29 @@ public class Utils {
             MessageDigest digest = MessageDigest.getInstance ("MD5");
             digest.update (s.getBytes ());
             byte messageDigest[] = digest.digest ();
-
+    
             // Create Hex String
-            StringBuffer hexString = new StringBuffer();
+            StringBuffer hexString = new StringBuffer ();
             for (int i = 0; i < messageDigest.length; i++)
                 hexString.append (Integer.toHexString (0xFF & messageDigest[i]));
             return hexString.toString ();
-
+    
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace ();
         }
         return "";
     }
-
+    
     public static float dpFromPx (Context context, float px) {
         return px / context.getResources ().getDisplayMetrics ().density;
     }
-
+    
     public static float pxFromDp (Context context, float dp) {
         return dp * context.getResources ().getDisplayMetrics ().density;
     }
-
+    
     public static boolean dial (Context c) {
-        final Intent i = new Intent(Intent.ACTION_DIAL);
+        final Intent i = new Intent (Intent.ACTION_DIAL);
         i.setData (Uri.parse ("tel:" + "9873684678"));//+ c.getString (R.string.intent_number)));
 //        final Intent icc = Intent.createChooser (i, c.getString (R.string.intent_call));
         try {
@@ -403,11 +405,11 @@ public class Utils {
             return false;
         }
     }
-
+    
     public static boolean sendMail (Context c) {
         final String mail = "karman.singhh@gmail.com";//c.getString (R.string.intent_mail);
         final Uri u = Uri.fromParts ("mailto", mail, null);
-        final Intent i = new Intent(Intent.ACTION_SENDTO, u);
+        final Intent i = new Intent (Intent.ACTION_SENDTO, u);
 //        final Intent icc = Intent.createChooser (i, c.getString (R.string.intent_mail_tit));
         try {
 //            c.startActivity (icc);
@@ -416,7 +418,7 @@ public class Utils {
             return false;
         }
     }
-
+    
     public static String getAutoCompleteUrl (String place) {
         // Obtain browser key from https://code.google.com/apis/console
         String key = "key=AIzaSyAxfILlKxFzEN-K5y2hwm4NdvGjKleUa60";
@@ -435,7 +437,7 @@ public class Utils {
         String url = "https://maps.googleapis.com/maps/api/place/autocomplete/" + output + "?" + parameters;
         return url;
     }
-
+    
     public static String getPlaceDetailsUrl (String ref) {
         // Obtain browser key from https://code.google.com/apis/console
         String key = "key=AIzaSyAxfILlKxFzEN-K5y2hwm4NdvGjKleUa60";
@@ -452,21 +454,21 @@ public class Utils {
         Log.d ("URL", "" + url);
         return url;
     }
-
+    
     public static String downloadUrl (String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
         try {
-            URL url = new URL(strUrl);
+            URL url = new URL (strUrl);
             // Creating an http connection to communicate with url
             urlConnection = (HttpURLConnection) url.openConnection ();
             // Connecting to url
             urlConnection.connect ();
             // Reading data from url
             iStream = urlConnection.getInputStream ();
-            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
-            StringBuffer sb = new StringBuffer();
+            BufferedReader br = new BufferedReader (new InputStreamReader (iStream));
+            StringBuffer sb = new StringBuffer ();
             String line = "";
             while ((line = br.readLine ()) != null) {
                 sb.append (line);
@@ -481,47 +483,47 @@ public class Utils {
         }
         return data;
     }
-
+    
     public static void initAdapter (Activity activity, RecyclerView.Adapter<RecyclerView.ViewHolder> adapter, RecyclerView recyclerView, boolean divider, @Nullable SwipeRefreshLayout swipeRefreshLayout) {
         recyclerView.setAdapter (adapter);
         recyclerView.setHasFixedSize (true);
-        recyclerView.setLayoutManager (new LinearLayoutManager(activity));
-
+        recyclerView.setLayoutManager (new LinearLayoutManager (activity));
+        
         if (divider) {
-
+    
         } else {
-            recyclerView.setItemAnimator (new DefaultItemAnimator());
+            recyclerView.setItemAnimator (new DefaultItemAnimator ());
         }
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setColorSchemeResources (R.color.primary);
         }
     }
-
+    
     public static void turnGPSOn (Activity activity) {
         String provider = Settings.Secure.getString (activity.getContentResolver (), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-
+        
         if (! provider.contains ("gps")) { //if gps is disabled
-            final Intent poke = new Intent();
+            final Intent poke = new Intent ();
             poke.setClassName ("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
             poke.addCategory (Intent.CATEGORY_ALTERNATIVE);
             poke.setData (Uri.parse ("3"));
             activity.sendBroadcast (poke);
         }
     }
-
+    
     public static void turnGPSOff (Activity activity) {
         String provider = Settings.Secure.getString (activity.getContentResolver (), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-
+        
         if (provider.contains ("gps")) { //if gps is enabled
-            final Intent poke = new Intent();
+            final Intent poke = new Intent ();
             poke.setClassName ("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
             poke.addCategory (Intent.CATEGORY_ALTERNATIVE);
             poke.setData (Uri.parse ("3"));
             activity.sendBroadcast (poke);
         }
     }
-
-
+    
+    
     public static int isValidMobile (String phone2) {
         int number_status = 0;
         String first_char = "";
@@ -557,7 +559,7 @@ public class Utils {
     public static boolean isValidEmail1 (String emailInput) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
+    
         Pattern pattern = Pattern.compile (EMAIL_PATTERN);
         Matcher matcher = pattern.matcher (emailInput);
         return matcher.matches ();
@@ -696,5 +698,34 @@ public class Utils {
                 }
             }
         });
+    }
+    
+    
+    public static String encrypt (String input) {
+        String key = "2345678234567823";
+        byte[] crypted = null;
+        try {
+            SecretKeySpec skey = new SecretKeySpec (key.getBytes (), "AES");
+            Cipher cipher = Cipher.getInstance ("AES/ECB/PKCS5Padding");
+            cipher.init (Cipher.ENCRYPT_MODE, skey);
+            crypted = cipher.doFinal (input.getBytes ());
+        } catch (Exception e) {
+            System.out.println (e.toString ());
+        }
+        return new String (Base64.encode (crypted, 0));
+    }
+    
+    public static String decrypt (String input) {
+        String key = "2345678234567823";
+        byte[] output = null;
+        try {
+            SecretKeySpec skey = new SecretKeySpec (key.getBytes (), "AES");
+            Cipher cipher = Cipher.getInstance ("AES/ECB/PKCS5Padding");
+            cipher.init (Cipher.DECRYPT_MODE, skey);
+            output = cipher.doFinal (Base64.decode (input, 0));
+        } catch (Exception e) {
+            System.out.println (e.toString ());
+        }
+        return new String (output);
     }
 }

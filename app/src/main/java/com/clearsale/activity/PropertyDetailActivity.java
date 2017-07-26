@@ -106,11 +106,10 @@ public class PropertyDetailActivity extends AppCompatActivity {
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BEDROOM, intent.getStringExtra (AppConfigTags.PROPERTY_BEDROOMS));
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BATHROOM, intent.getStringExtra (AppConfigTags.PROPERTY_BATHROOMS));
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AREA, intent.getStringExtra (AppConfigTags.PROPERTY_AREA));
-    
+
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, intent.getIntExtra (AppConfigTags.PROPERTY_STATUS, 0));
     
         bannerList = intent.getStringArrayListExtra (AppConfigTags.PROPERTY_IMAGES);
-    
     
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_STATE, "");
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE, "");
@@ -131,17 +130,22 @@ public class PropertyDetailActivity extends AppCompatActivity {
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_ID, 0);
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_TOUR_STATUS, 0);
     
-        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, intent.getStringArrayListExtra (AppConfigTags.PROPERTY_IMAGES).size ());
+        try {
+            propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, intent.getStringArrayListExtra (AppConfigTags.PROPERTY_IMAGES).size ());
+        } catch (Exception e) {
+            propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, 0);
+        }
 
 
 //        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES, jsonArrayPropertyImages.toString ());
 //        propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGE_COUNT, jsonArrayPropertyImages.length ());
-
+//
 //        for (int j = 0; j < jsonArrayPropertyImages.length (); j++) {
 //            JSONObject jsonObjectImages = jsonArrayPropertyImages.getJSONObject (j);
 //            bannerList.add (jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
 ////                                            propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_IMAGES + j, jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
 //        }
+    
         initSlider ();
     
         if (intent.getBooleanExtra (AppConfigTags.PROPERTY_IS_FAVOURITE, false)) {
@@ -257,21 +261,22 @@ public class PropertyDetailActivity extends AppCompatActivity {
     
     private void initSlider () {
         slider.removeAllSliders ();
-        for (int i = 0; i < bannerList.size (); i++) {
-            String image = bannerList.get (i);
-            CustomImageSlider slider2 = new CustomImageSlider (this);
-            final int k = i;
-            slider2
-                    .image (image)
-                    .setScaleType (BaseSliderView.ScaleType.CenterCrop)
-                    .setOnSliderClickListener (new BaseSliderView.OnSliderClickListener () {
-                        @Override
-                        public void onSliderClick (BaseSliderView slider) {
-                            Intent intent = new Intent (PropertyDetailActivity.this, PropertyImageActivity.class);
-                            intent.putExtra ("position", k);
-                            startActivity (intent);
-                        }
-                    });
+        try {
+            for (int i = 0; i < bannerList.size (); i++) {
+                String image = bannerList.get (i);
+                CustomImageSlider slider2 = new CustomImageSlider (this);
+                final int k = i;
+                slider2
+                        .image (image)
+                        .setScaleType (BaseSliderView.ScaleType.CenterCrop)
+                        .setOnSliderClickListener (new BaseSliderView.OnSliderClickListener () {
+                            @Override
+                            public void onSliderClick (BaseSliderView slider) {
+                                Intent intent = new Intent (PropertyDetailActivity.this, PropertyImageActivity.class);
+                                intent.putExtra ("position", k);
+                                startActivity (intent);
+                            }
+                        });
 
 //            DefaultSliderView defaultSliderView = new DefaultSliderView (activity);
 //            defaultSliderView
@@ -288,9 +293,12 @@ public class PropertyDetailActivity extends AppCompatActivity {
 //                    });
 //
 //            defaultSliderView.bundle (new Bundle ());
-            // defaultSliderView.getBundle ().putString ("extra", String.valueOf (s));
+                // defaultSliderView.getBundle ().putString ("extra", String.valueOf (s));
 //            holder.slider.addSlider (defaultSliderView);
-            slider.addSlider (slider2);
+                slider.addSlider (slider2);
+            }
+        } catch (Exception e) {
+            e.printStackTrace ();
         }
         
         slider.setIndicatorVisibility (PagerIndicator.IndicatorVisibility.Invisible);
@@ -544,6 +552,14 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 JSONObject jsonObj = new JSONObject (params[0]);
                 JSONArray jsonArrayPropertyImages = jsonObj.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
                 SharedPreferences.Editor editor = getSharedPreferences ("PROPERTY_DETAILS", Context.MODE_PRIVATE).edit ();
+                editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS1, jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS));
+                editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS2, jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS2));
+                editor.putString (PropertyDetailsPref.PROPERTY_BEDROOM, jsonObj.getString (AppConfigTags.PROPERTY_BEDROOMS));
+                editor.putString (PropertyDetailsPref.PROPERTY_BATHROOM, jsonObj.getString (AppConfigTags.PROPERTY_BATHROOMS));
+                editor.putString (PropertyDetailsPref.PROPERTY_AREA, jsonObj.getString (AppConfigTags.PROPERTY_AREA));
+                editor.putString (PropertyDetailsPref.PROPERTY_PRICE, jsonObj.getString (AppConfigTags.PROPERTY_PRICE));
+                editor.putString (PropertyDetailsPref.PROPERTY_YEAR_BUILD, jsonObj.getString (AppConfigTags.PROPERTY_BUILT_YEAR));
+    
                 editor.putString (PropertyDetailsPref.PROPERTY_STATE, jsonObj.getString (AppConfigTags.PROPERTY_STATE));
                 editor.putString (PropertyDetailsPref.PROPERTY_LATITUDE, jsonObj.getString (AppConfigTags.LATITUDE));
                 editor.putString (PropertyDetailsPref.PROPERTY_LONGITUDE, jsonObj.getString (AppConfigTags.LONGITUDE));
@@ -563,7 +579,22 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 editor.putInt (PropertyDetailsPref.PROPERTY_IMAGE_COUNT, jsonArrayPropertyImages.length ());
     
                 editor.apply ();
-
+    
+                if (jsonObj.getBoolean (AppConfigTags.PROPERTY_IS_FAVOURITE)) {
+                    runOnUiThread (new Runnable () {
+                        @Override
+                        public void run () {
+                            ivFavourite.setImageResource (R.drawable.ic_heart_filled);
+                        }
+                    });
+                } else {
+                    runOnUiThread (new Runnable () {
+                        @Override
+                        public void run () {
+                            ivFavourite.setImageResource (R.drawable.ic_heart);
+                        }
+                    });
+                }
 
 //                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_STATE, jsonObj.getString (AppConfigTags.PROPERTY_STATE));
 //                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE, jsonObj.getString (AppConfigTags.LATITUDE));
@@ -594,6 +625,8 @@ public class PropertyDetailActivity extends AppCompatActivity {
                     bannerList.add (jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
                 }
             } catch (JSONException e) {
+                e.printStackTrace ();
+            } catch (Exception e) {
                 e.printStackTrace ();
             }
             return "Executed";
