@@ -35,6 +35,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.clearsale.R;
+import com.clearsale.activity.PlaceOfferActivity;
 import com.clearsale.activity.ScheduleTourActivity;
 import com.clearsale.utils.AppConfigTags;
 import com.clearsale.utils.AppConfigURL;
@@ -434,7 +435,12 @@ public class OverviewFragment extends Fragment {
         tv4.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
-                PlaceOffer ();
+                //  PlaceOffer ();
+                Intent placeOffer = new Intent (getActivity (), PlaceOfferActivity.class);
+                placeOffer.putExtra (AppConfigTags.PROPERTY_ID, propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_ID));
+                placeOffer.putExtra (AppConfigTags.BUYER_ID, buyerDetailsPref.getIntPref (getActivity (), BuyerDetailsPref.BUYER_ID));
+                startActivity (placeOffer);
+                getActivity ().overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
             }
             
         });

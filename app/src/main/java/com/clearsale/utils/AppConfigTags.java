@@ -27,6 +27,7 @@ public class AppConfigTags {
     public static String EMAIL = "email";
     public static String MOBILE = "mobile";
     public static String MESSAGE = "message";
+    public static String ABOUT_US = "about_us";
     
     public static String PROPERTY_ID = "property_id";
     public static String PROPERTY_ADDRESS = "property_address";

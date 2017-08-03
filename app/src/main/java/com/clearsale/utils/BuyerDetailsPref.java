@@ -17,6 +17,7 @@ public class BuyerDetailsPref {
     public static String PROFILE_HOME_TYPE = "profile_home_type";
     public static String PROFILE_STATE = "profile_state";
     public static String PROFILE_PRICE_RANGE = "profile_price_range";
+    public static String ABOUT_US = "about_us";
     private static BuyerDetailsPref buyerDetailsPref;
     private String BUYER_DETAILS = "BUYER_DETAILS";
     

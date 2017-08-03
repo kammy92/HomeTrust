@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
 import com.clearsale.R;
+import com.clearsale.utils.BuyerDetailsPref;
 import com.clearsale.utils.Constants;
 import com.clearsale.utils.Utils;
 
@@ -27,6 +28,7 @@ public class AboutUsActivity extends AppCompatActivity {
    // TextView tvHyperlink;
     RelativeLayout rlBack;
     WebView webViewAboutUs;
+    BuyerDetailsPref buyerDetailsPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +48,14 @@ public class AboutUsActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        buyerDetailsPref = BuyerDetailsPref.getInstance ();
         collapsingToolbarLayout.setTitleEnabled (false);
         appBar.setExpanded (true);
         Utils.setTypefaceToAllViews (this, rlBack);
     
+        String webview = buyerDetailsPref.getStringPref (this, BuyerDetailsPref.ABOUT_US);
     
-        String webview = "<div class=\"about-section\" id=\"about\" style=\"font-family: myFont; font-size: 14px;\">\n" +
+        /*String webview = "<div class=\"about-section\" id=\"about\" style=\"font-family: myFont; font-size: 14px;\">\n" +
                 "        <div class=\"container-fluid\">\n" +
                 "            <div class=\"clearfix\"></div>\n" +
                 "                <div class=\"col-md-12\">\n" +
@@ -94,7 +98,7 @@ public class AboutUsActivity extends AppCompatActivity {
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>";
-    
+    */
     
         String webview3 = "<p style=\"font-family: myFont; font-size: 14px; \" >ClearSale's parent company, HomeTrust, was founded in 2001 as a locally owned and operated real estate investment business run by a husband/wife team.  And 14 years later that’s still what we are.  Although we have now done over 300 buy/renovate/sell projects (what we call fix & flips), have a multi-million dollar single family rental portfolio that is growing quickly, and a wholesale business, we are, at our core, a small family run business that strives to create fantastic value for our customers every day. &nbsp;\n" +
                 "\t\t\t\t   <a href=\"http://www.bbb.org/denver/business-reviews/real-estate-services/hometrust-in-englewood-co-64008443\" >The BBB likes us too:  Check out our A+ Rating from the Denver Better Business Bureau.  Click here to view.\n" +

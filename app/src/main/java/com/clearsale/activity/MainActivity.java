@@ -435,6 +435,7 @@ public class MainActivity extends AppCompatActivity {
                                     boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
                                     if (! error) {
+                                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.ABOUT_US, jsonObj.getString (AppConfigTags.ABOUT_US));
                                         JSONArray jsonArrayCities = jsonObj.getJSONArray (AppConfigTags.CITIES);
                                         filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_CITIES_JSON, jsonArrayCities.toString ());
                                         String cities = "";
