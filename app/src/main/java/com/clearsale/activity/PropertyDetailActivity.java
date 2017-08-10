@@ -421,9 +421,10 @@ public class PropertyDetailActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment (new CompsFragment (), "COMPS");
         viewPager.setAdapter (viewPagerAdapter);
     }
-    
+
     @Override
-    public void onBackPressed () {
+    public void onDestroy () {
+        super.onDestroy ();
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID, 0);
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1, "");
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2, "");
@@ -448,7 +449,15 @@ public class PropertyDetailActivity extends AppCompatActivity {
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_ID, 0);
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, 0);
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_TOUR_STATUS, "");
-        
+    
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_WORK_SCOPE, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT, "");
+        propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_CLOSING_DETAILS, "");
+    
+    }
+    
+    @Override
+    public void onBackPressed () {
         finish ();
         overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
     }
@@ -573,6 +582,10 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 editor.putString (PropertyDetailsPref.PROPERTY_COMPS_ADDRESSES, jsonObj.getJSONArray (AppConfigTags.PROPERTY_COMPS_ADDRESSES).toString ());
                 editor.putString (PropertyDetailsPref.PROPERTY_IMAGES, jsonArrayPropertyImages.toString ());
     
+                editor.putString (PropertyDetailsPref.PROPERTY_WORK_SCOPE, jsonObj.getString (AppConfigTags.PROPERTY_WORK_SCOPE));
+                editor.putString (PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT, jsonObj.getString (AppConfigTags.PROPERTY_FINISHED_PRODUCT));
+                editor.putString (PropertyDetailsPref.PROPERTY_CLOSING_DETAILS, jsonObj.getString (AppConfigTags.PROPERTY_CLOSING_DETAILS));
+                
                 editor.putInt (PropertyDetailsPref.PROPERTY_AUCTION_ID, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_ID));
                 editor.putInt (PropertyDetailsPref.PROPERTY_AUCTION_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_BID_AUCTION_STATUS));
                 editor.putInt (PropertyDetailsPref.PROPERTY_TOUR_STATUS, jsonObj.getInt (AppConfigTags.PROPERTY_TOUR_STATUS));

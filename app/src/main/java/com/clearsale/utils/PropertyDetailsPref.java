@@ -32,6 +32,10 @@ public class PropertyDetailsPref {
     
     public static String PROPERTY_TOUR_STATUS = "tour_status";
     
+    public static String PROPERTY_WORK_SCOPE = "property_work_scope";
+    public static String PROPERTY_FINISHED_PRODUCT = "property_finished_product";
+    public static String PROPERTY_CLOSING_DETAILS = "property_closing_details";
+    
     private static PropertyDetailsPref propertyDetailsPref;
     private String PROPERTY_DETAILS = "PROPERTY_DETAILS";
     

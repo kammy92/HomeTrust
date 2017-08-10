@@ -54,6 +54,7 @@ import java.util.Map;
 
 import static com.clearsale.R.id.cardview3;
 import static com.clearsale.R.id.cardview8;
+import static com.clearsale.R.id.cardviewWorkScope;
 
 
 /**
@@ -67,7 +68,7 @@ public class OverviewFragment extends Fragment {
     // WebView webView;
     WebView webView;
     WebSettings webSettings;
-    
+
     TextView tvYear;
     TextView tvBedroom;
     TextView tvBathroom;
@@ -121,19 +122,46 @@ public class OverviewFragment extends Fragment {
     EditText etOfferUsd;
     RelativeLayout rlDescription;
     LinearLayout llLoading;
-    
+
     RelativeLayout rlKeyDetails;
     TableLayout llLoading2;
-    
+
     RelativeLayout rlRealtor;
     LinearLayout llLoading3;
-    
+
     RelativeLayout rlPossession;
     LinearLayout llLoading4;
     
+    RelativeLayout rlWorkScopeMain;
+    RelativeLayout rlWorkScope;
+    TextView tvWorkScopeText;
+    CardView cardViewWorkScope;
+    Button btShowMoreWorkScope;
+    WebView webViewWorkScope;
+    LinearLayout llLoadingWorkScope;
+    boolean showWorkScope = true;
+    
+    RelativeLayout rlFinishedProductMain;
+    RelativeLayout rlFinishedProduct;
+    TextView tvFinishedProductText;
+    CardView cardViewFinishedProduct;
+    Button btShowMoreFinishedProduct;
+    WebView webViewFinishedProduct;
+    LinearLayout llLoadingFinishedProduct;
+    boolean showFinishedProduct = true;
+    
+    RelativeLayout rlClosingDetailsMain;
+    RelativeLayout rlClosingDetails;
+    TextView tvClosingDetailsText;
+    CardView cardViewClosingDetails;
+    Button btShowMoreClosingDetails;
+    WebView webViewClosingDetails;
+    LinearLayout llLoadingClosingDetails;
+    boolean showClosingDetails = true;
+
     Animation animation1, animation2;
     private View positiveAction;
-    
+
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate (R.layout.fragment_overview, container, false);
@@ -143,14 +171,14 @@ public class OverviewFragment extends Fragment {
         //    getOverviewData();
         return rootView;
     }
-    
+
     private void initView (View rootView) {
         tv4 = (TextView) rootView.findViewById (R.id.tv4);
-        
+
         cardView3 = (CardView) rootView.findViewById (cardview3);
         rlDescription = (RelativeLayout) rootView.findViewById (R.id.rlDescription);
         btShowMore = (Button) rootView.findViewById (R.id.btShowMore);
-        
+
         tvYear = (TextView) rootView.findViewById (R.id.tvYear);
         tvBedroom = (TextView) rootView.findViewById (R.id.tvBedroom);
         tvBathroom = (TextView) rootView.findViewById (R.id.tvBathroom);
@@ -159,7 +187,7 @@ public class OverviewFragment extends Fragment {
         tvAddress1 = (TextView) rootView.findViewById (R.id.tvAddress1);
         tvAddress2 = (TextView) rootView.findViewById (R.id.tvAddress2);
         tvSqFeet = (TextView) rootView.findViewById (R.id.tvSqFeet);
-        
+
         tvScheduleTour = (TextView) rootView.findViewById (R.id.tvScheduleTour);
         tvOverView = (TextView) rootView.findViewById (R.id.tvOverView);
         webView = (WebView) rootView.findViewById (R.id.webView1);
@@ -168,14 +196,14 @@ public class OverviewFragment extends Fragment {
         tvSubmit = (TextView) rootView.findViewById (R.id.tvSubmit);
         progressDialog = new ProgressDialog (getActivity ());
         cvPropertyOffer = (CardView) rootView.findViewById (R.id.cardview2);
-        
+
         cardview4 = (CardView) rootView.findViewById (R.id.cardview4);
         rlRealtor = (RelativeLayout) rootView.findViewById (R.id.rlRealtor);
         webViewRealtor = (WebView) rootView.findViewById (R.id.webViewRealtor);
         tv6 = (TextView) rootView.findViewById (R.id.tv6);
         // clMain = (CoordinatorLayout)rootView.findViewById(R.id.clMain);
-        
-        
+    
+    
         tvType = (TextView) rootView.findViewById (R.id.tvKeyType);
         tvKeyZoining = (TextView) rootView.findViewById (R.id.tvKeyZoining);
         tvKeyRentalFix = (TextView) rootView.findViewById (R.id.tvKeyRentalFix);
@@ -187,40 +215,69 @@ public class OverviewFragment extends Fragment {
         tvFixEstimate = (TextView) rootView.findViewById (R.id.tvFixEstimate);
         tvLotSize = (TextView) rootView.findViewById (R.id.tvLotSize);
         tvTotalSquareFeet = (TextView) rootView.findViewById (R.id.tvTotalSquareFeet);
-        
+
         rlKeyDetails = (RelativeLayout) rootView.findViewById (R.id.rlKeyDetails);
         webViewKeyDetail = (WebView) rootView.findViewById (R.id.webViewKeyDetail);
         btShowMoreKeyDetail = (Button) rootView.findViewById (R.id.btShowMoreKeyDetail);
         cardview6 = (CardView) rootView.findViewById (R.id.cardview6);
         tv7 = (TextView) rootView.findViewById (R.id.tv7);
-        
+
         rlPossession = (RelativeLayout) rootView.findViewById (R.id.rlPossession);
         webViewAccessPossession = (WebView) rootView.findViewById (R.id.webViewAccessPossession);
         btShowMoreAccessPossession = (Button) rootView.findViewById (R.id.btShowMoreAccessPossession);
         cardView8 = (CardView) rootView.findViewById (cardview8);
         tv8 = (TextView) rootView.findViewById (R.id.tv8);
-        
+    
+        rlWorkScopeMain = (RelativeLayout) rootView.findViewById (R.id.rlWorkScopeMain);
+        rlWorkScope = (RelativeLayout) rootView.findViewById (R.id.rlWorkScope);
+        webViewWorkScope = (WebView) rootView.findViewById (R.id.webViewWorkScope);
+        btShowMoreWorkScope = (Button) rootView.findViewById (R.id.btShowMoreWorkScope);
+        cardViewWorkScope = (CardView) rootView.findViewById (cardviewWorkScope);
+        tvWorkScopeText = (TextView) rootView.findViewById (R.id.tvWorkScopeText);
+        llLoadingWorkScope = (LinearLayout) rootView.findViewById (R.id.llLoadingWorkScope);
+    
+        rlFinishedProductMain = (RelativeLayout) rootView.findViewById (R.id.rlFinishedProductMain);
+        rlFinishedProduct = (RelativeLayout) rootView.findViewById (R.id.rlFinishedProduct);
+        webViewFinishedProduct = (WebView) rootView.findViewById (R.id.webViewFinishedProduct);
+        btShowMoreFinishedProduct = (Button) rootView.findViewById (R.id.btShowMoreFinishedProduct);
+        cardViewFinishedProduct = (CardView) rootView.findViewById (R.id.cardviewFinishedProduct);
+        tvFinishedProductText = (TextView) rootView.findViewById (R.id.tvFinishedProductText);
+        llLoadingFinishedProduct = (LinearLayout) rootView.findViewById (R.id.llLoadingFinishedProduct);
+    
+        rlClosingDetailsMain = (RelativeLayout) rootView.findViewById (R.id.rlClosingDetailsMain);
+        rlClosingDetails = (RelativeLayout) rootView.findViewById (R.id.rlClosingDetails);
+        webViewClosingDetails = (WebView) rootView.findViewById (R.id.webViewClosingDetails);
+        btShowMoreClosingDetails = (Button) rootView.findViewById (R.id.btShowMoreClosingDetails);
+        cardViewClosingDetails = (CardView) rootView.findViewById (R.id.cardviewClosingDetails);
+        tvClosingDetailsText = (TextView) rootView.findViewById (R.id.tvClosingDetailsText);
+        llLoadingClosingDetails = (LinearLayout) rootView.findViewById (R.id.llLoadingClosingDetails);
+
         llLoading = (LinearLayout) rootView.findViewById (R.id.llLoading);
         llLoading2 = (TableLayout) rootView.findViewById (R.id.llLoading2);
         llLoading3 = (LinearLayout) rootView.findViewById (R.id.llLoading3);
         llLoading4 = (LinearLayout) rootView.findViewById (R.id.llLoading4);
     }
-    
+
     private void initData () {
         buyerDetailsPref = BuyerDetailsPref.getInstance ();
         propertyDetailsPref = PropertyDetailsPref.getInstance ();
-    
+
         animation1 = new AlphaAnimation (0.5f, 1.0f);
         animation1.setDuration (2000);
         animation2 = new AlphaAnimation (1.0f, 0.5f);
         animation2.setDuration (2000);
-        
+
         llLoading.startAnimation (animation2);
         llLoading2.startAnimation (animation2);
         llLoading3.startAnimation (animation2);
         llLoading4.startAnimation (animation2);
+        llLoadingWorkScope.startAnimation (animation2);
+        llLoadingFinishedProduct.startAnimation (animation2);
+        llLoadingClosingDetails.startAnimation (animation2);
     
-        
+        //  llLoadingWorkScope.startAnimation(animation2);
+
+
         tvYear.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_YEAR_BUILD));
         tvAddress1.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ADDRESS1));
         tvAddress2.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ADDRESS2));
@@ -260,7 +317,7 @@ public class OverviewFragment extends Fragment {
                 tvStatus.setText ("Offer Window Closing");
                 break;
         }
-        
+    
         if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ARV).length () > 0) {
             SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ARV));
             webView.loadDataWithBaseURL ("www.google.com", spannableStringBuilder.toString (), "text/html", "UTF-8", "");
@@ -284,18 +341,44 @@ public class OverviewFragment extends Fragment {
         } else {
             rlRealtor.setVisibility (View.GONE);
         }
-    
-        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR).length () > 0) {
+
+       /* if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR).length () > 0) {
             SpannableStringBuilder spannableAccessPossession = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ACCESS));
             webViewAccessPossession.loadDataWithBaseURL ("www.google.com", spannableAccessPossession.toString (), "text/html", "UTF-8", "");
             rlPossession.setVisibility (View.VISIBLE);
         } else {
             rlPossession.setVisibility (View.GONE);
+        }*/
+        Log.e ("WORKSCOPE", propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE));
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE).length () > 0) {
+            SpannableStringBuilder spannableAccessWorkScope = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE));
+            webViewWorkScope.loadDataWithBaseURL ("www.google.com", spannableAccessWorkScope.toString (), "text/html", "UTF-8", "");
+            rlWorkScopeMain.setVisibility (View.VISIBLE);
+        } else {
+            rlWorkScopeMain.setVisibility (View.GONE);
+        }
+    
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT).length () > 0) {
+            SpannableStringBuilder spannableAccessFinishedProduct = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT));
+            webViewFinishedProduct.loadDataWithBaseURL ("www.google.com", spannableAccessFinishedProduct.toString (), "text/html", "UTF-8", "");
+            rlFinishedProductMain.setVisibility (View.VISIBLE);
+        } else {
+            rlFinishedProductMain.setVisibility (View.GONE);
         }
     
     
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS).length () > 0) {
+            SpannableStringBuilder spannableAccessClosingDetails = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS));
+            webViewClosingDetails.loadDataWithBaseURL ("www.google.com", spannableAccessClosingDetails.toString (), "text/html", "UTF-8", "");
+            rlClosingDetailsMain.setVisibility (View.VISIBLE);
+        } else {
+            rlClosingDetailsMain.setVisibility (View.GONE);
+        }
+
+
+
         Utils.setTypefaceToAllViews (getActivity (), tvSubmit);
-        
+    
         if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_STATUS) == 1) {
             tv4.setVisibility (View.VISIBLE);
             cvPropertyOffer.setVisibility (View.VISIBLE);
@@ -303,7 +386,7 @@ public class OverviewFragment extends Fragment {
             tv4.setVisibility (View.GONE);
             cvPropertyOffer.setVisibility (View.GONE);
         }
-        
+    
         if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1) {
             tvScheduleTour.setVisibility (View.VISIBLE);
         } else {
@@ -435,12 +518,13 @@ public class OverviewFragment extends Fragment {
         tv4.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
-                //  PlaceOffer ();
+                //    PlaceOffer ();
                 Intent placeOffer = new Intent (getActivity (), PlaceOfferActivity.class);
                 placeOffer.putExtra (AppConfigTags.PROPERTY_ID, propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_ID));
                 placeOffer.putExtra (AppConfigTags.BUYER_ID, buyerDetailsPref.getIntPref (getActivity (), BuyerDetailsPref.BUYER_ID));
                 startActivity (placeOffer);
                 getActivity ().overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
+    
             }
             
         });
@@ -509,8 +593,170 @@ public class OverviewFragment extends Fragment {
         });
         
         
+        btShowMoreWorkScope.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                if (showWorkScope) {
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardview4.setLayoutParams (params);
+                    btShowMoreWorkScope.setText ("LESS");
+                    showWorkScope = false;
+                    
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                            params.addRule (RelativeLayout.BELOW, R.id.tvWorkScopeText);
+                            params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                            cardViewWorkScope.setLayoutParams (params);
+                        }
+                    };
+                    a.setDuration (1500); // in ms
+                    cardViewWorkScope.startAnimation (a);
+                } else {
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardview4.setLayoutParams (params);
+                    btShowMoreWorkScope.setText ("MORE");
+                    showWorkScope = true;
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            if ((1.0f - interpolatedTime) < 1.0f) {
+                                if ((cardViewWorkScope.getHeight () * (1.0f - interpolatedTime)) <= Utils.pxFromDp (getActivity (), 200.0f)) {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tvWorkScopeText);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardViewWorkScope.setLayoutParams (params);
+                                } else {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (cardViewWorkScope.getHeight () * (1.0f - interpolatedTime)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tvWorkScopeText);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardViewWorkScope.setLayoutParams (params);
+                                }
+                            }
+                        }
+                    };
+                    a.setDuration (2000); // in ms
+                    cardViewWorkScope.startAnimation (a);
+                }
+            }
+        });
+        
+        
+        btShowMoreFinishedProduct.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                if (showFinishedProduct) {
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardview4.setLayoutParams (params);
+                    btShowMoreFinishedProduct.setText ("LESS");
+                    showFinishedProduct = false;
+                    
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                            params.addRule (RelativeLayout.BELOW, R.id.tvFinishedProductText);
+                            params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                            cardViewFinishedProduct.setLayoutParams (params);
+                        }
+                    };
+                    a.setDuration (1500); // in ms
+                    cardViewFinishedProduct.startAnimation (a);
+                } else {
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardview4.setLayoutParams (params);
+                    btShowMoreFinishedProduct.setText ("MORE");
+                    showFinishedProduct = true;
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            if ((1.0f - interpolatedTime) < 1.0f) {
+                                if ((cardViewFinishedProduct.getHeight () * (1.0f - interpolatedTime)) <= Utils.pxFromDp (getActivity (), 200.0f)) {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tvFinishedProductText);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardViewFinishedProduct.setLayoutParams (params);
+                                } else {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (cardViewFinishedProduct.getHeight () * (1.0f - interpolatedTime)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tvFinishedProductText);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardViewFinishedProduct.setLayoutParams (params);
+                                }
+                            }
+                        }
+                    };
+                    a.setDuration (2000); // in ms
+                    cardViewFinishedProduct.startAnimation (a);
+                }
+            }
+        });
+        
+        
+        btShowMoreClosingDetails.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                if (showClosingDetails) {
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardview4.setLayoutParams (params);
+                    btShowMoreClosingDetails.setText ("LESS");
+                    showClosingDetails = false;
+                    
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                            params.addRule (RelativeLayout.BELOW, R.id.tvClosingDetailsText);
+                            params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                            cardViewClosingDetails.setLayoutParams (params);
+                        }
+                    };
+                    a.setDuration (1500); // in ms
+                    cardViewClosingDetails.startAnimation (a);
+                } else {
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+//                    params.addRule (RelativeLayout.BELOW, R.id.tv6);
+//                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+//                    cardview4.setLayoutParams (params);
+                    btShowMoreClosingDetails.setText ("MORE");
+                    showClosingDetails = true;
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            if ((1.0f - interpolatedTime) < 1.0f) {
+                                if ((cardViewClosingDetails.getHeight () * (1.0f - interpolatedTime)) <= Utils.pxFromDp (getActivity (), 200.0f)) {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tvClosingDetailsText);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardViewClosingDetails.setLayoutParams (params);
+                                } else {
+                                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams (RelativeLayout.LayoutParams.MATCH_PARENT, (int) (cardViewClosingDetails.getHeight () * (1.0f - interpolatedTime)));
+                                    params.addRule (RelativeLayout.BELOW, R.id.tvClosingDetailsText);
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cardViewClosingDetails.setLayoutParams (params);
+                                }
+                            }
+                        }
+                    };
+                    a.setDuration (2000); // in ms
+                    cardViewClosingDetails.startAnimation (a);
+                }
+            }
+        });
+
+
         animation1.setAnimationListener (new Animation.AnimationListener () {
-            
+    
             @Override
             public void onAnimationEnd (Animation arg0) {
                 // start animation2 when animation1 ends (continue)
@@ -518,20 +764,23 @@ public class OverviewFragment extends Fragment {
                 llLoading2.startAnimation (animation2);
                 llLoading3.startAnimation (animation2);
                 llLoading4.startAnimation (animation2);
+                llLoadingWorkScope.startAnimation (animation2);
+                llLoadingFinishedProduct.startAnimation (animation2);
+                llLoadingClosingDetails.startAnimation (animation2);
             }
-            
+    
             @Override
             public void onAnimationRepeat (Animation arg0) {
                 // TODO Auto-generated method stub
-                
+        
             }
-            
+    
             @Override
             public void onAnimationStart (Animation arg0) {
                 // TODO Auto-generated method stub
-                
+        
             }
-            
+    
         });
         
         animation2.setAnimationListener (new Animation.AnimationListener () {
@@ -543,6 +792,9 @@ public class OverviewFragment extends Fragment {
                 llLoading2.startAnimation (animation1);
                 llLoading3.startAnimation (animation1);
                 llLoading4.startAnimation (animation1);
+                llLoadingWorkScope.startAnimation (animation2);
+                llLoadingFinishedProduct.startAnimation (animation2);
+                llLoadingClosingDetails.startAnimation (animation2);
             }
             
             @Override
@@ -574,8 +826,8 @@ public class OverviewFragment extends Fragment {
                         dialog.dismiss ();
                     }
                 })
-                
-                
+        
+        
                 .onPositive (new MaterialDialog.SingleButtonCallback () {
                     @Override
                     public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -611,12 +863,12 @@ public class OverviewFragment extends Fragment {
             @Override
             public void beforeTextChanged (CharSequence s, int start, int count, int after) {
             }
-            
+    
             @Override
             public void onTextChanged (CharSequence s, int start, int before, int count) {
                 positiveAction.setEnabled (s.toString ().trim ().length () > 0);
             }
-            
+    
             @Override
             public void afterTextChanged (Editable s) {
             }
@@ -699,8 +951,8 @@ public class OverviewFragment extends Fragment {
                                                 .content (message)
                                                 .positiveText ("OK")
                                                 .show ();
-                                        
-                                        
+    
+    
                                     } else {
                                         Utils.showToast (getActivity (), message, true);
                                     }
