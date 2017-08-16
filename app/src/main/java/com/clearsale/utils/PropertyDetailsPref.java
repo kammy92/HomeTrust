@@ -50,11 +50,21 @@ public class PropertyDetailsPref {
     }
     
     public String getStringPref (Context context, String key) {
-        return getPref (context).getString (key, "");
+        try {
+            return getPref (context).getString (key, "");
+        } catch (Exception e) {
+            e.printStackTrace ();
+            return "";
+        }
     }
     
     public int getIntPref (Context context, String key) {
-        return getPref (context).getInt (key, 0);
+        try {
+            return getPref (context).getInt (key, 0);
+        } catch (Exception e) {
+            e.printStackTrace ();
+            return 0;
+        }
     }
     
     public boolean getBooleanPref (Context context, String key) {

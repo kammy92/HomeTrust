@@ -93,9 +93,9 @@ public class FilterActivity extends AppCompatActivity {
     String bathrooms;
     FilterDetailsPref filterDetailsPref;
     private String[] priceList = new String[] {"$0", "$100k", "$200k", "$300k", "$400k", "$500k+"};
-    private String[] bedroomList = new String[] {"ANY", "1+", "2+", "3+", "4+"};
-    private String[] bathroomList = new String[] {"ANY", "1+", "2+", "3+", "4+"};
-    private String[] locationList = new String[] {"0", "2", "4", "6", "8+"};
+    private String[] bedroomList = new String[] {"ANY", "1-2", "2-3", "3-4", "4+"};
+    private String[] bathroomList = new String[] {"ANY", "1-2", "2-3", "3-4", "4+"};
+    private String[] locationList = new String[] {"0", "5", "10", "15", "20+"};
     private String[] statusList = new String[] {"All", "Available", "Offer Window Closing", "Pending", "Sold", "Closed"};
     
     @Override
@@ -247,6 +247,7 @@ public class FilterActivity extends AppCompatActivity {
                 cbCities[i] = new CheckBox (this);
                 cbCities[i].setId (jsonObject.getInt ("city_id"));
                 cbCities[i].setText (jsonObject.getString ("city_name"));
+                cbCities[i].setButtonTintList (getResources ().getColorStateList (R.color.primary));
                 cbCities[i].setBackgroundTintList (getResources ().getColorStateList (R.color.primary));
                 cbCities[i].setTypeface (SetTypeFace.getTypeface (FilterActivity.this));
                 cbCities[i].setTextColor (getResources ().getColor (R.color.app_text_color_dark));

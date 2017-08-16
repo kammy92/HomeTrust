@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -28,7 +27,6 @@ import com.clearsale.utils.NetworkConnection;
 import com.clearsale.utils.PropertyDetailsPref;
 import com.clearsale.utils.SetTypeFace;
 import com.clearsale.utils.Utils;
-import com.google.android.youtube.player.YouTubeThumbnailView;
 
 import org.json.JSONObject;
 
@@ -61,12 +59,12 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
     
     @Override
     public void onBindViewHolder (final ViewHolder holder, int position) {//        runEnterAnimation (holder.itemView);
-        propertyDetailsPref = PropertyDetailsPref.getInstance();
+        propertyDetailsPref = PropertyDetailsPref.getInstance ();
         final ScheduleTour scheduleTour = scheduleTours.get (position);
     
         Utils.setTypefaceToAllViews (activity, holder.tvAddress);
-        
-        holder.tvAddress.setText(propertyDetailsPref.getStringPref(activity, PropertyDetailsPref.PROPERTY_ADDRESS1) + " " + propertyDetailsPref.getStringPref(activity, PropertyDetailsPref.PROPERTY_ADDRESS2));
+    
+        holder.tvAddress.setText (scheduleTour.getAddress ());
         holder.tvTime.setText (scheduleTour.getTime ());
         holder.tvDate.setText (scheduleTour.getDate ());
 //        Glide.with(activity).load("").placeholder(testimonial.getImage2()).into(holder.ivVideo);
@@ -81,52 +79,53 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
         this.mItemClickListener = mItemClickListener;
     }
     
-    private void ScheduleTourDialog (final int id) {
+    private void ScheduleTourDialog (final int id, String buyer_address) {
         
-        MaterialDialog dialog = new MaterialDialog.Builder (activity)
-                
-                .limitIconToDefaultSize ()
+        final MaterialDialog dialog = new MaterialDialog.Builder (activity)
+                .typeface (SetTypeFace.getTypeface (activity), SetTypeFace.getTypeface (activity))
                 .canceledOnTouchOutside (false)
                 .onNegative (new MaterialDialog.SingleButtonCallback () {
                     @Override
                     public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        
                         dialog.dismiss ();
                     }
                 })
-                .typeface (SetTypeFace.getTypeface (activity), SetTypeFace.getTypeface (activity))
                 .negativeText ("CANCEL")
-                .onPositive (new MaterialDialog.SingleButtonCallback () {
-                    @Override
-                    public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        final String etComment = ((EditText) dialog.getCustomView ().findViewById (R.id.etComment)).getText ().toString ();
-                        final String etNumberOfUsers = ((EditText) dialog.getCustomView ().findViewById (R.id.etNumberOfUsers)).getText ().toString ();
-                        final String etAddress = ((EditText) dialog.getCustomView ().findViewById (R.id.etAddress)).getText ().toString ();
-                        TextView tv5 = (TextView) dialog.getCustomView ().findViewById (R.id.tv5);
-                        Utils.setTypefaceToAllViews (activity, tv5);
-                        
-                        CheckBox cbReceive = (CheckBox) dialog.getCustomView ().findViewById (R.id.cbReceive);
-                        if (cbReceive.isChecked ()) {
-                            checked = 1;
-                        } else {
-                            checked = 0;
-                        }
-                        if (etNumberOfUsers.equalsIgnoreCase ("")) {
-                            Utils.showToast (activity, "Please Enter Number of Users", true);
-                        } else if (etAddress.equalsIgnoreCase ("")) {
-                            Utils.showToast (activity, "Please Enter the Address", true);
-                        } else if (! etNumberOfUsers.equalsIgnoreCase ("") && ! etAddress.equalsIgnoreCase ("")) {
-                            Log.e ("Appointment id", "" + id);
-                            scheduleAppointment (etComment, etNumberOfUsers, etAddress, id, checked);
-                            dialog.dismiss ();
-                        }
-                    }
-                })
                 .positiveText ("SUBMIT")
                 .positiveColor (activity.getResources ().getColor (R.color.primary))
-                .customView (R.layout.dialog_schedule_appointment, false)
-                .typeface (SetTypeFace.getTypeface (activity), SetTypeFace.getTypeface (activity))
+                .customView (R.layout.dialog_schedule_appointment, true)
                 .build ();
+        
+        final EditText etComment = (EditText) dialog.getCustomView ().findViewById (R.id.etComment);
+        final EditText etNumberOfUsers = (EditText) dialog.getCustomView ().findViewById (R.id.etNumberOfUsers);
+        final EditText etAddress = (EditText) dialog.getCustomView ().findViewById (R.id.etAddress);
+        final CheckBox cbReceive = (CheckBox) dialog.getCustomView ().findViewById (R.id.cbReceive);
+        
+        Utils.setTypefaceToAllViews (activity, etAddress);
+        etAddress.setText (buyer_address);
+        
+        dialog.getActionButton (DialogAction.POSITIVE).setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View v) {
+                String comment = etComment.getText ().toString ();
+                String numberOfUsers = etNumberOfUsers.getText ().toString ();
+                String address = etAddress.getText ().toString ();
+                if (cbReceive.isChecked ()) {
+                    checked = 1;
+                } else {
+                    checked = 0;
+                }
+                if (numberOfUsers.equalsIgnoreCase ("")) {
+                    Utils.showToast (activity, "Please Enter Number of Users", true);
+                } else if (address.equalsIgnoreCase ("")) {
+                    Utils.showToast (activity, "Please Enter the Address", true);
+                } else if (! numberOfUsers.equalsIgnoreCase ("") && ! address.equalsIgnoreCase ("")) {
+                    scheduleAppointment (comment, numberOfUsers, address, id, checked);
+                    dialog.dismiss ();
+                }
+            }
+        });
+        
         dialog.show ();
         
     }
@@ -210,27 +209,22 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
         TextView tvTime;
         TextView tvScheduleATour;
         
-        ProgressBar progressBar;
-        private YouTubeThumbnailView youTubeThumbnailView;
-        
         public ViewHolder (View view) {
             super (view);
             tvAddress = (TextView) view.findViewById (R.id.tvName);
             tvDate = (TextView) view.findViewById (R.id.tvStartDate);
             tvTime = (TextView) view.findViewById (R.id.tvTime);
             tvScheduleATour = (TextView) view.findViewById (R.id.tvScheduleATour);
-            
             view.setOnClickListener (this);
         }
         
         @Override
         public void onClick (View v) {
             scheduleTour = scheduleTours.get (getLayoutPosition ());
-            
             tvScheduleATour.setOnClickListener (new View.OnClickListener () {
                 @Override
                 public void onClick (View view) {
-                    ScheduleTourDialog (scheduleTour.getId ());
+                    ScheduleTourDialog (scheduleTour.getId (), scheduleTour.getBuyer_address ());
                     
                 }
                 

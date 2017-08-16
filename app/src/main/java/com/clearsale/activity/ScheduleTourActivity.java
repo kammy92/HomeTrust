@@ -23,6 +23,7 @@ import com.clearsale.adapter.ScheduleTourAdapter;
 import com.clearsale.model.ScheduleTour;
 import com.clearsale.utils.AppConfigTags;
 import com.clearsale.utils.AppConfigURL;
+import com.clearsale.utils.BuyerDetailsPref;
 import com.clearsale.utils.Constants;
 import com.clearsale.utils.NetworkConnection;
 import com.clearsale.utils.Utils;
@@ -47,6 +48,8 @@ public class ScheduleTourActivity extends AppCompatActivity {
     List<ScheduleTour> scheduleTourList = new ArrayList<> ();
     ScheduleTourAdapter scheduleTourAdapter;
     int property_id = 0;
+    String property_address = "";
+    String property_city = "";
     RelativeLayout rlBack;
     
     @Override
@@ -62,6 +65,8 @@ public class ScheduleTourActivity extends AppCompatActivity {
     
     private void getExtras () {
         Intent intent = getIntent ();
+        property_address = intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS);
+        property_city = intent.getStringExtra (AppConfigTags.PROPERTY_CITY);
         property_id = intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0);
     }
     
@@ -121,15 +126,16 @@ public class ScheduleTourActivity extends AppCompatActivity {
                                     boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
                                     if (! error) {
+    
                                         JSONArray jsonArraySchedule = jsonObj.getJSONArray (AppConfigTags.SCHEDULE_ACCESS_TOKEN);
                                         for (int i = 0; i < jsonArraySchedule.length (); i++) {
                                             JSONObject jsonObjectSchedule = jsonArraySchedule.getJSONObject (i);
                                             ScheduleTour scheduleTour = new ScheduleTour (
                                                     jsonObjectSchedule.getInt (AppConfigTags.SCHEDULE_ACCESS_TOKEN_ID),
-                                                    jsonObjectSchedule.getString (AppConfigTags.SCHEDULE_USER_DESCRIPTION),
+                                                    property_address + ", " + property_city,
                                                     jsonObjectSchedule.getString (AppConfigTags.SCHEDULE_DATE),
-                                                    jsonObjectSchedule.getString (AppConfigTags.SCHEDULE_TIME)
-                                            );
+                                                    jsonObjectSchedule.getString (AppConfigTags.SCHEDULE_TIME),
+                                                    jsonObjectSchedule.getString (AppConfigTags.BUYER_ADDRESS));
                                             scheduleTourList.add (scheduleTour);
                                         }
                                         
@@ -162,8 +168,10 @@ public class ScheduleTourActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams () throws AuthFailureError {
                     Map<String, String> params = new Hashtable<String, String> ();
+                    BuyerDetailsPref buyerDetailsPref = BuyerDetailsPref.getInstance ();
                     params.put (AppConfigTags.TYPE, "property_access_token");
                     params.put (AppConfigTags.PROPERTY_ID, String.valueOf (property_id));
+                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (ScheduleTourActivity.this, BuyerDetailsPref.BUYER_ID)));
                     Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
                 }

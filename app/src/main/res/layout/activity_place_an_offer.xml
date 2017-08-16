@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:gravity="center"
-                        android:text="PLACE AN OFFER"
+                        android:text="Place an Offer"
                         android:textColor="@color/text_color_white"
                         android:textSize="@dimen/text_size_title"
                         android:textStyle="bold"/>

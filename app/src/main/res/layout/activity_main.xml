@@ -55,15 +55,33 @@
                             android:src="@drawable/ic_navigation"
                             android:visibility="visible"/>
                     </RelativeLayout>
-                    <TextView
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:gravity="center"
-                        android:text="@string/activity_main_title"
-                        android:textColor="@color/text_color_white"
-                        android:textSize="@dimen/text_size_title"
-                        android:textStyle="bold"/>
+                        android:layout_centerInParent="true">
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="@string/activity_main_title"
+                            android:textColor="@color/text_color_white"
+                            android:textSize="@dimen/text_size_title"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/tvBeta"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/tvTitle"
+                            android:layout_toRightOf="@+id/tvTitle"
+                            android:gravity="center"
+                            android:paddingBottom="2dp"
+                            android:text="beta"
+                            android:textColor="@color/text_color_white"
+                            android:textSize="@dimen/text_size_small"
+                            android:textStyle="bold"/>
+                    </RelativeLayout>
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -107,19 +125,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/appBar"
             android:visibility="visible">
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvPropertyList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/appBar"
-                android:paddingBottom="4dp"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvPropertyList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/appBar"
+                    android:paddingBottom="4dp"/>
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+            </android.support.v4.widget.SwipeRefreshLayout>
 
 
         </RelativeLayout>

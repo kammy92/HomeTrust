@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -64,6 +65,7 @@ import java.util.Map;
 
 public class PropertyDetailActivity extends AppCompatActivity {
     List<String> bannerList = new ArrayList<> ();
+    List<String> videoList = new ArrayList<> ();
     Toolbar toolbar;
     CoordinatorLayout clMain;
     TextView tv4;
@@ -79,6 +81,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
     boolean isFavourite;
     ImageView ivFavourite;
     ViewPagerAdapter viewPagerAdapter;
+    ImageView ivVideo;
     private SliderLayout slider;
     private CollapsingToolbarLayout collapsingToolbarLayout = null;
     private TabLayout tabLayout;
@@ -106,7 +109,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BEDROOM, intent.getStringExtra (AppConfigTags.PROPERTY_BEDROOMS));
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BATHROOM, intent.getStringExtra (AppConfigTags.PROPERTY_BATHROOMS));
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AREA, intent.getStringExtra (AppConfigTags.PROPERTY_AREA));
-
+    
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, intent.getIntExtra (AppConfigTags.PROPERTY_STATUS, 0));
     
         bannerList = intent.getStringArrayListExtra (AppConfigTags.PROPERTY_IMAGES);
@@ -168,6 +171,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         rlSliderIndicator = (RelativeLayout) findViewById (R.id.rlSliderIndicator);
         tvSliderPosition = (TextView) findViewById (R.id.tvSliderPosition);
         fabMaps = (FloatingActionButton) findViewById (R.id.fabMap);
+        ivVideo = (ImageView) findViewById (R.id.ivVideo);
     }
     
     private void initData () {
@@ -255,6 +259,13 @@ public class PropertyDetailActivity extends AppCompatActivity {
                     ivFavourite.setImageResource (R.drawable.ic_heart_filled);
                     updateFavouriteStatus (true, property_id);
                 }
+            }
+        });
+    
+        ivVideo.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View v) {
+                startActivity (new Intent (Intent.ACTION_VIEW, Uri.parse (videoList.get (0))));
             }
         });
     }
@@ -421,7 +432,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment (new CompsFragment (), "COMPS");
         viewPager.setAdapter (viewPagerAdapter);
     }
-
+    
     @Override
     public void onDestroy () {
         super.onDestroy ();
@@ -449,11 +460,11 @@ public class PropertyDetailActivity extends AppCompatActivity {
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_ID, 0);
         propertyDetailsPref.putIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AUCTION_STATUS, 0);
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_TOUR_STATUS, "");
-    
+        
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_WORK_SCOPE, "");
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT, "");
         propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_CLOSING_DETAILS, "");
-    
+        
     }
     
     @Override
@@ -608,6 +619,17 @@ public class PropertyDetailActivity extends AppCompatActivity {
                         }
                     });
                 }
+    
+                for (int i = 0; i < jsonObj.getJSONArray (AppConfigTags.PROPERTY_VIDEOS).length (); i++) {
+                    videoList.add (jsonObj.getJSONArray (AppConfigTags.PROPERTY_VIDEOS).getJSONObject (i).getString (AppConfigTags.VIDEO));
+                    runOnUiThread (new Runnable () {
+                        @Override
+                        public void run () {
+                            ivVideo.setVisibility (View.VISIBLE);
+                        }
+                    });
+                }
+
 
 //                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_STATE, jsonObj.getString (AppConfigTags.PROPERTY_STATE));
 //                propertyDetailsPref.putStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_LATITUDE, jsonObj.getString (AppConfigTags.LATITUDE));

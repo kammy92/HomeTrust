@@ -3,29 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/activity_margin"
     android:orientation="vertical">
-
-
     <TextView
         android:id="@+id/tv5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_margin_small"
-        android:padding="@dimen/activity_margin_small"
+        android:layout_marginBottom="@dimen/activity_margin"
         android:text="SCHEDULE TOUR"
         android:textColor="@color/app_text_color_dark"
         android:textSize="@dimen/text_size_medium"
         android:textStyle="bold"/>
-
     <LinearLayout
         android:id="@+id/llScheduleAppointment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cardview1"
-        android:layout_margin="@dimen/activity_margin_small"
+
         android:orientation="vertical">
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,22 +28,18 @@
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_medium"
             android:textStyle="bold"/>
-
-
         <EditText
             android:id="@+id/etComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_background"
-            android:hint="@string/dialog_appointment_hint_comment"
-            android:lines="1"
             android:padding="@dimen/edittext_padding"
             android:textColorHint="@color/hint_text_color"
             android:textSize="@dimen/text_size_medium"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_extra_small"
+            android:layout_marginTop="@dimen/activity_margin_small"
             android:text="@string/dialog_appointment_user"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_medium"
@@ -66,7 +57,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_extra_small"
+            android:layout_marginTop="@dimen/activity_margin_small"
             android:text="@string/dialog_appointment_address"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_medium"
@@ -77,22 +68,16 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_background"
             android:gravity="top"
-            android:lines="1"
             android:padding="@dimen/edittext_padding"
             android:textColorHint="@color/hint_text_color"
             android:textSize="@dimen/text_size_medium"/>
-
-
         <CheckBox
             android:id="@+id/cbReceive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_margin_extra_small"
+            android:layout_marginTop="@dimen/activity_margin_small"
             android:text="I want to receive notification"
             android:textColor="@color/app_text_color_light"
             android:textSize="@dimen/text_size_small"/>
-
     </LinearLayout>
-
-
 </LinearLayout>

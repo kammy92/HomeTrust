@@ -2,13 +2,14 @@ package com.clearsale.model;
 
 public class ScheduleTour {
     int id;
-    String address, date, time;
+    String address, date, time, buyer_address;
     
-    public ScheduleTour (int id, String address, String date, String time) {
+    public ScheduleTour (int id, String address, String date, String time, String buyer_address) {
         this.id = id;
         this.address = address;
         this.date = date;
         this.time = time;
+        this.buyer_address = buyer_address;
     }
     
     public ScheduleTour () {
@@ -44,5 +45,13 @@ public class ScheduleTour {
     
     public void setTime (String time) {
         this.time = time;
+    }
+    
+    public String getBuyer_address () {
+        return buyer_address;
+    }
+    
+    public void setBuyer_address (String buyer_address) {
+        this.buyer_address = buyer_address;
     }
 }

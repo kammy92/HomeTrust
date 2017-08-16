@@ -534,6 +534,8 @@ public class OverviewFragment extends Fragment {
             public void onClick (View view) {
                 Intent scheduleTour = new Intent (getActivity (), ScheduleTourActivity.class);
                 scheduleTour.putExtra (AppConfigTags.PROPERTY_ID, propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_ID));
+                scheduleTour.putExtra (AppConfigTags.PROPERTY_ADDRESS, propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ADDRESS1));
+                scheduleTour.putExtra (AppConfigTags.PROPERTY_CITY, propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ADDRESS2));
                 startActivity (scheduleTour);
             }
         });

@@ -44,12 +44,14 @@ public class AppConfigTags {
     public static String PROPERTY_AREA = "property_area";
     public static String PROPERTY_IS_OFFER = "is_offer";
     public static String PROPERTY_IS_FAVOURITE = "property_is_favourite";
+    public static String PROPERTY_VIDEOS = "property_videos";
     public static String PROPERTY_IMAGES = "property_images";
     public static String PROPERTY_IMAGE = "property_image";
     public static String PROPERTIES = "properties";
     public static String PROPERTY_LOCATIONS = "property_locations";
     public static String IS_FAVOURITE = "is_favourite";
     
+    public static String VIDEO = "video";
     
     public static String LATITUDE = "latitude";
     public static String LONGITUDE = "longitude";
@@ -60,6 +62,7 @@ public class AppConfigTags {
     public static String BUYER_EMAIL = "buyer_email";
     public static String BUYER_MOBILE = "buyer_mobile";
     public static String BUYER_PASSWORD = "buyer_password";
+    public static String BUYER_ADDRESS = "buyer_address";
     public static String BUYER_FIREBASE_ID = "buyer_firebase_id";
     public static String BUYER_LINKEDIN_ID = "buyer_linkedin_id";
     public static String BUYER_FACEBOOK_ID = "buyer_facebook_id";

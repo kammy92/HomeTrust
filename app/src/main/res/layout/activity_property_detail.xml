@@ -120,6 +120,16 @@
                                 android:textStyle="bold"/>
 
                             <ImageView
+                                android:id="@+id/ivVideo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/ivFavourite"
+                                android:padding="@dimen/activity_margin_small"
+                                android:src="@drawable/ic_video"
+                                android:visibility="gone"/>
+
+                            <ImageView
                                 android:id="@+id/ivFavourite"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -152,6 +162,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/appBar"
             android:background="@color/app_background_color"
+            android:paddingBottom="@dimen/activity_margin"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <android.support.design.widget.FloatingActionButton
