@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -99,8 +98,6 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
         final EditText etComment = (EditText) dialog.getCustomView ().findViewById (R.id.etComment);
         final EditText etNumberOfUsers = (EditText) dialog.getCustomView ().findViewById (R.id.etNumberOfUsers);
         final EditText etAddress = (EditText) dialog.getCustomView ().findViewById (R.id.etAddress);
-        final CheckBox cbReceive = (CheckBox) dialog.getCustomView ().findViewById (R.id.cbReceive);
-        
         Utils.setTypefaceToAllViews (activity, etAddress);
         etAddress.setText (buyer_address);
         
@@ -110,17 +107,12 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                 String comment = etComment.getText ().toString ();
                 String numberOfUsers = etNumberOfUsers.getText ().toString ();
                 String address = etAddress.getText ().toString ();
-                if (cbReceive.isChecked ()) {
-                    checked = 1;
-                } else {
-                    checked = 0;
-                }
                 if (numberOfUsers.equalsIgnoreCase ("")) {
                     Utils.showToast (activity, "Please Enter Number of Users", true);
                 } else if (address.equalsIgnoreCase ("")) {
                     Utils.showToast (activity, "Please Enter the Address", true);
                 } else if (! numberOfUsers.equalsIgnoreCase ("") && ! address.equalsIgnoreCase ("")) {
-                    scheduleAppointment (comment, numberOfUsers, address, id, checked);
+                    scheduleAppointment (comment, numberOfUsers, address, id, 1);
                     dialog.dismiss ();
                 }
             }

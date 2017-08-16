@@ -314,7 +314,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         
         slider.setIndicatorVisibility (PagerIndicator.IndicatorVisibility.Invisible);
         slider.getPagerIndicator ().setVisibility (View.INVISIBLE);
-        slider.setPresetTransformer (SliderLayout.Transformer.Stack);
+        slider.setPresetTransformer (SliderLayout.Transformer.Default);
         slider.setCustomAnimation (new DescriptionAnimation ());
         slider.addOnPageChangeListener (new ViewPagerEx.OnPageChangeListener () {
             @Override
