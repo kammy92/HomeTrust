@@ -522,6 +522,7 @@ public class OverviewFragment extends Fragment {
                 Intent placeOffer = new Intent (getActivity (), PlaceOfferActivity.class);
                 placeOffer.putExtra (AppConfigTags.PROPERTY_ID, propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_ID));
                 placeOffer.putExtra (AppConfigTags.BUYER_ID, buyerDetailsPref.getIntPref (getActivity (), BuyerDetailsPref.BUYER_ID));
+                placeOffer.putExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_ID));
                 startActivity (placeOffer);
                 getActivity ().overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
     

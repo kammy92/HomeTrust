@@ -44,10 +44,10 @@ public class PlaceOfferActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog (PlaceOfferActivity.this);
         Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
     
-        webviewPlaceAnOffer.loadUrl ("http://hometrustaustin.com/newtheme/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "");
+        webviewPlaceAnOffer.loadUrl ("http://hometrustaustin.com/newtheme/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0) + "");
         webviewPlaceAnOffer.getSettings ().setJavaScriptEnabled (true);
         webviewPlaceAnOffer.setWebChromeClient (new MyWebChromeClient ());
-        Log.e ("URL", "http://hometrustaustin.com/newtheme/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0));
+        Log.e ("URL", "http://hometrustaustin.com/newtheme/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0));
         Utils.setTypefaceToAllViews (this, rlBack);
     }
     
