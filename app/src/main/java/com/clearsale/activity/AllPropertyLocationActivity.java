@@ -209,6 +209,8 @@ public class AllPropertyLocationActivity extends AppCompatActivity implements Go
                         params.put (AppConfigTags.FILTER_PRICE_MIN, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_PRICE_MIN));
                         params.put (AppConfigTags.FILTER_PRICE_MAX, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_PRICE_MAX));
                         params.put (AppConfigTags.FILTER_LOCATION, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_LOCATION));
+                        params.put (AppConfigTags.FILTER_LOCATION_LATITUDE, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_LOCATION_LATITUDE));
+                        params.put (AppConfigTags.FILTER_LOCATION_LONGITUDE, filterDetailsPref.getStringPref (AllPropertyLocationActivity.this, FilterDetailsPref.FILTER_LOCATION_LONGITUDE));
                     }
                     Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
