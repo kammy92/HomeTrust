@@ -220,6 +220,7 @@ public class SignInFragment extends Fragment {
                 @Override
                 protected Map<String, String> getParams () throws AuthFailureError {
                     Map<String, String> params = new Hashtable<String, String> ();
+                    params.put (AppConfigTags.BUYER_DEVICE, "ANDROID");
                     params.put (AppConfigTags.BUYER_EMAIL, email);
                     params.put (AppConfigTags.BUYER_PASSWORD, password);
                     params.put (AppConfigTags.BUYER_FIREBASE_ID, buyerDetailsPref.getStringPref (getActivity (), BuyerDetailsPref.BUYER_FIREBASE_ID));

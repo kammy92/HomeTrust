@@ -320,6 +320,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams () throws AuthFailureError {
                     Map<String, String> params = new Hashtable<String, String> ();
+                    params.put (AppConfigTags.BUYER_DEVICE, "ANDROID");
                     params.put (AppConfigTags.BUYER_NAME, name);
                     params.put (AppConfigTags.BUYER_EMAIL, email);
                     params.put (AppConfigTags.BUYER_FACEBOOK_ID, buyerDetailsPref.getStringPref (LoginActivity.this, BuyerDetailsPref.BUYER_FACEBOOK_ID));
@@ -410,6 +411,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams () throws AuthFailureError {
                     Map<String, String> params = new Hashtable<String, String> ();
+                    params.put (AppConfigTags.BUYER_DEVICE, "ANDROID");
                     params.put (AppConfigTags.BUYER_NAME, name);
                     params.put (AppConfigTags.BUYER_EMAIL, email);
                     params.put (AppConfigTags.BUYER_LINKEDIN_ID, buyerDetailsPref.getStringPref (LoginActivity.this, BuyerDetailsPref.BUYER_LINKEDIN_ID));

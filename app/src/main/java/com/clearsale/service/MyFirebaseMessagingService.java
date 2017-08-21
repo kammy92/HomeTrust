@@ -16,23 +16,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.e("karman", "message received");
-//        Utils.showLog (Log.DEBUG, TAG, "from " + remoteMessage.getFrom (), true);
-//        Utils.showLog (Log.DEBUG, TAG, "To " + remoteMessage.getTo (), true);
-//        Utils.showLog (Log.DEBUG, TAG, "Collapse Key " + remoteMessage.getCollapseKey (), true);
-//        Utils.showLog (Log.DEBUG, TAG, "Message ID " + remoteMessage.getMessageId (), true);
-//        Utils.showLog (Log.DEBUG, TAG, "Message Type" + remoteMessage.getMessageType (), true);
-//        Utils.showLog (Log.DEBUG, TAG, "Sent Time " + remoteMessage.getSentTime (), true);
-//        Utils.showLog (Log.DEBUG, TAG, "TTL " + remoteMessage.getTtl (), true);
-    
+        Utils.showLog (Log.DEBUG, TAG, "from " + remoteMessage.getFrom (), true);
+        Utils.showLog (Log.DEBUG, TAG, "To " + remoteMessage.getTo (), true);
+        Utils.showLog (Log.DEBUG, TAG, "Collapse Key " + remoteMessage.getCollapseKey (), true);
+        Utils.showLog (Log.DEBUG, TAG, "Message ID " + remoteMessage.getMessageId (), true);
+        Utils.showLog (Log.DEBUG, TAG, "Message Type" + remoteMessage.getMessageType (), true);
+        Utils.showLog (Log.DEBUG, TAG, "Sent Time " + remoteMessage.getSentTime (), true);
+        Utils.showLog (Log.DEBUG, TAG, "TTL " + remoteMessage.getTtl (), true);
+        
         if (remoteMessage == null)
             return;
         if (remoteMessage.getData ().size () > 0) {
-//            Utils.showLog (Log.DEBUG, TAG, "Data Payload: " + remoteMessage.getData ().toString (), true);
+            Utils.showLog (Log.DEBUG, TAG, "Data Payload: " + remoteMessage.getData ().toString (), true);
             try {
                 handleDataMessage (new JSONObject (remoteMessage.getData ().toString ()));
             } catch (Exception e) {
                 Utils.showLog (Log.ERROR, TAG, "Exception: " + e.getMessage (), true);
             }
+        } else {
+            // Create Notification
+//            Intent intent = new Intent (this, MainActivity.class);
+//            intent.addFlags (Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            PendingIntent pendingIntent = PendingIntent.getActivity (this, 1410, intent, PendingIntent.FLAG_ONE_SHOT);
+
+//            NotificationCompat.Builder notificationBuilder = new
+//                    NotificationCompat.Builder (this)
+//                    .setContentTitle (remoteMessage.getNotification ().getTitle ())
+//                    .setContentText (remoteMessage.getNotification ().getBody ())
+//                    .setSmallIcon (R.drawable.hometrust_notification_icon)
+//                    .setAutoCancel (true)
+//                    .setContentIntent (pendingIntent);
+
+//            NotificationManager notificationManager = (NotificationManager) getSystemService (Context.NOTIFICATION_SERVICE);
+//            notificationManager.notify (1410, notificationBuilder.build ());
         }
     }
     
