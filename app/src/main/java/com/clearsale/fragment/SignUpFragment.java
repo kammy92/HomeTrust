@@ -282,12 +282,12 @@ public class SignUpFragment extends Fragment {
             switch (pos) {
                 case 1:
                     //t and c
-                    Intent intent = new Intent (Intent.ACTION_VIEW, Uri.parse ("http://hometrustaustin.com/newtheme/Homes/termsandcondition"));
+                    Intent intent = new Intent (Intent.ACTION_VIEW, Uri.parse ("http://clearsale.com/csvbuyer/Homes/termsandcondition"));
                     getActivity ().startActivity (intent);
                     break;
                 case 2:
                     //privacy policy
-                    Intent intent2 = new Intent (Intent.ACTION_VIEW, Uri.parse ("http://hometrustaustin.com/newtheme/Homes/privacy"));
+                    Intent intent2 = new Intent (Intent.ACTION_VIEW, Uri.parse ("http://clearsale.com/csvbuyer/Homes/privacy"));
                     getActivity ().startActivity (intent2);
                     break;
             }

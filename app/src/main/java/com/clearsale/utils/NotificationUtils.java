@@ -112,6 +112,45 @@ public class NotificationUtils {
     
                 mNotifyManager.notify (notification.getNotification_type (), notification1);
                 break;
+    
+            case 2:
+                try {
+                    JSONObject jsonObject = notification.getPayload ();
+                    ArrayList<String> tempbid = new ArrayList<String> ();
+                    tempbid.add ("http://clearsale.com/theme/theme1/seller_files/exterior/property_822/45f866b7729ccacc6869ad8cf5906172IMG_7738.jpg");
+            
+                    Intent notificationIntent = new Intent (mContext, PropertyDetailActivity.class);
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_ID, jsonObject.getInt (AppConfigTags.PROPERTY_ID));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_ADDRESS, "");
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_ADDRESS2, "");
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_AREA, "");
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BATHROOMS, "");
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BEDROOMS, "");
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_PRICE, "");
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_STATUS, 1);
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BUILT_YEAR, "");
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_IMAGES, tempbid);
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_IS_FAVOURITE, false);
+            
+                    notificationIntent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            
+                    pendingIntent = PendingIntent.getActivity (mContext, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    NotificationCompat.Builder notificationBuilder = new
+                            NotificationCompat.Builder (mContext)
+                            .setStyle (new NotificationCompat.BigTextStyle ())
+                            .setSmallIcon (R.drawable.hometrust_notification_icon)
+                            .setContentTitle (notification.getTitle ())
+                            .setContentText (notification.getMessage ())
+                            .setAutoCancel (true)
+                            .setContentIntent (pendingIntent);
+                    NotificationManager notificationManager =
+                            (NotificationManager) mContext.getSystemService (Context.NOTIFICATION_SERVICE);
+            
+                    notificationManager.notify (1410, notificationBuilder.build ());
+                } catch (JSONException e) {
+                    e.printStackTrace ();
+                }
+    
         }
     }
 }
