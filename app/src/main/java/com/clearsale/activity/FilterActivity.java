@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -239,12 +240,12 @@ public class FilterActivity extends AppCompatActivity {
     
         try {
             JSONArray jsonArray = new JSONArray (filterDetailsPref.getStringPref (FilterActivity.this, FilterDetailsPref.FILTER_CITIES_JSON));
-            final CheckBox[] cbCities;
-            cbCities = new CheckBox[jsonArray.length ()];
+            final AppCompatCheckBox[] cbCities;
+            cbCities = new AppCompatCheckBox[jsonArray.length ()];
         
             for (int i = 0; i < jsonArray.length (); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject (i);
-                cbCities[i] = new CheckBox (this);
+                cbCities[i] = new AppCompatCheckBox (this);
                 cbCities[i].setId (jsonObject.getInt ("city_id"));
                 cbCities[i].setText (jsonObject.getString ("city_name"));
                 cbCities[i].setButtonTintList (getResources ().getColorStateList (R.color.primary));
