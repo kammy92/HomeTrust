@@ -172,10 +172,17 @@ public class MainActivity extends AppCompatActivity {
     
     
         Bugsnag.init (this);
+    
+        //SHA1: 4F:9C:6B:A9:F0:55:8C:73:6F:7C:32:49:FF:3E:0D:9E:34:8D:FA:30
+//        byte[] sha1 = {
+//                0x4F, (byte) 0x9C, 0x6B, (byte) 0xA9, (byte) 0xF0, 0x55, (byte) 0x8C, 0x73, 0x6F, 0x7C, 0x32, 0x49, (byte) 0xFF, 0x3E, 0x0D, (byte) 0x9E, 0x34, (byte) 0x8D, (byte) 0xFA, 0x30
+//        };
+//        Log.e ("keyhash", Base64.encodeToString (sha1, Base64.NO_WRAP));
+
 
 //        if (LeakCanary.isInAnalyzerProcess (this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
+        // This process is dedicated to LeakCanary for heap analysis.
+        // You should not init your app in this process.
 //            return;
 //        }
 //        LeakCanary.install (getApplication ());

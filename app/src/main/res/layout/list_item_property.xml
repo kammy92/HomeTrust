@@ -176,7 +176,7 @@
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"/>
                     <TextView
-                        android:id="@+id/tv4"
+                        android:id="@+id/tvPlaceAnOffer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

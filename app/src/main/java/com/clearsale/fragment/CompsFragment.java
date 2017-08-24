@@ -39,7 +39,7 @@ public class CompsFragment extends Fragment {
     }
     
     private void initView (View rootView) {
-        webView = (WebView) rootView.findViewById (R.id.webView1);
+        webView = (WebView) rootView.findViewById (R.id.wvDescription);
 //        llLoading = (LinearLayout) rootView.findViewById (R.id.llLoading);
 //        llComps = (LinearLayout) rootView.findViewById (R.id.llComps);
     }

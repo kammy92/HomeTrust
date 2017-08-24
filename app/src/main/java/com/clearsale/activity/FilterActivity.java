@@ -3,6 +3,7 @@ package com.clearsale.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -248,8 +249,10 @@ public class FilterActivity extends AppCompatActivity {
                 cbCities[i] = new AppCompatCheckBox (this);
                 cbCities[i].setId (jsonObject.getInt ("city_id"));
                 cbCities[i].setText (jsonObject.getString ("city_name"));
-                cbCities[i].setButtonTintList (getResources ().getColorStateList (R.color.primary));
-                cbCities[i].setBackgroundTintList (getResources ().getColorStateList (R.color.primary));
+                if (Build.VERSION.SDK_INT >= 21) {
+                    cbCities[i].setButtonTintList (getResources ().getColorStateList (R.color.primary));
+                    cbCities[i].setBackgroundTintList (getResources ().getColorStateList (R.color.primary));
+                }
                 cbCities[i].setTypeface (SetTypeFace.getTypeface (FilterActivity.this));
                 cbCities[i].setTextColor (getResources ().getColor (R.color.app_text_color_dark));
                 llCities.addView (cbCities[i]);
