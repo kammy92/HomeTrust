@@ -212,6 +212,78 @@ public class OverviewFragment extends Fragment {
                 tvStatus.setText ("Offer Window Closing");
                 break;
         }
+
+
+//        new setPropertyDetails().execute ();
+    
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_DESCRIPTION).length () > 0) {
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_DESCRIPTION));
+            wvDescription.loadDataWithBaseURL ("www.google.com", spannableStringBuilder.toString (), "text/html", "UTF-8", "");
+            llDescription.setVisibility (View.VISIBLE);
+            if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_STATUS) == 1) {
+                tvPlaceAnOffer.setVisibility (View.VISIBLE);
+            } else {
+                tvPlaceAnOffer.setVisibility (View.GONE);
+            }
+        
+            if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1) {
+                tvScheduleTour.setVisibility (View.VISIBLE);
+            } else {
+                tvScheduleTour.setVisibility (View.GONE);
+            }
+        } else {
+            llDescription.setVisibility (View.GONE);
+        }
+    
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS).length () > 0) {
+            SpannableStringBuilder spannableStringBuilderKeyDetail = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS));
+            wvKeyDetail.loadDataWithBaseURL ("www.google.com", spannableStringBuilderKeyDetail.toString (), "text/html", "UTF-8", "");
+            llKeyDetails.setVisibility (View.VISIBLE);
+        } else {
+            llKeyDetails.setVisibility (View.GONE);
+        }
+    
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR).length () > 0) {
+            SpannableStringBuilder spannableStringBuilderRealtor = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR));
+            wvRealtor.loadDataWithBaseURL ("www.google.com", spannableStringBuilderRealtor.toString (), "text/html", "UTF-8", "");
+            llRealtor.setVisibility (View.VISIBLE);
+        } else {
+            llRealtor.setVisibility (View.GONE);
+        }
+    
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW).length () > 0) {
+            SpannableStringBuilder spannableStringBuilderOverview = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW));
+            wvOverview.loadDataWithBaseURL ("www.google.com", spannableStringBuilderOverview.toString (), "text/html", "UTF-8", "");
+            llOverview.setVisibility (View.VISIBLE);
+        } else {
+            llOverview.setVisibility (View.GONE);
+        }
+    
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE).length () > 0) {
+            SpannableStringBuilder spannableAccessWorkScope = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE));
+            wvWorkScope.loadDataWithBaseURL ("www.google.com", spannableAccessWorkScope.toString (), "text/html", "UTF-8", "");
+            llWorkScope.setVisibility (View.VISIBLE);
+        } else {
+            llWorkScope.setVisibility (View.GONE);
+        }
+    
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT).length () > 0) {
+            SpannableStringBuilder spannableAccessFinishedProduct = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT));
+            wvFinishedProduct.loadDataWithBaseURL ("www.google.com", spannableAccessFinishedProduct.toString (), "text/html", "UTF-8", "");
+            llFinishedProduct.setVisibility (View.VISIBLE);
+        } else {
+            llFinishedProduct.setVisibility (View.GONE);
+        }
+    
+        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS).length () > 0) {
+            SpannableStringBuilder spannableAccessClosingDetails = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS));
+            wvClosingDetails.loadDataWithBaseURL ("www.google.com", spannableAccessClosingDetails.toString (), "text/html", "UTF-8", "");
+            llClosingDetails.setVisibility (View.VISIBLE);
+        } else {
+            llClosingDetails.setVisibility (View.GONE);
+        }
+    
+        progressBar.setVisibility (View.GONE);
     
     
         Utils.setTypefaceToAllViews (getActivity (), tvAddress1);
@@ -479,78 +551,11 @@ public class OverviewFragment extends Fragment {
     private class setPropertyDetails extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground (String... params) {
-            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_DESCRIPTION).length () > 0) {
-                SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_DESCRIPTION));
-                wvDescription.loadDataWithBaseURL ("www.google.com", spannableStringBuilder.toString (), "text/html", "UTF-8", "");
-                llDescription.setVisibility (View.VISIBLE);
-            } else {
-                llDescription.setVisibility (View.GONE);
-            }
-    
-            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS).length () > 0) {
-                SpannableStringBuilder spannableStringBuilderKeyDetail = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS));
-                wvKeyDetail.loadDataWithBaseURL ("www.google.com", spannableStringBuilderKeyDetail.toString (), "text/html", "UTF-8", "");
-                llKeyDetails.setVisibility (View.VISIBLE);
-            } else {
-                llKeyDetails.setVisibility (View.GONE);
-            }
-    
-            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR).length () > 0) {
-                SpannableStringBuilder spannableStringBuilderRealtor = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR));
-                wvRealtor.loadDataWithBaseURL ("www.google.com", spannableStringBuilderRealtor.toString (), "text/html", "UTF-8", "");
-                llRealtor.setVisibility (View.VISIBLE);
-            } else {
-                llRealtor.setVisibility (View.GONE);
-            }
-    
-            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW).length () > 0) {
-                SpannableStringBuilder spannableStringBuilderOverview = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW));
-                wvOverview.loadDataWithBaseURL ("www.google.com", spannableStringBuilderOverview.toString (), "text/html", "UTF-8", "");
-                llOverview.setVisibility (View.VISIBLE);
-            } else {
-                llOverview.setVisibility (View.GONE);
-            }
-    
-            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE).length () > 0) {
-                SpannableStringBuilder spannableAccessWorkScope = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE));
-                wvWorkScope.loadDataWithBaseURL ("www.google.com", spannableAccessWorkScope.toString (), "text/html", "UTF-8", "");
-                llWorkScope.setVisibility (View.VISIBLE);
-            } else {
-                llWorkScope.setVisibility (View.GONE);
-            }
-    
-            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT).length () > 0) {
-                SpannableStringBuilder spannableAccessFinishedProduct = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT));
-                wvFinishedProduct.loadDataWithBaseURL ("www.google.com", spannableAccessFinishedProduct.toString (), "text/html", "UTF-8", "");
-                llFinishedProduct.setVisibility (View.VISIBLE);
-            } else {
-                llFinishedProduct.setVisibility (View.GONE);
-            }
-    
-            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS).length () > 0) {
-                SpannableStringBuilder spannableAccessClosingDetails = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS));
-                wvClosingDetails.loadDataWithBaseURL ("www.google.com", spannableAccessClosingDetails.toString (), "text/html", "UTF-8", "");
-                llClosingDetails.setVisibility (View.VISIBLE);
-            } else {
-                llClosingDetails.setVisibility (View.GONE);
-            }
             return "Executed";
         }
         
         @Override
         protected void onPostExecute (String result) {
-            if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_STATUS) == 1) {
-                tvPlaceAnOffer.setVisibility (View.VISIBLE);
-            } else {
-                tvPlaceAnOffer.setVisibility (View.GONE);
-            }
-    
-            if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1) {
-                tvScheduleTour.setVisibility (View.VISIBLE);
-            } else {
-                tvScheduleTour.setVisibility (View.GONE);
-            }
-            progressBar.setVisibility (View.GONE);
             Log.e ("karman", "executed");
         }
         

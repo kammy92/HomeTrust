@@ -3,8 +3,8 @@ package com.clearsale.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -271,7 +273,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     break;
                 case 2:
                     tvButton1.setText (stateList.get (0));
@@ -296,7 +298,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton2.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -315,7 +317,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     break;
                 case 3:
                     tvButton1.setText (stateList.get (0));
@@ -342,7 +344,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton2.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -361,7 +363,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton3.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -380,7 +382,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     break;
                 case 4:
                     tvButton1.setText (stateList.get (0));
@@ -409,7 +411,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton2.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -428,7 +430,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton3.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -447,7 +449,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton4.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -466,7 +468,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     break;
                 case 5:
                     tvButton1.setText (stateList.get (0));
@@ -497,7 +499,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton2.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -516,7 +518,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton3.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -535,7 +537,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton4.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -554,7 +556,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton5.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -573,7 +575,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     break;
                 case 6:
                     tvButton1.setText (stateList.get (0));
@@ -606,7 +608,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton2.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -625,7 +627,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton3.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -644,7 +646,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton4.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -663,7 +665,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton5.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -682,7 +684,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton6.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -701,7 +703,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     break;
                 case 7:
                     tvButton1.setText (stateList.get (0));
@@ -736,7 +738,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton2.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -755,7 +757,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton3.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -774,7 +776,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton4.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -793,7 +795,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton5.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -812,7 +814,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton6.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -831,7 +833,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton7.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -850,7 +852,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     break;
                 case 8:
                     tvButton1.setText (stateList.get (0));
@@ -887,7 +889,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton2.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -906,7 +908,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton3.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -925,7 +927,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton4.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -944,7 +946,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton5.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -963,7 +965,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton6.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -982,7 +984,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton7.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1001,7 +1003,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton8.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1020,7 +1022,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     break;
                 case 9:
                     tvButton1.setText (stateList.get (0));
@@ -1059,7 +1061,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton2.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1078,7 +1080,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton3.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1097,7 +1099,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton4.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1116,7 +1118,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton5.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1135,7 +1137,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton6.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1154,7 +1156,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton7.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1173,7 +1175,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton8.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1192,7 +1194,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton9.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1211,7 +1213,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     break;
                 case 10:
                     tvButton1.setText (stateList.get (0));
@@ -1252,7 +1254,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton2.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1271,7 +1273,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton3.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1290,7 +1292,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton4.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1309,7 +1311,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton5.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1328,7 +1330,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton6.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1347,7 +1349,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton7.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1366,7 +1368,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton8.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1385,7 +1387,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton9.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1404,7 +1406,7 @@ public class MyProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
-                
+    
                     tvButton10.setOnClickListener (new View.OnClickListener () {
                         @Override
                         public void onClick (View v) {
@@ -1660,14 +1662,17 @@ public class MyProfileActivity extends AppCompatActivity {
                                         buyerDetailsPref.putStringPref (MyProfileActivity.this, BuyerDetailsPref.PROFILE_STATE, jsonObj.getString (AppConfigTags.PROFILE_STATE));
                                         buyerDetailsPref.putStringPref (MyProfileActivity.this, BuyerDetailsPref.PROFILE_PRICE_RANGE, jsonObj.getString (AppConfigTags.PROFILE_PRICE_RANGE));
                                         buyerDetailsPref.putIntPref (MyProfileActivity.this, BuyerDetailsPref.PROFILE_STATUS, jsonObj.getInt (AppConfigTags.PROFILE_STATUS));
-                                        Utils.showSnackBar (MyProfileActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
-                                        final Handler handler = new Handler ();
-                                        handler.postDelayed (new Runnable () {
-                                            @Override
-                                            public void run () {
-                                                finish ();
-                                            }
-                                        }, 1000);
+                                        new MaterialDialog.Builder (MyProfileActivity.this)
+                                                .content (message)
+                                                .positiveText ("OK")
+                                                .onPositive (new MaterialDialog.SingleButtonCallback () {
+                                                    @Override
+                                                    public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                                        dialog.dismiss ();
+                                                        finish ();
+                                                    }
+                                                })
+                                                .show ();
                                     } else {
                                         Utils.showSnackBar (MyProfileActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
                                     }
