@@ -72,12 +72,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
         tvSave = (TextView) findViewById (R.id.tvSave);
         clMain = (CoordinatorLayout) findViewById (R.id.clMain);
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
-        Utils.setTypefaceToAllViews (this, tvSave);
+    
     }
     
     private void initData () {
         progressDialog = new ProgressDialog (this);
         buyerDetailsPref = BuyerDetailsPref.getInstance ();
+        Utils.setTypefaceToAllViews (this, rlBack);
     }
     
     private void initListener () {

@@ -82,7 +82,6 @@ public class ContactUsActivity extends AppCompatActivity {
         etEmail.setText(buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_EMAIL));
 
         etMobile.setText(buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_MOBILE));
-
     }
 
     private void initListener() {

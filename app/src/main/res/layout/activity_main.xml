@@ -5,12 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_background_color">
+    android:background="@color/app_background_color"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="true"
+        android:fitsSystemWindows="true">
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBar"
             android:layout_width="match_parent"
@@ -73,13 +75,12 @@
                             android:id="@+id/tvBeta"
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/tvTitle"
+                            android:layout_alignTop="@+id/tvTitle"
                             android:layout_toRightOf="@+id/tvTitle"
                             android:gravity="center"
-                            android:paddingBottom="2dp"
                             android:text="beta"
                             android:textColor="@color/text_color_white"
-                            android:textSize="@dimen/text_size_small"
+                            android:textSize="@dimen/text_size_extra_small"
                             android:textStyle="bold"/>
                     </RelativeLayout>
                     <RelativeLayout
@@ -103,7 +104,10 @@
                             android:layout_centerVertical="true"
                             android:layout_toEndOf="@+id/ivFilter"
                             android:layout_toRightOf="@+id/ivFilter"
-                            android:padding="@dimen/activity_margin_small"
+                            android:paddingBottom="@dimen/activity_margin_small"
+                            android:paddingLeft="@dimen/activity_margin_extra_small"
+                            android:paddingRight="@dimen/activity_margin_small"
+                            android:paddingTop="@dimen/activity_margin_small"
                             android:src="@drawable/ic_map"
                             android:visibility="visible"/>
                         <ImageView
@@ -111,7 +115,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
-                            android:padding="@dimen/activity_margin_small"
+                            android:paddingBottom="@dimen/activity_margin_small"
+                            android:paddingLeft="@dimen/activity_margin_small"
+                            android:paddingRight="@dimen/activity_margin_extra_small"
+                            android:paddingTop="@dimen/activity_margin_small"
                             android:src="@drawable/ic_filter"
                             android:visibility="visible"/>
                     </RelativeLayout>
@@ -232,7 +239,7 @@
                 android:textColor="@color/text_color_black"
                 android:textSize="@dimen/text_size_extra_large"
                 android:textStyle="bold"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
             <TextView
                 android:id="@+id/tvNoResultFound2"
                 android:layout_width="match_parent"
@@ -240,7 +247,7 @@
                 android:layout_below="@+id/tvNoResultFound"
                 android:gravity="center"
                 android:padding="@dimen/activity_margin_extra_small"
-                android:text="Look like you have applied to many filter \n Please Remove some filter and try again"
+                android:text="Looks like you have applied too many filters.\nPlease remove a filter(s) and try again."
                 android:textSize="@dimen/text_size_medium"/>
 
 

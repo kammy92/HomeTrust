@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -68,7 +70,6 @@ public class PropertyDetailActivity extends AppCompatActivity {
     TextView tv4;
     int property_id;
     ProgressDialog progressDialog;
-    RelativeLayout rlSliderIndicator;
     TextView tvSliderPosition;
     PropertyDetailsPref propertyDetailsPref;
     BuyerDetailsPref buyerDetailsPref;
@@ -80,10 +81,15 @@ public class PropertyDetailActivity extends AppCompatActivity {
     ViewPagerAdapter viewPagerAdapter;
     ImageView ivVideo;
     SharedPreferences.Editor editor;
-    private SliderLayout slider;
-    private CollapsingToolbarLayout collapsingToolbarLayout = null;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    SliderLayout slider;
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    TextView tvTitle;
+    
+    AppBarLayout appBar;
+    
+    setPropertyDetails setPropertyDetail;
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -100,6 +106,8 @@ public class PropertyDetailActivity extends AppCompatActivity {
         Intent intent = getIntent ();
         property_id = intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0);
     
+        tvTitle.setText (intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS) + "\n" + intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS2));
+
         editor.putInt (PropertyDetailsPref.PROPERTY_ID, intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0));
         editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS1, intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS));
         editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS2, intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS2));
@@ -159,13 +167,16 @@ public class PropertyDetailActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById (R.id.toolbar);
         tabLayout = (TabLayout) findViewById (R.id.tabs);
         viewPager = (ViewPager) findViewById (R.id.viewpager);
-        rlSliderIndicator = (RelativeLayout) findViewById (R.id.rlSliderIndicator);
         tvSliderPosition = (TextView) findViewById (R.id.tvSliderPosition);
         fabMaps = (FloatingActionButton) findViewById (R.id.fabMap);
         ivVideo = (ImageView) findViewById (R.id.ivVideo);
+        appBar = (AppBarLayout) findViewById (R.id.appBar);
+        tvTitle = (TextView) findViewById (R.id.tvTitle);
     }
     
     private void initData () {
+        setPropertyDetail = new setPropertyDetails ();
+        
         propertyDetailsPref = PropertyDetailsPref.getInstance ();
         editor = getSharedPreferences (PropertyDetailsPref.PROPERTY_DETAILS, Context.MODE_PRIVATE).edit ();
         
@@ -176,9 +187,41 @@ public class PropertyDetailActivity extends AppCompatActivity {
         collapsingToolbarLayout.setTitleEnabled (false);
         
         Utils.setTypefaceToAllViews (this, rlBack);
+    
+        collapsingToolbarLayout.setScrimAnimationDuration ((long) 1000);
+        collapsingToolbarLayout.setScrimVisibleHeightTrigger ((int) Utils.dpFromPx (PropertyDetailActivity.this, 60));
+    
     }
     
     private void initListener () {
+        appBar.addOnOffsetChangedListener (new AppBarLayout.OnOffsetChangedListener () {
+            @Override
+            public void onOffsetChanged (AppBarLayout appBarLayout, int verticalOffset) {
+                if (Math.abs (verticalOffset) == appBarLayout.getTotalScrollRange ()) {
+                    // Collapsed
+                    tvTitle.setVisibility (View.VISIBLE);
+                    collapsingToolbarLayout.setScrimAnimationDuration ((long) 1000);
+                    collapsingToolbarLayout.setScrimVisibleHeightTrigger ((int) Utils.dpFromPx (PropertyDetailActivity.this, 60));
+                    getWindow ().clearFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    collapsingToolbarLayout.setContentScrimColor (getResources ().getColor (R.color.primary));
+                } else if (verticalOffset == 0) {
+                    // Expanded
+                    tvTitle.setVisibility (View.GONE);
+                    collapsingToolbarLayout.setScrimsShown (false);
+                    getWindow ().addFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    collapsingToolbarLayout.setContentScrim (null);
+                    collapsingToolbarLayout.setStatusBarScrim (null);
+                } else {
+                    // transparent statusbar for marshmallow and above
+                    tvTitle.setVisibility (View.GONE);
+                    collapsingToolbarLayout.setScrimsShown (false);
+                    getWindow ().addFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    collapsingToolbarLayout.setContentScrim (null);
+                    collapsingToolbarLayout.setStatusBarScrim (null);
+                }
+            }
+        });
+
         rlBack.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {
@@ -307,7 +350,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
     
     private void getPropertyDetails () {
         if (NetworkConnection.isNetworkAvailable (PropertyDetailActivity.this)) {
-            Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
+//            Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
             Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_PROPERTY_DETAIL, true);
             StringRequest strRequest1 = new StringRequest (Request.Method.POST, AppConfigURL.URL_PROPERTY_DETAIL,
                     new com.android.volley.Response.Listener<String> () {
@@ -320,7 +363,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                                     boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
                                     if (! error) {
-                                        new setPropertyDetails ().execute (jsonObj.toString ());
+                                        setPropertyDetail.execute (jsonObj.toString ());
                                     }
                                 } catch (Exception e) {
                                     progressDialog.dismiss ();
@@ -388,6 +431,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
     @Override
     public void onDestroy () {
         super.onDestroy ();
+        setPropertyDetail.cancel (true);
         editor.putInt (PropertyDetailsPref.PROPERTY_ID, 0);
         editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS1, "");
         editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS2, "");

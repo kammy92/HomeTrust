@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         buyerDetailsPref = BuyerDetailsPref.getInstance ();
         progressDialog = new ProgressDialog (LoginActivity.this);
         Utils.setTypefaceToAllViews (this, clMain);
+    
     }
     
     private void displayFirebaseRegId () {

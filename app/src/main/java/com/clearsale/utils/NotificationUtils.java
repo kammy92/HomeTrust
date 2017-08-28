@@ -118,17 +118,17 @@ public class NotificationUtils {
                     JSONObject jsonObject = notification.getPayload ();
                     ArrayList<String> tempbid = new ArrayList<String> ();
                     tempbid.add ("http://clearsale.com/theme/theme1/seller_files/exterior/property_822/45f866b7729ccacc6869ad8cf5906172IMG_7738.jpg");
-            
+    
                     Intent notificationIntent = new Intent (mContext, PropertyDetailActivity.class);
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_ID, jsonObject.getInt (AppConfigTags.PROPERTY_ID));
-                    notificationIntent.putExtra (AppConfigTags.PROPERTY_ADDRESS, "");
-                    notificationIntent.putExtra (AppConfigTags.PROPERTY_ADDRESS2, "");
-                    notificationIntent.putExtra (AppConfigTags.PROPERTY_AREA, "");
-                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BATHROOMS, "");
-                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BEDROOMS, "");
-                    notificationIntent.putExtra (AppConfigTags.PROPERTY_PRICE, "");
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_ADDRESS, jsonObject.getString (AppConfigTags.PROPERTY_ADDRESS));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_ADDRESS2, jsonObject.getString (AppConfigTags.PROPERTY_ADDRESS2));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_AREA, jsonObject.getString (AppConfigTags.PROPERTY_AREA));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BATHROOMS, jsonObject.getString (AppConfigTags.PROPERTY_BATHROOMS));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BEDROOMS, jsonObject.getString (AppConfigTags.PROPERTY_BEDROOMS));
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_PRICE, jsonObject.getString (AppConfigTags.PROPERTY_PRICE));
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_STATUS, 1);
-                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BUILT_YEAR, "");
+                    notificationIntent.putExtra (AppConfigTags.PROPERTY_BUILT_YEAR, jsonObject.getString (AppConfigTags.PROPERTY_BUILT_YEAR));
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_IMAGES, tempbid);
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_IS_FAVOURITE, false);
             

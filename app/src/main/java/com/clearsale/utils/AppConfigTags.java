@@ -99,10 +99,8 @@ public class AppConfigTags {
     public static String PROPERTY_COMP_ADDRESS = "property_comp_address";
     public static String PROPERTY_COMP_LATITUDE = "property_comp_latitude";
     public static String PROPERTY_COMP_LONGITUDE = "property_comp_longitude";
-    public static String PROPERTY_ACCESS = "property_access";
     public static String PROPERTY_REALTOR = "property_realtor";
     public static String PROPERTY_KEY_DETAILS = "property_key_details";
-    public static String PROPERTY_OFFER = "is_offer";
     
     public static String PROPERTY_TOUR_STATUS = "tour_status";
     
@@ -110,24 +108,8 @@ public class AppConfigTags {
     public static String PROPERTY_FINISHED_PRODUCT = "property_finished_product";
     public static String PROPERTY_CLOSING_DETAILS = "property_closing_details";
     
-    public static String BUYSELL_TYPE = "buysell_type";
-    public static String BUYSELL_ZOINING = "buysell_zoining";
-    public static String BUYSELL_RENTAL_FIX = "buysell_rental_fix";
-    public static String BUYSELL_BUILD_YEAR = "buysell_year_of_construction";
-    public static String BUYSELL_LOT_SQFT = "buysell_lot_sqj";
-    public static String BUYSELL_ADDITION = "buysell_addition";
-    public static String BUYSELL_BEDROOM_EXISTING = "buysell_bedroom_existing";
-    public static String BUYSELL_BATH_EXISTING = "buysell_bath_existing";
-    public static String BUYSELL_TOTAL_SQUARE_FEET = "buysell_total_square_feet";
-    public static String BUYSELL_ARV_ESTIMATE = "buysell_arv_estimate";
-    public static String BUYSELL_FIX_ESTIMATE = "buysell_fix_estimate";
-    
-    
-    public static String PROPERTY_BID_AMOUNT = "bid_amt";
-    public static String PROPERTY_BID_COMMENTS = "bid_comments";
     public static String PROPERTY_BID_AUCTION_ID = "auction_id";
     public static String PROPERTY_BID_AUCTION_STATUS = "auction_status";
-    
     
     public static String CITIES = "cities";
     public static String CITY_NAME = "city_name";

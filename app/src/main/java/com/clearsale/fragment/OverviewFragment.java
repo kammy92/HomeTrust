@@ -1,5 +1,6 @@
 package com.clearsale.fragment;
 
+import android.animation.LayoutTransition;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -22,27 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.clearsale.R;
 import com.clearsale.activity.PlaceOfferActivity;
 import com.clearsale.activity.ScheduleTourActivity;
 import com.clearsale.utils.AppConfigTags;
-import com.clearsale.utils.AppConfigURL;
 import com.clearsale.utils.BuyerDetailsPref;
 import com.clearsale.utils.Constants;
-import com.clearsale.utils.NetworkConnection;
 import com.clearsale.utils.PropertyDetailsPref;
 import com.clearsale.utils.Utils;
-
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 
 
 public class OverviewFragment extends Fragment {
@@ -73,6 +61,8 @@ public class OverviewFragment extends Fragment {
     TextView tvScheduleTour;
     EditText etOfferUsd;
     
+    LinearLayout llMain;
+    
     LinearLayout llDescription;
     
     
@@ -101,8 +91,9 @@ public class OverviewFragment extends Fragment {
     
     Animation animation1, animation2;
     ProgressBar progressBar;
+    setPropertyDetails setPropertyDetail;
     private View positiveAction;
-    
+
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate (R.layout.fragment_overview, container, false);
@@ -126,6 +117,8 @@ public class OverviewFragment extends Fragment {
         tvAddress1 = (TextView) rootView.findViewById (R.id.tvAddress1);
         tvAddress2 = (TextView) rootView.findViewById (R.id.tvAddress2);
         tvSqFeet = (TextView) rootView.findViewById (R.id.tvSqFeet);
+    
+        llMain = (LinearLayout) rootView.findViewById (R.id.llMain);
     
     
         cvDescription = (CardView) rootView.findViewById (R.id.cvDescription);
@@ -163,9 +156,12 @@ public class OverviewFragment extends Fragment {
     }
 
     private void initData () {
+        setPropertyDetail = new setPropertyDetails ();
         buyerDetailsPref = BuyerDetailsPref.getInstance ();
         propertyDetailsPref = PropertyDetailsPref.getInstance ();
-        progressDialog = new ProgressDialog (getActivity ());
+//        progressDialog = new ProgressDialog (getActivity ());
+    
+        llMain.setLayoutTransition (new LayoutTransition ());
         
         animation1 = new AlphaAnimation (0.5f, 1.0f);
         animation1.setDuration (2000);
@@ -212,82 +208,14 @@ public class OverviewFragment extends Fragment {
                 tvStatus.setText ("Offer Window Closing");
                 break;
         }
+    
+    
+        setPropertyDetail.execute ();
 
 
-//        new setPropertyDetails().execute ();
-    
-        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_DESCRIPTION).length () > 0) {
-            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_DESCRIPTION));
-            wvDescription.loadDataWithBaseURL ("www.google.com", spannableStringBuilder.toString (), "text/html", "UTF-8", "");
-            llDescription.setVisibility (View.VISIBLE);
-            if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_STATUS) == 1) {
-                tvPlaceAnOffer.setVisibility (View.VISIBLE);
-            } else {
-                tvPlaceAnOffer.setVisibility (View.GONE);
-            }
-        
-            if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1) {
-                tvScheduleTour.setVisibility (View.VISIBLE);
-            } else {
-                tvScheduleTour.setVisibility (View.GONE);
-            }
-        } else {
-            llDescription.setVisibility (View.GONE);
-        }
-    
-        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS).length () > 0) {
-            SpannableStringBuilder spannableStringBuilderKeyDetail = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS));
-            wvKeyDetail.loadDataWithBaseURL ("www.google.com", spannableStringBuilderKeyDetail.toString (), "text/html", "UTF-8", "");
-            llKeyDetails.setVisibility (View.VISIBLE);
-        } else {
-            llKeyDetails.setVisibility (View.GONE);
-        }
-    
-        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR).length () > 0) {
-            SpannableStringBuilder spannableStringBuilderRealtor = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR));
-            wvRealtor.loadDataWithBaseURL ("www.google.com", spannableStringBuilderRealtor.toString (), "text/html", "UTF-8", "");
-            llRealtor.setVisibility (View.VISIBLE);
-        } else {
-            llRealtor.setVisibility (View.GONE);
-        }
-    
-        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW).length () > 0) {
-            SpannableStringBuilder spannableStringBuilderOverview = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW));
-            wvOverview.loadDataWithBaseURL ("www.google.com", spannableStringBuilderOverview.toString (), "text/html", "UTF-8", "");
-            llOverview.setVisibility (View.VISIBLE);
-        } else {
-            llOverview.setVisibility (View.GONE);
-        }
-    
-        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE).length () > 0) {
-            SpannableStringBuilder spannableAccessWorkScope = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE));
-            wvWorkScope.loadDataWithBaseURL ("www.google.com", spannableAccessWorkScope.toString (), "text/html", "UTF-8", "");
-            llWorkScope.setVisibility (View.VISIBLE);
-        } else {
-            llWorkScope.setVisibility (View.GONE);
-        }
-    
-        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT).length () > 0) {
-            SpannableStringBuilder spannableAccessFinishedProduct = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT));
-            wvFinishedProduct.loadDataWithBaseURL ("www.google.com", spannableAccessFinishedProduct.toString (), "text/html", "UTF-8", "");
-            llFinishedProduct.setVisibility (View.VISIBLE);
-        } else {
-            llFinishedProduct.setVisibility (View.GONE);
-        }
-    
-        if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS).length () > 0) {
-            SpannableStringBuilder spannableAccessClosingDetails = new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS));
-            wvClosingDetails.loadDataWithBaseURL ("www.google.com", spannableAccessClosingDetails.toString (), "text/html", "UTF-8", "");
-            llClosingDetails.setVisibility (View.VISIBLE);
-        } else {
-            llClosingDetails.setVisibility (View.GONE);
-        }
-    
-        progressBar.setVisibility (View.GONE);
-    
+//        progressBar.setVisibility (View.GONE);
     
         Utils.setTypefaceToAllViews (getActivity (), tvAddress1);
-    
     }
     
     private void initListener () {
@@ -475,88 +403,121 @@ public class OverviewFragment extends Fragment {
         });
     }
     
-    private void sendBidCredentialsToServer (final String offerAmount, final String offerDescription, final int checked) {
-        if (NetworkConnection.isNetworkAvailable (getActivity ())) {
-            Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
-            Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_PROPERTY_OFFER_BID, true);
-            StringRequest strRequest1 = new StringRequest (Request.Method.POST, AppConfigURL.URL_PROPERTY_OFFER_BID,
-                    new com.android.volley.Response.Listener<String> () {
-                        @Override
-                        public void onResponse (String response) {
-                            Utils.showLog (Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
-                            if (response != null) {
-                                try {
-                                    JSONObject jsonObj = new JSONObject (response);
-                                    boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
-                                    String message = jsonObj.getString (AppConfigTags.MESSAGE);
-                                    if (! error) {
-                                        // Utils.showToast (getActivity (), message, true);
-    
-                                        new MaterialDialog.Builder (getActivity ())
-                                                .content (message)
-                                                .positiveText ("OK")
-                                                .show ();
-    
-    
-                                    } else {
-                                        Utils.showToast (getActivity (), message, true);
-                                    }
-                                    progressDialog.dismiss ();
-                                } catch (Exception e) {
-                                    progressDialog.dismiss ();
-                                    Utils.showToast (getActivity (), getResources ().getString (R.string.snackbar_text_error_occurred), true);
-                                    e.printStackTrace ();
-                                }
-                            } else {
-                                Utils.showToast (getActivity (), getResources ().getString (R.string.snackbar_text_error_occurred), true);
-                                Utils.showLog (Log.WARN, AppConfigTags.SERVER_RESPONSE, AppConfigTags.DIDNT_RECEIVE_ANY_DATA_FROM_SERVER, true);
-                            }
-                            progressDialog.dismiss ();
-                        }
-                    },
-                    new com.android.volley.Response.ErrorListener () {
-                        @Override
-                        public void onErrorResponse (VolleyError error) {
-                            progressDialog.dismiss ();
-                            Utils.showLog (Log.ERROR, AppConfigTags.VOLLEY_ERROR, error.toString (), true);
-                            Utils.showToast (getActivity (), getResources ().getString (R.string.snackbar_text_error_occurred), true);
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams () throws AuthFailureError {
-                    Map<String, String> params = new Hashtable<String, String> ();
-                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (getActivity (), BuyerDetailsPref.BUYER_ID)));
-                    params.put (AppConfigTags.PROPERTY_BID_AUCTION_ID, String.valueOf (String.valueOf (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_ID))));
-                    params.put (AppConfigTags.PROPERTY_BID_COMMENTS, offerDescription);
-                    params.put (AppConfigTags.TYPE, "property_submit_bid");
-                    params.put ("is_access", String.valueOf (checked));
-                    params.put (AppConfigTags.PROPERTY_BID_AMOUNT, offerAmount);
-                    Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
-                    return params;
-                }
-    
-                @Override
-                public Map<String, String> getHeaders () throws AuthFailureError {
-                    Map<String, String> params = new HashMap<> ();
-                    params.put (AppConfigTags.HEADER_API_KEY, Constants.api_key);
-                    Utils.showLog (Log.INFO, AppConfigTags.HEADERS_SENT_TO_THE_SERVER, "" + params, false);
-                    return params;
-                }
-            };
-            Utils.sendRequest (strRequest1, 60);
-        } else {
-        }
+    @Override
+    public void onDestroyView () {
+        super.onDestroyView ();
+//        setPropertyDetail.cancel (true);
     }
     
     private class setPropertyDetails extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground (String... params) {
+            getActivity ().runOnUiThread (new Runnable () {
+                @Override
+                public void run () {
+                    wvDescription.loadDataWithBaseURL (
+                            "www.google.com",
+                            new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_DESCRIPTION)).toString (),
+                            "text/html",
+                            "UTF-8",
+                            "");
+                    wvKeyDetail.loadDataWithBaseURL (
+                            "www.google.com",
+                            new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS)).toString (),
+                            "text/html",
+                            "UTF-8",
+                            "");
+                    wvRealtor.loadDataWithBaseURL (
+                            "www.google.com",
+                            new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR)).toString (),
+                            "text/html",
+                            "UTF-8",
+                            "");
+                    wvOverview.loadDataWithBaseURL (
+                            "www.google.com",
+                            new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW)).toString (),
+                            "text/html",
+                            "UTF-8",
+                            "");
+                    wvWorkScope.loadDataWithBaseURL (
+                            "www.google.com",
+                            new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE)).toString (),
+                            "text/html",
+                            "UTF-8",
+                            "");
+                    wvFinishedProduct.loadDataWithBaseURL (
+                            "www.google.com",
+                            new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT)).toString (),
+                            "text/html",
+                            "UTF-8",
+                            "");
+            
+                    wvClosingDetails.loadDataWithBaseURL (
+                            "www.google.com",
+                            new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS)).toString (),
+                            "text/html",
+                            "UTF-8",
+                            "");
+                }
+            });
+            
             return "Executed";
         }
         
         @Override
         protected void onPostExecute (String result) {
             Log.e ("karman", "executed");
+            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_DESCRIPTION).length () > 0) {
+                llDescription.setVisibility (View.VISIBLE);
+                if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_STATUS) == 1) {
+                    tvPlaceAnOffer.setVisibility (View.VISIBLE);
+                } else {
+                    tvPlaceAnOffer.setVisibility (View.GONE);
+                }
+        
+                if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1) {
+                    tvScheduleTour.setVisibility (View.VISIBLE);
+                } else {
+                    tvScheduleTour.setVisibility (View.GONE);
+                }
+                progressBar.setVisibility (View.GONE);
+        
+            } else {
+                llDescription.setVisibility (View.GONE);
+            }
+    
+            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_KEY_DETAILS).length () > 0) {
+                llKeyDetails.setVisibility (View.VISIBLE);
+            } else {
+                llKeyDetails.setVisibility (View.GONE);
+            }
+            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR).length () > 0) {
+                llRealtor.setVisibility (View.VISIBLE);
+            } else {
+                llRealtor.setVisibility (View.GONE);
+            }
+    
+            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_OVERVIEW).length () > 0) {
+                llOverview.setVisibility (View.VISIBLE);
+            } else {
+                llOverview.setVisibility (View.GONE);
+            }
+            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_WORK_SCOPE).length () > 0) {
+                llWorkScope.setVisibility (View.VISIBLE);
+            } else {
+                llWorkScope.setVisibility (View.GONE);
+            }
+            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_FINISHED_PRODUCT).length () > 0) {
+                llFinishedProduct.setVisibility (View.VISIBLE);
+            } else {
+                llFinishedProduct.setVisibility (View.GONE);
+            }
+            if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS).length () > 0) {
+                llClosingDetails.setVisibility (View.VISIBLE);
+            } else {
+                llClosingDetails.setVisibility (View.GONE);
+            }
+
         }
         
         @Override

@@ -46,6 +46,8 @@ public class PlaceOfferActivity extends AppCompatActivity {
     
         webviewPlaceAnOffer.loadUrl ("http://hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0) + "");
         webviewPlaceAnOffer.getSettings ().setJavaScriptEnabled (true);
+        webviewPlaceAnOffer.setHorizontalScrollBarEnabled (true);
+        webviewPlaceAnOffer.setVerticalScrollBarEnabled (true);
         webviewPlaceAnOffer.setWebChromeClient (new MyWebChromeClient ());
         Log.e ("URL", "http://hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0));
         Utils.setTypefaceToAllViews (this, rlBack);
