@@ -5,9 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -22,7 +24,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -42,6 +46,7 @@ import com.clearsale.utils.Constants;
 import com.clearsale.utils.CustomImageSlider;
 import com.clearsale.utils.NetworkConnection;
 import com.clearsale.utils.PropertyDetailsPref;
+import com.clearsale.utils.SetTypeFace;
 import com.clearsale.utils.Utils;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
@@ -107,7 +112,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         property_id = intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0);
     
         tvTitle.setText (intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS) + "\n" + intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS2));
-
+    
         editor.putInt (PropertyDetailsPref.PROPERTY_ID, intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0));
         editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS1, intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS));
         editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS2, intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS2));
@@ -188,9 +193,6 @@ public class PropertyDetailActivity extends AppCompatActivity {
         
         Utils.setTypefaceToAllViews (this, rlBack);
     
-        collapsingToolbarLayout.setScrimAnimationDuration ((long) 1000);
-        collapsingToolbarLayout.setScrimVisibleHeightTrigger ((int) Utils.dpFromPx (PropertyDetailActivity.this, 60));
-    
     }
     
     private void initListener () {
@@ -200,8 +202,9 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 if (Math.abs (verticalOffset) == appBarLayout.getTotalScrollRange ()) {
                     // Collapsed
                     tvTitle.setVisibility (View.VISIBLE);
-                    collapsingToolbarLayout.setScrimAnimationDuration ((long) 1000);
-                    collapsingToolbarLayout.setScrimVisibleHeightTrigger ((int) Utils.dpFromPx (PropertyDetailActivity.this, 60));
+                    collapsingToolbarLayout.setScrimAnimationDuration ((long) 400);
+                    collapsingToolbarLayout.setScrimsShown (true);
+//                    collapsingToolbarLayout.setScrimVisibleHeightTrigger ((int) Utils.dpFromPx (PropertyDetailActivity.this, 60));
                     getWindow ().clearFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                     collapsingToolbarLayout.setContentScrimColor (getResources ().getColor (R.color.primary));
                 } else if (verticalOffset == 0) {
@@ -209,6 +212,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                     tvTitle.setVisibility (View.GONE);
                     collapsingToolbarLayout.setScrimsShown (false);
                     getWindow ().addFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    getWindow ().addFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
                     collapsingToolbarLayout.setContentScrim (null);
                     collapsingToolbarLayout.setStatusBarScrim (null);
                 } else {
@@ -216,12 +220,14 @@ public class PropertyDetailActivity extends AppCompatActivity {
                     tvTitle.setVisibility (View.GONE);
                     collapsingToolbarLayout.setScrimsShown (false);
                     getWindow ().addFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    getWindow ().addFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
                     collapsingToolbarLayout.setContentScrim (null);
                     collapsingToolbarLayout.setStatusBarScrim (null);
                 }
+    
             }
         });
-
+    
         rlBack.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {
@@ -270,39 +276,19 @@ public class PropertyDetailActivity extends AppCompatActivity {
         slider.removeAllSliders ();
         try {
             for (int i = 0; i < bannerList.size (); i++) {
-                String image = bannerList.get (i);
-                CustomImageSlider slider2 = new CustomImageSlider (this);
                 final int k = i;
-                slider2
-                        .image (image)
-                        .setScaleType (BaseSliderView.ScaleType.CenterCrop)
-                        .setOnSliderClickListener (new BaseSliderView.OnSliderClickListener () {
-                            @Override
-                            public void onSliderClick (BaseSliderView slider) {
-                                Intent intent = new Intent (PropertyDetailActivity.this, PropertyImageActivity.class);
-                                intent.putExtra ("position", k);
-                                startActivity (intent);
-                            }
-                        });
-
-//            DefaultSliderView defaultSliderView = new DefaultSliderView (activity);
-//            defaultSliderView
-//                    .image (image)
-//                    .setScaleType (BaseSliderView.ScaleType.Fit)
-//                    .setOnSliderClickListener (new BaseSliderView.OnSliderClickListener () {
-//                        @Override
-//                        public void onSliderClick (BaseSliderView slider) {
-//                            Intent intent = new Intent (activity, PropertyDetailActivity.class);
-//                            intent.putExtra (AppConfigTags.PROPERTY_ID, property.getId ());
-//                            activity.startActivity (intent);
-//                            activity.overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
-//                        }
-//                    });
-//
-//            defaultSliderView.bundle (new Bundle ());
-                // defaultSliderView.getBundle ().putString ("extra", String.valueOf (s));
-//            holder.slider.addSlider (defaultSliderView);
-                slider.addSlider (slider2);
+                slider.addSlider (
+                        new CustomImageSlider (PropertyDetailActivity.this)
+                                .image (bannerList.get (i))
+                                .setScaleType (BaseSliderView.ScaleType.CenterCrop)
+                                .setOnSliderClickListener (new BaseSliderView.OnSliderClickListener () {
+                                    @Override
+                                    public void onSliderClick (BaseSliderView slider) {
+                                        Intent intent = new Intent (PropertyDetailActivity.this, PropertyImageActivity.class);
+                                        intent.putExtra ("position", k);
+                                        startActivity (intent);
+                                    }
+                                }));
             }
         } catch (Exception e) {
             e.printStackTrace ();
@@ -407,7 +393,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                     return params;
                 }
             };
-            Utils.sendRequest (strRequest1, 60);
+            Utils.sendRequest (strRequest1, 10);
         } else {
 //            clMain.setVisibility (View.VISIBLE);
             Utils.showSnackBar (this, clMain, getResources ().getString (R.string.snackbar_text_no_internet_connection_available), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_go_to_settings), new View.OnClickListener () {
@@ -426,6 +412,23 @@ public class PropertyDetailActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment (new OverviewFragment (), "OVERVIEW");
         viewPagerAdapter.addFragment (new CompsFragment (), "COMPS");
         viewPager.setAdapter (viewPagerAdapter);
+    
+        for (int i = 0; i < tabLayout.getTabCount (); i++) {
+            TextView tv = new TextView (this);
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            tv.setLayoutParams (params);
+            tv.setGravity (Gravity.CENTER);
+            switch (i) {
+                case 0:
+                    tv.setText ("OVERVIEW");
+                    break;
+                case 1:
+                    tv.setText ("COMPS");
+                    break;
+            }
+            tv.setTypeface (SetTypeFace.getTypeface (this), Typeface.BOLD);
+            tabLayout.getTabAt (i).setCustomView (tv);
+        }
     }
     
     @Override
@@ -563,11 +566,13 @@ public class PropertyDetailActivity extends AppCompatActivity {
     }
     
     private class setPropertyDetails extends AsyncTask<String, Void, String> {
+        JSONArray jsonArrayPropertyImages;
+        
         @Override
         protected String doInBackground (String... params) {
             try {
                 JSONObject jsonObj = new JSONObject (params[0]);
-                JSONArray jsonArrayPropertyImages = jsonObj.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
+                jsonArrayPropertyImages = jsonObj.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
                 editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS1, jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS));
                 editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS2, jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS2));
                 editor.putString (PropertyDetailsPref.PROPERTY_BEDROOM, jsonObj.getString (AppConfigTags.PROPERTY_BEDROOMS));
@@ -624,25 +629,24 @@ public class PropertyDetailActivity extends AppCompatActivity {
                     });
                 }
     
-                bannerList.clear ();
-                JSONObject jsonObjectImages;
-                for (int j = 0; j < jsonArrayPropertyImages.length (); j++) {
-                    jsonObjectImages = jsonArrayPropertyImages.getJSONObject (j);
-                    bannerList.add (jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
-                }
             } catch (Exception e) {
                 e.printStackTrace ();
             }
-            return "Executed";
+            return "executed";
         }
         
         @Override
         protected void onPostExecute (String result) {
-            Log.e ("karman", "executed");
             clMain.setVisibility (View.VISIBLE);
             progressDialog.dismiss ();
-            initSlider ();
             setupViewPager (viewPager);
+            final Handler handler = new Handler ();
+            handler.postDelayed (new Runnable () {
+                @Override
+                public void run () {
+                    new setPropertyImages ().execute (jsonArrayPropertyImages.toString ());
+                }
+            }, 1000);
         }
         
         @Override
@@ -653,4 +657,101 @@ public class PropertyDetailActivity extends AppCompatActivity {
         protected void onProgressUpdate (Void... values) {
         }
     }
+    
+    private class setPropertyImages extends AsyncTask<String, Void, String> {
+        int length;
+        
+        @Override
+        protected String doInBackground (String... params) {
+            try {
+                JSONArray jsonArray = new JSONArray (params[0]);
+                length = jsonArray.length ();
+                runOnUiThread (new Runnable () {
+                    @Override
+                    public void run () {
+                        slider.removeAllSliders ();
+                        tvSliderPosition.setVisibility (View.GONE);
+//                        tvSliderPosition.setText ( + " of " + length);
+                    }
+                });
+//                try {
+//                    for (int i = 0; i < bannerList.size (); i++) {
+//                        final int k = i;
+//                        slider.addSlider (
+//                                new CustomImageSlider (PropertyDetailActivity.this)
+//                                        .image (bannerList.get (k))
+//                                        .setScaleType (BaseSliderView.ScaleType.CenterCrop)
+//                                        .setOnSliderClickListener (new BaseSliderView.OnSliderClickListener () {
+//                                            @Override
+//                                            public void onSliderClick (BaseSliderView slider) {
+//                                                Intent intent = new Intent (PropertyDetailActivity.this, PropertyImageActivity.class);
+//                                                intent.putExtra ("position", k);
+//                                                startActivity (intent);
+//                                            }
+//                                        }));
+//                    }
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace ();
+//                }
+//
+//                bannerList.clear ();
+                for (int j = 0; j < length; j++) {
+                    final int k = j;
+                    final CustomImageSlider customImageSlider = new CustomImageSlider (PropertyDetailActivity.this);
+                    customImageSlider
+                            .image (jsonArray.getJSONObject (j).getString (AppConfigTags.PROPERTY_IMAGE))
+                            .setScaleType (BaseSliderView.ScaleType.CenterCrop)
+                            .setOnSliderClickListener (new BaseSliderView.OnSliderClickListener () {
+                                @Override
+                                public void onSliderClick (BaseSliderView slider) {
+                                    Intent intent = new Intent (PropertyDetailActivity.this, PropertyImageActivity.class);
+                                    intent.putExtra ("position", k);
+                                    startActivity (intent);
+                                }
+                            });
+                    
+                    runOnUiThread (new Runnable () {
+                        @Override
+                        public void run () {
+                            slider.addSlider (customImageSlider);
+                            tvSliderPosition.setVisibility (View.GONE);
+                        }
+                    });
+//                    bannerList.add (jsonArray.getJSONObject (j).getString (AppConfigTags.PROPERTY_IMAGE));
+                }
+            } catch (Exception e) {
+                e.printStackTrace ();
+            }
+            return "Executed";
+        }
+        
+        @Override
+        protected void onPostExecute (String result) {
+            slider.addOnPageChangeListener (new ViewPagerEx.OnPageChangeListener () {
+                @Override
+                public void onPageScrolled (int position, float positionOffset, int positionOffsetPixels) {
+                }
+                
+                @Override
+                public void onPageSelected (int position) {
+                    tvSliderPosition.setText ((position + 1) + " of " + length);
+                    tvSliderPosition.setVisibility (View.VISIBLE);
+                }
+                
+                @Override
+                public void onPageScrollStateChanged (int state) {
+                }
+            });
+        }
+        
+        @Override
+        protected void onPreExecute () {
+        }
+        
+        @Override
+        protected void onProgressUpdate (Void... values) {
+        }
+    }
+    
 }

@@ -94,7 +94,7 @@ public class FilterActivity extends AppCompatActivity {
     String bedrooms;
     String bathrooms;
     FilterDetailsPref filterDetailsPref;
-    private String[] priceList = new String[] {"$0", "$100k", "$200k", "$300k", "$400k", "$400k+"};
+    private String[] priceList = new String[] {"0", "100k", "200k", "300k", "400k", "400k+"};
     private String[] bedroomList = new String[] {"ANY", "1-2", "2-3", "3-4", "4+"};
     private String[] bathroomList = new String[] {"ANY", "1-2", "2-3", "3-4", "4+"};
     private String[] locationList = new String[] {"0", "5", "10", "15", "20+"};

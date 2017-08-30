@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class NotificationUtils {
 // Notification Type => 1=> new property add, 2=>, 3=>
@@ -54,13 +55,13 @@ public class NotificationUtils {
     
                 try {
                     JSONObject jsonObject = notification.getPayload ();
-    
-    
+        
+        
                     ArrayList<String> temp = new ArrayList<String> ();
                     temp.add (notification.getImage_url ());
                     
                     Intent notificationIntent = new Intent (mContext, PropertyDetailActivity.class);
-    
+        
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_ID, jsonObject.getInt (AppConfigTags.PROPERTY_ID));
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_ADDRESS, jsonObject.getString (AppConfigTags.PROPERTY_ADDRESS));
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_ADDRESS2, jsonObject.getString (AppConfigTags.PROPERTY_ADDRESS2));
@@ -72,9 +73,9 @@ public class NotificationUtils {
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_BUILT_YEAR, jsonObject.getString (AppConfigTags.PROPERTY_BUILT_YEAR));
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_IMAGES, temp);
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_IS_FAVOURITE, false);
-
+        
                     notificationIntent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-    
+        
                     pendingIntent = PendingIntent.getActivity (mContext, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     
                     new_property_small.setImageViewBitmap (R.id.ivNotificationTitle, Utils.textAsBitmap (mContext, notification.getTitle (), 18, Color.WHITE));
@@ -110,7 +111,8 @@ public class NotificationUtils {
                 notification1.defaults |= Notification.DEFAULT_VIBRATE;//Vibration
                 notification1.defaults |= Notification.DEFAULT_SOUND; // Sound
     
-                mNotifyManager.notify (notification.getNotification_type (), notification1);
+                Random r2 = new Random ();
+                mNotifyManager.notify (r2.nextInt ((2000 - 1000) + 1) + 1000, notification1);
                 break;
     
             case 2:
@@ -131,9 +133,9 @@ public class NotificationUtils {
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_BUILT_YEAR, jsonObject.getString (AppConfigTags.PROPERTY_BUILT_YEAR));
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_IMAGES, tempbid);
                     notificationIntent.putExtra (AppConfigTags.PROPERTY_IS_FAVOURITE, false);
-            
+    
                     notificationIntent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            
+    
                     pendingIntent = PendingIntent.getActivity (mContext, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     NotificationCompat.Builder notificationBuilder = new
                             NotificationCompat.Builder (mContext)
@@ -145,8 +147,8 @@ public class NotificationUtils {
                             .setContentIntent (pendingIntent);
                     NotificationManager notificationManager =
                             (NotificationManager) mContext.getSystemService (Context.NOTIFICATION_SERVICE);
-            
-                    notificationManager.notify (1410, notificationBuilder.build ());
+                    Random r = new Random ();
+                    notificationManager.notify (r.nextInt ((2000 - 1000) + 1) + 1000, notificationBuilder.build ());
                 } catch (JSONException e) {
                     e.printStackTrace ();
                 }

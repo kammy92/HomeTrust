@@ -216,8 +216,10 @@
                 android:id="@+id/tvNoResultFound3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvNoResultFound2"
                 android:layout_below="@+id/tvNoResultFound"
                 android:layout_toRightOf="@+id/tvNoResultFound2"
+                android:gravity="center"
                 android:padding="@dimen/activity_margin_extra_small"
                 android:text="Button to make a property favourite"
                 android:textSize="@dimen/text_size_small"/>
