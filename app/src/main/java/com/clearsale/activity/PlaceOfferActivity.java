@@ -2,6 +2,8 @@ package com.clearsale.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,8 @@ import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -25,6 +29,8 @@ public class PlaceOfferActivity extends AppCompatActivity {
     Intent intent;
     RelativeLayout rlBack;
     ProgressDialog progressDialog;
+    ProgressBar progressBar;
+    FrameLayout fl1;
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -42,8 +48,9 @@ public class PlaceOfferActivity extends AppCompatActivity {
     
     private void initData () {
         progressDialog = new ProgressDialog (PlaceOfferActivity.this);
-        Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
-    
+//        Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
+        
+        
         webviewPlaceAnOffer.loadUrl ("http://hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0) + "");
         webviewPlaceAnOffer.getSettings ().setJavaScriptEnabled (true);
         webviewPlaceAnOffer.setHorizontalScrollBarEnabled (true);
@@ -51,12 +58,34 @@ public class PlaceOfferActivity extends AppCompatActivity {
         webviewPlaceAnOffer.setWebChromeClient (new MyWebChromeClient ());
         Log.e ("URL", "http://hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0));
         Utils.setTypefaceToAllViews (this, rlBack);
+    
+        if (Build.VERSION.SDK_INT >= 21) {
+            progressBar.setProgressTintList (ColorStateList.valueOf (getResources ().getColor (R.color.primary_dark)));
+            progressBar.setIndeterminateTintList (ColorStateList.valueOf (getResources ().getColor (R.color.primary_dark)));
+        } else {
+            progressBar.getProgressDrawable ().setColorFilter (
+                    getResources ().getColor (R.color.primary_dark), android.graphics.PorterDuff.Mode.SRC_IN);
+            progressBar.getIndeterminateDrawable ().setColorFilter (
+                    getResources ().getColor (R.color.primary_dark), android.graphics.PorterDuff.Mode.SRC_IN);
+        }
     }
     
     private void initListener () {
         webviewPlaceAnOffer.setWebViewClient (new WebViewClient () {
             public void onPageFinished (WebView view, String url) {
                 progressDialog.dismiss ();
+                fl1.setVisibility (View.GONE);
+            }
+        });
+    
+        webviewPlaceAnOffer.setWebChromeClient (new WebChromeClient () {
+            public void onProgressChanged (WebView view, int progress) {
+                if (progress > 70) {
+                    progressBar.setIndeterminate (true);
+                } else {
+                    progressBar.setIndeterminate (false);
+                    progressBar.setProgress (progress + 10);
+                }
             }
         });
         rlBack.setOnClickListener (new View.OnClickListener () {
@@ -70,6 +99,8 @@ public class PlaceOfferActivity extends AppCompatActivity {
     private void initView () {
         webviewPlaceAnOffer = (WebView) findViewById (R.id.webviewPlaceAnOffer);
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
+        progressBar = (ProgressBar) findViewById (R.id.progressBar);
+        fl1 = (FrameLayout) findViewById (R.id.fl1);
     }
     
     

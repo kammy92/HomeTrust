@@ -75,7 +75,7 @@ public class AboutUsActivity extends AppCompatActivity {
                 if (Math.abs (verticalOffset) == appBarLayout.getTotalScrollRange ()) {
                     // Collapsed
                     getWindow ().clearFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                    collapsingToolbarLayout.setScrimAnimationDuration ((long) 100);
+                    collapsingToolbarLayout.setScrimAnimationDuration ((long) 400);
                     collapsingToolbarLayout.setContentScrimColor (getResources ().getColor (R.color.primary));
                 } else if (verticalOffset == 0) {
                     // Expanded

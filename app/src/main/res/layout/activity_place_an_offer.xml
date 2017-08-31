@@ -82,11 +82,25 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true">
+            <FrameLayout
+                android:id="@+id/fl1"
+                android:layout_width="match_parent"
+                android:layout_height="4dp">
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"/>
+            </FrameLayout>
             <WebView
                 android:id="@+id/webviewPlaceAnOffer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></WebView>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fl1"/>
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
