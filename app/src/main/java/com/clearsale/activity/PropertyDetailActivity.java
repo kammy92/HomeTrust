@@ -336,6 +336,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
     
     private void getPropertyDetails () {
         if (NetworkConnection.isNetworkAvailable (PropertyDetailActivity.this)) {
+            OverviewFragment.hideProgressBar (false);
 //            Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
             Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_PROPERTY_DETAIL, true);
             StringRequest strRequest1 = new StringRequest (Request.Method.POST, AppConfigURL.URL_PROPERTY_DETAIL,
@@ -353,13 +354,25 @@ public class PropertyDetailActivity extends AppCompatActivity {
                                     }
                                 } catch (Exception e) {
                                     progressDialog.dismiss ();
+                                    OverviewFragment.hideProgressBar (true);
                                     clMain.setVisibility (View.VISIBLE);
-                                    Utils.showSnackBar (PropertyDetailActivity.this, clMain, getResources ().getString (R.string.snackbar_text_exception_occurred), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
+                                    Utils.showSnackBar (PropertyDetailActivity.this, clMain, getResources ().getString (R.string.snackbar_text_exception_occurred), Snackbar.LENGTH_INDEFINITE, getResources ().getString (R.string.snackbar_action_retry), new View.OnClickListener () {
+                                        @Override
+                                        public void onClick (View v) {
+                                            getPropertyDetails ();
+                                        }
+                                    });
                                     e.printStackTrace ();
                                 }
                             } else {
+                                OverviewFragment.hideProgressBar (true);
                                 clMain.setVisibility (View.VISIBLE);
-                                Utils.showSnackBar (PropertyDetailActivity.this, clMain, getResources ().getString (R.string.snackbar_text_error_occurred), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
+                                Utils.showSnackBar (PropertyDetailActivity.this, clMain, getResources ().getString (R.string.snackbar_text_error_occurred), Snackbar.LENGTH_INDEFINITE, getResources ().getString (R.string.snackbar_action_retry), new View.OnClickListener () {
+                                    @Override
+                                    public void onClick (View v) {
+                                        getPropertyDetails ();
+                                    }
+                                });
                                 Utils.showLog (Log.WARN, AppConfigTags.SERVER_RESPONSE, AppConfigTags.DIDNT_RECEIVE_ANY_DATA_FROM_SERVER, true);
                             }
                             clMain.setVisibility (View.VISIBLE);
@@ -371,8 +384,14 @@ public class PropertyDetailActivity extends AppCompatActivity {
                         public void onErrorResponse (VolleyError error) {
                             progressDialog.dismiss ();
                             clMain.setVisibility (View.VISIBLE);
+                            OverviewFragment.hideProgressBar (true);
                             Utils.showLog (Log.ERROR, AppConfigTags.VOLLEY_ERROR, error.toString (), true);
-                            Utils.showSnackBar (PropertyDetailActivity.this, clMain, getResources ().getString (R.string.snackbar_text_error_occurred), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
+                            Utils.showSnackBar (PropertyDetailActivity.this, clMain, getResources ().getString (R.string.snackbar_text_error_occurred), Snackbar.LENGTH_INDEFINITE, getResources ().getString (R.string.snackbar_action_retry), new View.OnClickListener () {
+                                @Override
+                                public void onClick (View v) {
+                                    getPropertyDetails ();
+                                }
+                            });
                         }
                     }) {
                 @Override
@@ -753,5 +772,4 @@ public class PropertyDetailActivity extends AppCompatActivity {
         protected void onProgressUpdate (Void... values) {
         }
     }
-    
 }

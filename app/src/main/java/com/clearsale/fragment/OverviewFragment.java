@@ -34,9 +34,9 @@ import com.clearsale.utils.Utils;
 
 
 public class OverviewFragment extends Fragment {
+    static ProgressBar progressBar;
     PropertyDetailsPref propertyDetailsPref;
     WebView wvDescription;
-
     TextView tvYear;
     TextView tvBedroom;
     TextView tvBathroom;
@@ -45,10 +45,8 @@ public class OverviewFragment extends Fragment {
     TextView tvAddress1;
     TextView tvAddress2;
     TextView tvSqFeet;
-    
     ProgressDialog progressDialog;
     BuyerDetailsPref buyerDetailsPref;
-    
     CardView cvDescription;
     Button btShowMoreDescription;
     TextView tvPlaceAnOffer;
@@ -60,40 +58,38 @@ public class OverviewFragment extends Fragment {
     CardView cvKeyDetails;
     TextView tvScheduleTour;
     EditText etOfferUsd;
-    
     LinearLayout llMain;
-    
     LinearLayout llDescription;
-    
-    
     LinearLayout llKeyDetails;
-    
-    
     LinearLayout llOverview;
     CardView cvOverview;
     Button btShowMoreOverview;
     WebView wvOverview;
     boolean overviewExpanded = true;
-    
-    
     LinearLayout llWorkScope;
     WebView wvWorkScope;
-    
     LinearLayout llFinishedProduct;
     WebView wvFinishedProduct;
-    
     LinearLayout llClosingDetails;
     WebView wvClosingDetails;
-    
     LinearLayout llRealtor;
     WebView wvRealtor;
-    
-    
     Animation animation1, animation2;
-    ProgressBar progressBar;
     setPropertyDetails setPropertyDetail;
-    private View positiveAction;
 
+//    static RelativeLayout rlErrorOccurred;
+//    static TextView tvRetry;
+    
+    public static void hideProgressBar (boolean flag) {
+        if (progressBar != null) {
+            if (flag) {
+                progressBar.setVisibility (View.GONE);
+            } else {
+                progressBar.setVisibility (View.VISIBLE);
+            }
+        }
+    }
+    
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate (R.layout.fragment_overview, container, false);
@@ -103,10 +99,10 @@ public class OverviewFragment extends Fragment {
         //    getOverviewData();
         return rootView;
     }
-
+    
     private void initView (View rootView) {
         // clMain = (CoordinatorLayout)rootView.findViewById(R.id.clMain);
-    
+        
         progressBar = (ProgressBar) rootView.findViewById (R.id.progressBar);
         
         tvYear = (TextView) rootView.findViewById (R.id.tvYear);
@@ -117,58 +113,56 @@ public class OverviewFragment extends Fragment {
         tvAddress1 = (TextView) rootView.findViewById (R.id.tvAddress1);
         tvAddress2 = (TextView) rootView.findViewById (R.id.tvAddress2);
         tvSqFeet = (TextView) rootView.findViewById (R.id.tvSqFeet);
-    
+        
         llMain = (LinearLayout) rootView.findViewById (R.id.llMain);
-    
-    
+        
+        
         cvDescription = (CardView) rootView.findViewById (R.id.cvDescription);
         llDescription = (LinearLayout) rootView.findViewById (R.id.llDescription);
         wvDescription = (WebView) rootView.findViewById (R.id.wvDescription);
         btShowMoreDescription = (Button) rootView.findViewById (R.id.btShowMoreDescription);
-    
+        
         llOverview = (LinearLayout) rootView.findViewById (R.id.llOverview);
         cvOverview = (CardView) rootView.findViewById (R.id.cvOverview);
         wvOverview = (WebView) rootView.findViewById (R.id.wvOverview);
         btShowMoreOverview = (Button) rootView.findViewById (R.id.btShowMoreOverview);
         
         tvScheduleTour = (TextView) rootView.findViewById (R.id.tvScheduleTour);
-    
+        
         llWorkScope = (LinearLayout) rootView.findViewById (R.id.llWorkScope);
         wvWorkScope = (WebView) rootView.findViewById (R.id.wvWorkScope);
-    
+        
         llFinishedProduct = (LinearLayout) rootView.findViewById (R.id.llFinishedProduct);
         wvFinishedProduct = (WebView) rootView.findViewById (R.id.wvFinishedProduct);
-    
+        
         llClosingDetails = (LinearLayout) rootView.findViewById (R.id.llClosingDetails);
         wvClosingDetails = (WebView) rootView.findViewById (R.id.wvClosingDetails);
-    
+        
         llKeyDetails = (LinearLayout) rootView.findViewById (R.id.llKeyDetails);
         cvKeyDetails = (CardView) rootView.findViewById (R.id.cvKeyDetails);
         wvKeyDetail = (WebView) rootView.findViewById (R.id.wvKeyDetail);
         btShowMoreKeyDetail = (Button) rootView.findViewById (R.id.btShowMoreKeyDetail);
-    
+        
         tvPlaceAnOffer = (TextView) rootView.findViewById (R.id.tvPlaceAnOffer);
-    
+        
         llRealtor = (LinearLayout) rootView.findViewById (R.id.llRealtor);
         wvRealtor = (WebView) rootView.findViewById (R.id.wvRealtor);
-    
-    
     }
-
+    
     private void initData () {
         setPropertyDetail = new setPropertyDetails ();
         buyerDetailsPref = BuyerDetailsPref.getInstance ();
         propertyDetailsPref = PropertyDetailsPref.getInstance ();
 //        progressDialog = new ProgressDialog (getActivity ());
-    
+        
         llMain.setLayoutTransition (new LayoutTransition ());
         
         animation1 = new AlphaAnimation (0.5f, 1.0f);
         animation1.setDuration (2000);
         animation2 = new AlphaAnimation (1.0f, 0.5f);
         animation2.setDuration (2000);
-    
-    
+        
+        
         tvYear.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_YEAR_BUILD));
         tvAddress1.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ADDRESS1));
         tvAddress2.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ADDRESS2));
@@ -208,13 +202,13 @@ public class OverviewFragment extends Fragment {
                 tvStatus.setText ("Offer Window Closing");
                 break;
         }
-    
-    
+        
+        
         setPropertyDetail.execute ();
 
 
 //        progressBar.setVisibility (View.GONE);
-    
+        
         Utils.setTypefaceToAllViews (getActivity (), tvAddress1);
     }
     
@@ -396,6 +390,7 @@ public class OverviewFragment extends Fragment {
                 // TODO Auto-generated method stub
                 
             }
+    
             @Override
             public void onAnimationStart (Animation arg0) {
                 // TODO Auto-generated method stub
@@ -451,7 +446,7 @@ public class OverviewFragment extends Fragment {
                             "text/html",
                             "UTF-8",
                             "");
-            
+    
                     wvClosingDetails.loadDataWithBaseURL (
                             "www.google.com",
                             new SpannableStringBuilder ("<style>@font-face{font-family: myFont;src: url(file:///android_asset/" + Constants.font_name + ");}</style>" + propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_CLOSING_DETAILS)).toString (),
@@ -474,14 +469,14 @@ public class OverviewFragment extends Fragment {
                 } else {
                     tvPlaceAnOffer.setVisibility (View.GONE);
                 }
-        
+    
                 if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1) {
                     tvScheduleTour.setVisibility (View.VISIBLE);
                 } else {
                     tvScheduleTour.setVisibility (View.GONE);
                 }
                 progressBar.setVisibility (View.GONE);
-        
+    
             } else {
                 llDescription.setVisibility (View.GONE);
             }
@@ -517,7 +512,7 @@ public class OverviewFragment extends Fragment {
             } else {
                 llClosingDetails.setVisibility (View.GONE);
             }
-
+    
         }
         
         @Override
@@ -528,6 +523,4 @@ public class OverviewFragment extends Fragment {
         protected void onProgressUpdate (Void... values) {
         }
     }
-    
-    
 }
