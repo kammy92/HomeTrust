@@ -80,9 +80,13 @@ public class PlaceOfferActivity extends AppCompatActivity {
     
         webviewPlaceAnOffer.setWebChromeClient (new WebChromeClient () {
             public void onProgressChanged (WebView view, int progress) {
+                if (progress < 30) {
+                    progressBar.setIndeterminate (true);
+                }
                 if (progress > 70) {
                     progressBar.setIndeterminate (true);
-                } else {
+                }
+                if (progress < 70 && progress > 30) {
                     progressBar.setIndeterminate (false);
                     progressBar.setProgress (progress + 10);
                 }
