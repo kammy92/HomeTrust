@@ -42,6 +42,7 @@ public class PlaceOfferActivity extends AppCompatActivity {
         initListener ();
     }
     
+    
     private void getIntentValue () {
         intent = getIntent ();
     }
