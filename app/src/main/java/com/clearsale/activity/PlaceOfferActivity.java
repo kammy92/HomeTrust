@@ -1,6 +1,5 @@
 package com.clearsale.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
@@ -28,7 +27,6 @@ public class PlaceOfferActivity extends AppCompatActivity {
     WebView webviewPlaceAnOffer;
     Intent intent;
     RelativeLayout rlBack;
-    ProgressDialog progressDialog;
     ProgressBar progressBar;
     FrameLayout fl1;
     
@@ -42,22 +40,22 @@ public class PlaceOfferActivity extends AppCompatActivity {
         initListener ();
     }
     
-    
     private void getIntentValue () {
         intent = getIntent ();
     }
     
     private void initData () {
-        progressDialog = new ProgressDialog (PlaceOfferActivity.this);
-//        Utils.showProgressDialog (progressDialog, getResources ().getString (R.string.progress_dialog_text_please_wait), true);
-        
-        
-        webviewPlaceAnOffer.loadUrl ("http://hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0) + "");
+        webviewPlaceAnOffer.loadUrl ("https://www.hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0) + "");
         webviewPlaceAnOffer.getSettings ().setJavaScriptEnabled (true);
+        webviewPlaceAnOffer.getSettings ().setGeolocationEnabled (true);
+        webviewPlaceAnOffer.getSettings ().setJavaScriptCanOpenWindowsAutomatically (true);
+        webviewPlaceAnOffer.getSettings ().setSupportMultipleWindows (true);
+        webviewPlaceAnOffer.getSettings ().setSaveFormData (false);
         webviewPlaceAnOffer.setHorizontalScrollBarEnabled (true);
         webviewPlaceAnOffer.setVerticalScrollBarEnabled (true);
+        webviewPlaceAnOffer.getSettings ().setCacheMode (webviewPlaceAnOffer.getSettings ().LOAD_NO_CACHE);
         webviewPlaceAnOffer.setWebChromeClient (new MyWebChromeClient ());
-        Log.e ("URL", "http://hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0));
+        Log.e ("URL", "https://www.hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0));
         Utils.setTypefaceToAllViews (this, rlBack);
     
         if (Build.VERSION.SDK_INT >= 21) {
@@ -74,25 +72,10 @@ public class PlaceOfferActivity extends AppCompatActivity {
     private void initListener () {
         webviewPlaceAnOffer.setWebViewClient (new WebViewClient () {
             public void onPageFinished (WebView view, String url) {
-                progressDialog.dismiss ();
                 fl1.setVisibility (View.GONE);
             }
         });
     
-        webviewPlaceAnOffer.setWebChromeClient (new WebChromeClient () {
-            public void onProgressChanged (WebView view, int progress) {
-                if (progress < 30) {
-                    progressBar.setIndeterminate (true);
-                }
-                if (progress > 70) {
-                    progressBar.setIndeterminate (true);
-                }
-                if (progress < 70 && progress > 30) {
-                    progressBar.setIndeterminate (false);
-                    progressBar.setProgress (progress + 10);
-                }
-            }
-        });
         rlBack.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {
@@ -108,8 +91,19 @@ public class PlaceOfferActivity extends AppCompatActivity {
         fl1 = (FrameLayout) findViewById (R.id.fl1);
     }
     
-    
     final class MyWebChromeClient extends WebChromeClient {
+        public void onProgressChanged (WebView view, int progress) {
+            if (progress < 30) {
+                progressBar.setIndeterminate (true);
+            }
+            if (progress > 70) {
+                progressBar.setIndeterminate (true);
+            }
+            if (progress < 70 && progress > 30) {
+                progressBar.setIndeterminate (false);
+                progressBar.setProgress (progress + 10);
+            }
+        }
         @Override
         public boolean onJsAlert (WebView view, String url, String message, final android.webkit.JsResult result) {
             MaterialDialog dialog = new MaterialDialog.Builder (PlaceOfferActivity.this)
