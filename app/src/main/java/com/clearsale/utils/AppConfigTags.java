@@ -137,5 +137,8 @@ public class AppConfigTags {
     public static String SCHEDULE_ADDRESS = "user_address";
     
     
+    public static String APPOINTMENTS = "appointments";
+    public static String PROPERTY_MY_APPOINTMENT = "property_my_appointment";
+    public static String STATUS = "status";
     
 }

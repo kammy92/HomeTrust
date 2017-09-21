@@ -65,6 +65,9 @@
             android:name=".activity.MyFavouriteActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activity.MyAppointmentActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity.PropertyImageActivity"
             android:screenOrientation="portrait"/>
 

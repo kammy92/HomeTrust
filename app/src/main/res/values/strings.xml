@@ -171,6 +171,9 @@
     <string name="activity_faq_back_button">Home</string>
     <string name="activity_faq_title">FAQs</string>
 
+    <string name="activity_my_appointment_back_button">Home</string>
+    <string name="activity_my_appointment_title">My Appointments</string>
+
     <string name="activity_testimonial_back_button">Home</string>
     <string name="activity_testimonial_title">Testimonials</string>
 

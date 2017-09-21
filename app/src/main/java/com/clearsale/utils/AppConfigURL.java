@@ -21,7 +21,7 @@ public class AppConfigURL {
     public static String URL_FAQ = BASE_URL + "api/";
     public static String URL_PROPERTY_DETAIL = BASE_URL + "api/";
     public static String URL_PROPERTY_MAP = BASE_URL + "api/";
-    
+    public static String URL_MY_APPOINTMENT = BASE_URL + "api/";
     public static String URL_SCHEDULE_TOUR = BASE_URL + "api/";
     public static String URL_SCHEDULE_APPOINTMENT = BASE_URL + "api/";
     
