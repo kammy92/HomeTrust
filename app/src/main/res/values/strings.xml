@@ -223,9 +223,10 @@
         you confirm you have had the opportunity for access and you accept the property as is where
         is with possession and closing terms as described below.
     </string>
-    <string name="dialog_appointment_comment">Comments</string>
-    <string name="dialog_appointment_user">Number of Users</string>
-    <string name="dialog_appointment_address">Address</string>
+    <string name="dialog_appointment_comment">Buyer Comments</string>
+    <string name="dialog_appointment_user">Max # of People at Access</string>
+    <string name="dialog_appointment_address">Buyer Address</string>
     <string name="dialog_appointment_hint_comment">Comments</string>
+
 
 </resources>

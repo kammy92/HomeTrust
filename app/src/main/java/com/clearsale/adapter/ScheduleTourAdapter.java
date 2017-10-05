@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -38,6 +41,8 @@ import java.util.Map;
 
 public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapter.ViewHolder> {
     OnItemClickListener mItemClickListener;
+    String numberOfUsers;
+    String[] numberUser = {"1", "2"};
     int checked;
     ScheduleTour scheduleTour;
     PropertyDetailsPref propertyDetailsPref;
@@ -96,16 +101,36 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                 .build ();
         
         final EditText etComment = (EditText) dialog.getCustomView ().findViewById (R.id.etComment);
-        final EditText etNumberOfUsers = (EditText) dialog.getCustomView ().findViewById (R.id.etNumberOfUsers);
+//        final EditText etNumberOfUsers = (EditText) dialog.getCustomView ().findViewById (R.id.etNumberOfUsers);
         final EditText etAddress = (EditText) dialog.getCustomView ().findViewById (R.id.etAddress);
+        final Spinner spinner = (Spinner) dialog.getCustomView ().findViewById (R.id.spinner);
         Utils.setTypefaceToAllViews (activity, etAddress);
         etAddress.setText (buyer_address);
+    
+        ArrayAdapter<String> adapter = new ArrayAdapter<String> (activity, android.R.layout.simple_list_item_1, numberUser);
+        spinner.setAdapter (adapter);
+        spinner.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener () {
+                                               @Override
+                                               public void onItemSelected (AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                                                   int position = spinner.getSelectedItemPosition ();
+                                                   numberOfUsers = arg0.getItemAtPosition (position).toString ();
+                                                   // TODO Auto-generated method stub
+                                               }
+        
+                                               @Override
+                                               public void onNothingSelected (AdapterView<?> arg0) {
+                                                   // TODO Auto-generated method stub
+            
+                                               }
+        
+                                           }
+        );
         
         dialog.getActionButton (DialogAction.POSITIVE).setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {
                 String comment = etComment.getText ().toString ();
-                String numberOfUsers = etNumberOfUsers.getText ().toString ();
+//                String numberOfUsers = etNumberOfUsers.getText ().toString ();
                 String address = etAddress.getText ().toString ();
                 if (numberOfUsers.equalsIgnoreCase ("")) {
                     Utils.showToast (activity, "Please Enter Number of Users", true);
