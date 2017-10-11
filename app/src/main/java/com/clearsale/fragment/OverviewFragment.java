@@ -67,7 +67,10 @@ public class OverviewFragment extends Fragment {
     WebView wvOverview;
     boolean overviewExpanded = true;
     LinearLayout llWorkScope;
+    CardView cvWorkScope;
+    Button btShowMoreWorkScope;
     WebView wvWorkScope;
+    boolean workscopeExpanded = true;
     LinearLayout llFinishedProduct;
     WebView wvFinishedProduct;
     LinearLayout llClosingDetails;
@@ -128,9 +131,11 @@ public class OverviewFragment extends Fragment {
         btShowMoreOverview = (Button) rootView.findViewById (R.id.btShowMoreOverview);
         
         tvScheduleTour = (TextView) rootView.findViewById (R.id.tvScheduleTour);
-        
+    
         llWorkScope = (LinearLayout) rootView.findViewById (R.id.llWorkScope);
+        cvWorkScope = (CardView) rootView.findViewById (R.id.cvWorkScope);
         wvWorkScope = (WebView) rootView.findViewById (R.id.wvWorkScope);
+        btShowMoreWorkScope = (Button) rootView.findViewById (R.id.btShowMoreWorkScope);
         
         llFinishedProduct = (LinearLayout) rootView.findViewById (R.id.llFinishedProduct);
         wvFinishedProduct = (WebView) rootView.findViewById (R.id.wvFinishedProduct);
@@ -213,6 +218,47 @@ public class OverviewFragment extends Fragment {
     }
     
     private void initListener () {
+        btShowMoreWorkScope.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                if (workscopeExpanded) {
+                    btShowMoreWorkScope.setText ("LESS");
+                    workscopeExpanded = false;
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                            cvWorkScope.setLayoutParams (params);
+                        }
+                    };
+                    a.setDuration (1500); // in ms
+                    cvWorkScope.startAnimation (a);
+                } else {
+                    btShowMoreWorkScope.setText ("MORE");
+                    workscopeExpanded = true;
+                    Animation a = new Animation () {
+                        @Override
+                        protected void applyTransformation (float interpolatedTime, Transformation t) {
+                            if ((1.0f - interpolatedTime) < 1.0f) {
+                                if ((cvWorkScope.getHeight () * (1.0f - interpolatedTime)) <= Utils.pxFromDp (getActivity (), 200.0f)) {
+                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cvWorkScope.setLayoutParams (params);
+                                } else {
+                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MATCH_PARENT, (int) (cvOverview.getHeight () * (1.0f - interpolatedTime)));
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    cvWorkScope.setLayoutParams (params);
+                                }
+                            }
+                        }
+                    };
+                    a.setDuration (1500); // in ms
+                    cvWorkScope.startAnimation (a);
+                }
+            }
+        });
+        
         btShowMoreDescription.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
