@@ -192,7 +192,7 @@
                 android:layout_marginTop="@dimen/activity_margin"
                 android:gravity="center"
                 android:padding="@dimen/edittext_padding"
-                android:text="No Favourite Property Yet!"
+                android:text="No Favorite Properties Yet!"
                 android:textColor="@color/text_color_black"
                 android:textSize="@dimen/text_size_extra_large"
                 android:textStyle="bold"
@@ -221,7 +221,7 @@
                 android:layout_toRightOf="@+id/tvNoResultFound2"
                 android:gravity="center"
                 android:padding="@dimen/activity_margin_extra_small"
-                android:text="Button to make a property favourite"
+                android:text="Button to make a property favorite"
                 android:textSize="@dimen/text_size_small"/>
 
 
