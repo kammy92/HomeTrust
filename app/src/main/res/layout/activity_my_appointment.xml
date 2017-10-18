@@ -193,7 +193,7 @@
                 android:layout_marginTop="@dimen/activity_margin"
                 android:gravity="center"
                 android:padding="@dimen/edittext_padding"
-                android:text="Oops.. No Appointment found!"
+                android:text="Oops.. No Scheduled Access found!"
                 android:textColor="@color/text_color_black"
                 android:textSize="@dimen/text_size_extra_large"
                 android:textStyle="bold"
