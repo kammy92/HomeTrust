@@ -441,6 +441,8 @@ public class MainActivity extends AppCompatActivity {
                                     JSONObject jsonObj = new JSONObject (response);
                                     boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
+                                    String state_list = jsonObj.getString (AppConfigTags.STATE_LIST);
+                                    buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.STATE_LIST, state_list);
                                     if (! error) {
                                         buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.ABOUT_US, jsonObj.getString (AppConfigTags.ABOUT_US));
                                         buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_STATE, jsonObj.getString (AppConfigTags.PROFILE_STATE));

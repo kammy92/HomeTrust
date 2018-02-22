@@ -141,4 +141,6 @@ public class AppConfigTags {
     public static String PROPERTY_MY_APPOINTMENT = "property_my_appointment";
     public static String STATUS = "status";
     
+    public static String STATE_LIST = "state_list";
+    
 }

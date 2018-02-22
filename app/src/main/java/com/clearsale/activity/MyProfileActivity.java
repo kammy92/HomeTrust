@@ -239,9 +239,14 @@ public class MyProfileActivity extends AppCompatActivity {
     
     
         stateList.clear ();
-        stateList.add ("CO");
+        String allState[] = buyerDetailsPref.getStringPref (MyProfileActivity.this, BuyerDetailsPref.STATE_LIST).trim ().split (",");
+        for (int i = 0; i < allState.length; i++) {
+            stateList.add (allState[i]);
+        }
+
+        /*stateList.add ("CO");
         stateList.add ("WA");
-        stateList.add ("TX");
+        stateList.add ("TX");*/
 //        stateList.add ("WA");
     
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String> (this, R.layout.spinner, spinnerItems);
