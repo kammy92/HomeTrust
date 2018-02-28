@@ -443,9 +443,10 @@ public class MainActivity extends AppCompatActivity {
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
                                     String state_list = jsonObj.getString (AppConfigTags.STATE_LIST);
                                     buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.STATE_LIST, state_list);
+                                    buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_STATE, jsonObj.getString (AppConfigTags.PROFILE_STATE));
                                     if (! error) {
                                         buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.ABOUT_US, jsonObj.getString (AppConfigTags.ABOUT_US));
-                                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_STATE, jsonObj.getString (AppConfigTags.PROFILE_STATE));
+    
                                         JSONArray jsonArrayCities = jsonObj.getJSONArray (AppConfigTags.CITIES);
                                         filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_CITIES_JSON, jsonArrayCities.toString ());
                                         String cities = "";
@@ -523,6 +524,8 @@ public class MainActivity extends AppCompatActivity {
                 protected Map<String, String> getParams () throws AuthFailureError {
                     Map<String, String> params = new Hashtable<String, String> ();
                     params.put (AppConfigTags.TYPE, "property_list");
+                    params.put (AppConfigTags.DEVICE_TYPE, "ANDROID");
+                    params.put (AppConfigTags.FIREBASE_ID, buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_FIREBASE_ID));
                     params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (MainActivity.this, BuyerDetailsPref.BUYER_ID)));
                     params.put (AppConfigTags.FILTER, String.valueOf (filterDetailsPref.getBooleanPref (MainActivity.this, FilterDetailsPref.FILTER_APPLIED)));
                     if (filterDetailsPref.getBooleanPref (MainActivity.this, FilterDetailsPref.FILTER_APPLIED)) {
