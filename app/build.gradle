@@ -7,7 +7,7 @@ android {
         applicationId "com.clearsale"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 9
+        versionCode 11
         versionName "0.1.7"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

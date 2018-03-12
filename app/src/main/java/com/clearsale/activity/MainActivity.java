@@ -495,6 +495,8 @@ public class MainActivity extends AppCompatActivity {
                                             swipeRefreshLayout.setRefreshing (false);
                                         }
                                     } else {
+                                        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_CITIES_JSON, "[]");
+                                        
                                         Utils.showSnackBar (MainActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
                                         if (message.equalsIgnoreCase ("no property available"))
                                             rlNoResultFound.setVisibility (View.VISIBLE);
