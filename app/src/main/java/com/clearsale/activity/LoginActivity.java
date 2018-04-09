@@ -200,7 +200,8 @@ public class LoginActivity extends AppCompatActivity {
                                     try {
                                         JSONObject jsonObject = new JSONObject (result.getResponseDataAsJson ().toString ());
                                         Utils.showLog (Log.ERROR, "LinkedIn Response 2", jsonObject.toString (), true);
-                                        buyerDetailsPref.putStringPref (getApplicationContext (), buyerDetailsPref.BUYER_IMAGE, jsonObject.getJSONObject ("pictureUrls").getJSONArray ("values").get (0).toString ());
+                                        buyerDetailsPref.putStringPref (getApplicationContext (), buyerDetailsPref.BUYER_IMAGE, "");
+//                                        buyerDetailsPref.putStringPref (getApplicationContext (), buyerDetailsPref.BUYER_IMAGE, jsonObject.getJSONObject ("pictureUrls").getJSONArray ("values").get (0).toString ());
 //                                        Utils.showLog (Log.ERROR, "karman", "name : " + jsonObject.getString ("formattedName"), true);
 //                                        Utils.showLog (Log.ERROR, "karman", "email : " + jsonObject.getString ("emailAddress"), true);
                                         sendLinkedInDetailsToServer (jsonObject.getString ("formattedName"), jsonObject.getString ("emailAddress"), progressDialog);
