@@ -32,6 +32,7 @@ public class AppConfigTags {
     public static String PROPERTY_ID = "property_id";
     public static String PROPERTY_ADDRESS = "property_address";
     public static String PROPERTY_ADDRESS2 = "property_city";
+    public static String PROPERTY_ADDRESS_FULL = "property_address_full";
     public static String PROPERTY_CITY = "property_city";
     public static String PROPERTY_STATE = "property_state";
     public static String PROPERTY_LATITUDE = "property_latitude";
@@ -146,5 +147,10 @@ public class AppConfigTags {
     public static String STATUS = "status";
     
     public static String STATE_LIST = "state_list";
+    
+    public static String SCHEDULE_APPOINTMENT_ID = "appointment_id";
+    public static String CANCEL_APPOINTMENT = "cancel_appointment";
+    
+    
     
 }

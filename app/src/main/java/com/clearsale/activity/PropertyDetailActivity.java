@@ -613,6 +613,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 jsonArrayPropertyImages = jsonObj.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
                 editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS1, jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS));
                 editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS2, jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS2));
+                editor.putString (PropertyDetailsPref.PROPERTY_ADDRESS_FULL, jsonObj.getString (AppConfigTags.PROPERTY_ADDRESS_FULL));
                 editor.putString (PropertyDetailsPref.PROPERTY_BEDROOM, jsonObj.getString (AppConfigTags.PROPERTY_BEDROOMS));
                 editor.putString (PropertyDetailsPref.PROPERTY_BATHROOM, jsonObj.getString (AppConfigTags.PROPERTY_BATHROOMS));
                 editor.putString (PropertyDetailsPref.PROPERTY_AREA, jsonObj.getString (AppConfigTags.PROPERTY_AREA));

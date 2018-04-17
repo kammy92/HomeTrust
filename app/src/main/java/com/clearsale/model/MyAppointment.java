@@ -5,11 +5,12 @@ package com.clearsale.model;
  */
 
 public class MyAppointment {
-    int buyer_id, access_token_id, property_id;
+    int appointment_id, buyer_id, access_token_id, property_id;
     String property_address, user_comment, user_address, time_frame, access_start_date, status;
     
-    public MyAppointment (int buyer_id, int access_token_id, int property_id, String status, String property_address, String user_comment, String user_address,
+    public MyAppointment (int appointment_id, int buyer_id, int access_token_id, int property_id, String status, String property_address, String user_comment, String user_address,
                           String time_frame, String access_start_date) {
+        this.appointment_id = appointment_id;
         this.buyer_id = buyer_id;
         this.access_token_id = access_token_id;
         this.property_id = property_id;
@@ -19,6 +20,14 @@ public class MyAppointment {
         this.user_address = user_address;
         this.time_frame = time_frame;
         this.access_start_date = access_start_date;
+    }
+    
+    public int getAppointment_id () {
+        return appointment_id;
+    }
+    
+    public void setAppointment_id (int appointment_id) {
+        this.appointment_id = appointment_id;
     }
     
     public int getAccess_token_id () {

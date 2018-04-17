@@ -126,7 +126,7 @@ public class MyAppointmentActivity extends AppCompatActivity {
                                         for (int i = 0; i < jsonArrayMyAppointment.length (); i++) {
                                             JSONObject jsonObjectMyAppointment = jsonArrayMyAppointment.getJSONObject (i);
                                             myAppointmentList.add (new MyAppointment (
-                                                    jsonObjectMyAppointment.getInt (AppConfigTags.BUYER_ID),
+                                                    jsonObjectMyAppointment.getInt (AppConfigTags.SCHEDULE_APPOINTMENT_ID), jsonObjectMyAppointment.getInt (AppConfigTags.BUYER_ID),
                                                     jsonObjectMyAppointment.getInt (AppConfigTags.SCHEDULE_ACCESS_TOKEN_ID),
                                                     jsonObjectMyAppointment.getInt (AppConfigTags.PROPERTY_ID),
                                                     jsonObjectMyAppointment.getString (AppConfigTags.STATUS),

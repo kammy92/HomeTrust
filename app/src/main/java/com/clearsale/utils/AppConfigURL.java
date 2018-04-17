@@ -29,4 +29,6 @@ public class AppConfigURL {
     
     
     public static String URL_LINKEDIN_AUTH = "https://api.linkedin.com/v1/people/~:(email-address,formatted-name,phone-numbers,picture-urls::(original))";
+    
+    public static String URL_CANCEL_APPOINTMENT = BASE_URL + "api/";
 }
