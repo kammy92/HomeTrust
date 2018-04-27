@@ -42,9 +42,11 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.AboutUsActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.ChatSupportActivity"
+            android:screenOrientation="portrait"/>
 
-        />
         <!--android:theme="@style/AppThemeTranslucentStatus"-->
         <activity
             android:name=".activity.FilterActivity"
