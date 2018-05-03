@@ -64,10 +64,12 @@ public class MyAppointmentAdapter extends RecyclerView.Adapter<MyAppointmentAdap
         holder.tvComment.setText (myAppointment.getUser_comment ());
         switch (myAppointment.getStatus ()) {
             case "0":
-                holder.tvStatus.setText ("Pending");
+                holder.tvStatus.setText ("Pending Access");
+                holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_yellow));
                 break;
+
             case "1":
-                holder.tvStatus.setText ("Accepted");
+                holder.tvStatus.setText ("Approved Access");
                 holder.tvCancelRequest.setVisibility (View.VISIBLE);
                 holder.tvCancelRequest.setOnClickListener (new View.OnClickListener () {
                     @Override
@@ -75,9 +77,27 @@ public class MyAppointmentAdapter extends RecyclerView.Adapter<MyAppointmentAdap
                         cancelRequestDialog (myAppointment.getAppointment_id ());
                     }
                 });
+                holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_green_dark));
                 break;
+    
             case "2":
-                holder.tvStatus.setText ("Rejected");
+                holder.tvStatus.setText ("Rejected Access");
+                holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_red));
+                break;
+    
+            case "3":
+                holder.tvStatus.setText ("Access Cancelled By Buyer");
+                holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_red));
+                break;
+    
+            case "4":
+                holder.tvStatus.setText ("Access Cancelled By Buyer");
+                holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_red));
+                break;
+    
+            case "5":
+                holder.tvStatus.setText ("Access Cancelled By HomeTrust");
+                holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_red));
                 break;
         }
         

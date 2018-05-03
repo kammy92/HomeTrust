@@ -1,6 +1,7 @@
 package com.clearsale.adapter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -101,14 +103,17 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                 .build ();
         
         final EditText etComment = (EditText) dialog.getCustomView ().findViewById (R.id.etComment);
-//        final EditText etNumberOfUsers = (EditText) dialog.getCustomView ().findViewById (R.id.etNumberOfUsers);
-        final EditText etAddress = (EditText) dialog.getCustomView ().findViewById (R.id.etAddress);
         final Spinner spinner = (Spinner) dialog.getCustomView ().findViewById (R.id.spinner);
         final TextView tvAddressFull = (TextView) dialog.getCustomView ().findViewById (R.id.tvAddressFull);
+        final EditText etPerson = (EditText) dialog.getCustomView ().findViewById (R.id.etPerson);
+        final EditText etAboutPerson = (EditText) dialog.getCustomView ().findViewById (R.id.etAboutPerson);
+        final EditText etLenderName = (EditText) dialog.getCustomView ().findViewById (R.id.etLenderName);
+        final EditText etAppraisalAccess = (EditText) dialog.getCustomView ().findViewById (R.id.etAppraisalAccess);
+        final LinearLayout ll3 = (LinearLayout) dialog.getCustomView ().findViewById (R.id.ll3);
+
         tvAddressFull.setText (propertyDetailsPref.getStringPref (activity, PropertyDetailsPref.PROPERTY_ADDRESS_FULL) + ", " + propertyDetailsPref.getStringPref (activity, PropertyDetailsPref.PROPERTY_ADDRESS2));
     
-        Utils.setTypefaceToAllViews (activity, etAddress);
-        etAddress.setText (buyer_address);
+        Utils.setTypefaceToAllViews (activity, etComment);
         if (propertyDetailsPref.getStringPref (activity, PropertyDetailsPref.PROPERTY_STATE).equalsIgnoreCase ("TX")) {
             String[] numberUser = {"1", "2", "3"};
             ArrayAdapter<String> adapter = new ArrayAdapter<String> (activity, android.R.layout.simple_list_item_1, numberUser);
@@ -118,13 +123,17 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
             ArrayAdapter<String> adapter = new ArrayAdapter<String> (activity, android.R.layout.simple_list_item_1, numberUser);
             spinner.setAdapter (adapter);
         }
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String> (activity, android.R.layout.simple_list_item_1, numberUser);
-        spinner.setAdapter (adapter);*/
         spinner.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener () {
+
                                                @Override
                                                public void onItemSelected (AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                                                    int position = spinner.getSelectedItemPosition ();
                                                    numberOfUsers = arg0.getItemAtPosition (position).toString ();
+                                                   if (Integer.parseInt (numberOfUsers) > 1) {
+                                                       ll3.setVisibility (View.VISIBLE);
+                                                   } else {
+                                                       ll3.setVisibility (View.GONE);
+                                                   }
                                                    // TODO Auto-generated method stub
                                                }
         
@@ -141,25 +150,41 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
             @Override
             public void onClick (View v) {
                 String comment = etComment.getText ().toString ();
-//                String numberOfUsers = etNumberOfUsers.getText ().toString ();
-                String address = etAddress.getText ().toString ();
+                String lender_name = etLenderName.getText ().toString ();
+                String appraisal_access = etAppraisalAccess.getText ().toString ();
+                String person_name = etPerson.getText ().toString ();
+                String about_person = etAboutPerson.getText ().toString ();
                 if (numberOfUsers.equalsIgnoreCase ("")) {
                     Utils.showToast (activity, "Please Enter Number of Users", true);
-                } else if (address.equalsIgnoreCase ("")) {
-                    Utils.showToast (activity, "Please Enter the Address", true);
-                } else if (! numberOfUsers.equalsIgnoreCase ("") && ! address.equalsIgnoreCase ("")) {
-                    scheduleAppointment (comment, numberOfUsers, address, id, 1);
-                    dialog.dismiss ();
+                } else if (lender_name.equalsIgnoreCase ("")) {
+                    Utils.showToast (activity, "Please Enter the Lender Name", true);
+                } else if (appraisal_access.equalsIgnoreCase ("")) {
+                    Utils.showToast (activity, "Please Enter the Appraisal Access", true);
+                } else if (! numberOfUsers.equalsIgnoreCase ("") && ! lender_name.equalsIgnoreCase ("") && ! appraisal_access.equalsIgnoreCase ("")) {
+                    if (Integer.parseInt (numberOfUsers) > 1) {
+                        if (person_name.equalsIgnoreCase ("")) {
+                            Utils.showToast (activity, "Please Enter the Person Name", true);
+                        } else if (about_person.equalsIgnoreCase ("")) {
+                            Utils.showToast (activity, "Please Write Something About Person", true);
+                        } else {
+                            scheduleAppointment (comment, numberOfUsers, lender_name, id, 1, appraisal_access, person_name, about_person);
+                            dialog.dismiss ();
+                        }
+                    } else {
+                        scheduleAppointment (comment, numberOfUsers, lender_name, id, 1, appraisal_access, "", "");
+                        dialog.dismiss ();
+                    }
                 }
             }
         });
-        
         dialog.show ();
         
     }
     
-    private void scheduleAppointment (final String etComment, final String etNumberOfUsers, final String etAddress, final int access_id, final int checked) {
+    private void scheduleAppointment (final String etComment, final String etNumberOfUsers, final String lender_name, final int access_id, final int checked, final String appraisal_access, final String person_name, final String about_person) {
+        final ProgressDialog progressDialog = new ProgressDialog (activity);
         if (NetworkConnection.isNetworkAvailable (activity)) {
+            Utils.showProgressDialog (progressDialog, activity.getResources ().getString (R.string.progress_dialog_text_please_wait), true);
             Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_SCHEDULE_APPOINTMENT, true);
             StringRequest strRequest1 = new StringRequest (Request.Method.POST, AppConfigURL.URL_SCHEDULE_APPOINTMENT,
                     new com.android.volley.Response.Listener<String> () {
@@ -177,8 +202,9 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                                     } else {
                                         Utils.showToast (activity, message, true);
                                     }
+                                    progressDialog.dismiss ();
                                 } catch (Exception e) {
-                                    
+                                    progressDialog.dismiss ();
                                     Utils.showToast (activity, activity.getResources ().getString (R.string.snackbar_text_exception_occurred), true);
                                     e.printStackTrace ();
                                 }
@@ -186,11 +212,13 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                                 Utils.showToast (activity, activity.getResources ().getString (R.string.snackbar_text_error_occurred), true);
                                 Utils.showLog (Log.WARN, AppConfigTags.SERVER_RESPONSE, AppConfigTags.DIDNT_RECEIVE_ANY_DATA_FROM_SERVER, true);
                             }
+                            progressDialog.dismiss ();
                         }
                     },
                     new com.android.volley.Response.ErrorListener () {
                         @Override
                         public void onErrorResponse (VolleyError error) {
+                            progressDialog.dismiss ();
                             Utils.showLog (Log.ERROR, AppConfigTags.VOLLEY_ERROR, error.toString (), true);
                             Utils.showToast (activity, activity.getResources ().getString (R.string.snackbar_text_error_occurred), true);
                             
@@ -200,12 +228,15 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                 protected Map<String, String> getParams () throws AuthFailureError {
                     BuyerDetailsPref buyerDetailsPref = BuyerDetailsPref.getInstance ();
                     Map<String, String> params = new Hashtable<String, String> ();
-                    params.put (AppConfigTags.TYPE, "BookAppointment");
+                    params.put (AppConfigTags.TYPE, "BookAppointment2");
                     params.put (AppConfigTags.SCHEDULE_ACCESS_TOKEN_ID, String.valueOf (access_id));
                     params.put (AppConfigTags.SCHEDULE_NEW_PEOPLE, etNumberOfUsers);
                     params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (activity, BuyerDetailsPref.BUYER_ID)));
                     params.put (AppConfigTags.SCHEDULE_COMMENT, etComment);
-                    params.put (AppConfigTags.SCHEDULE_ADDRESS, etAddress);
+                    params.put (AppConfigTags.LENDER_NAME, lender_name);
+                    params.put (AppConfigTags.APPRAISAL_ACCESS, appraisal_access);
+                    params.put (AppConfigTags.PERSON_NAME, person_name);
+                    params.put (AppConfigTags.ABOUT_PERSON, about_person);
                     Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
                 }

@@ -150,6 +150,10 @@ public class AppConfigTags {
     
     public static String SCHEDULE_APPOINTMENT_ID = "appointment_id";
     public static String CANCEL_APPOINTMENT = "cancel_appointment";
+    public static String LENDER_NAME = "lender_name";
+    public static String APPRAISAL_ACCESS = "appraisal_access";
+    public static String PERSON_NAME = "person_name";
+    public static String ABOUT_PERSON = "about_person";
     
     
     
