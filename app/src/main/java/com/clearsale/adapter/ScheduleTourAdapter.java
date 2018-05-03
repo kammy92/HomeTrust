@@ -110,12 +110,12 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
         final EditText etLenderName = (EditText) dialog.getCustomView ().findViewById (R.id.etLenderName);
         final EditText etAppraisalAccess = (EditText) dialog.getCustomView ().findViewById (R.id.etAppraisalAccess);
         final LinearLayout ll3 = (LinearLayout) dialog.getCustomView ().findViewById (R.id.ll3);
-
+    
         tvAddressFull.setText (propertyDetailsPref.getStringPref (activity, PropertyDetailsPref.PROPERTY_ADDRESS_FULL) + ", " + propertyDetailsPref.getStringPref (activity, PropertyDetailsPref.PROPERTY_ADDRESS2));
     
         Utils.setTypefaceToAllViews (activity, etComment);
         if (propertyDetailsPref.getStringPref (activity, PropertyDetailsPref.PROPERTY_STATE).equalsIgnoreCase ("TX")) {
-            String[] numberUser = {"1", "2", "3"};
+            String[] numberUser = {"1", "2"};
             ArrayAdapter<String> adapter = new ArrayAdapter<String> (activity, android.R.layout.simple_list_item_1, numberUser);
             spinner.setAdapter (adapter);
         } else {
@@ -124,7 +124,6 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
             spinner.setAdapter (adapter);
         }
         spinner.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener () {
-
                                                @Override
                                                public void onItemSelected (AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                                                    int position = spinner.getSelectedItemPosition ();
@@ -136,13 +135,12 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                                                    }
                                                    // TODO Auto-generated method stub
                                                }
-        
-                                               @Override
+    
+            @Override
                                                public void onNothingSelected (AdapterView<?> arg0) {
                                                    // TODO Auto-generated method stub
-            
-                                               }
         
+            }
                                            }
         );
         
@@ -178,7 +176,6 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
             }
         });
         dialog.show ();
-        
     }
     
     private void scheduleAppointment (final String etComment, final String etNumberOfUsers, final String lender_name, final int access_id, final int checked, final String appraisal_access, final String person_name, final String about_person) {
@@ -284,12 +281,10 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                 @Override
                 public void onClick (View view) {
                     ScheduleTourDialog (scheduleTour.getId (), scheduleTour.getBuyer_address ());
-                    
                 }
                 
                 
             });
-            
         }
     }
 }
