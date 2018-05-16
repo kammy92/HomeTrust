@@ -49,6 +49,7 @@ public class ScheduleTourActivity extends AppCompatActivity {
     ScheduleTourAdapter scheduleTourAdapter;
     int property_id = 0;
     String property_address = "";
+    String property_address_full = "";
     String property_city = "";
     RelativeLayout rlBack;
     
@@ -66,6 +67,7 @@ public class ScheduleTourActivity extends AppCompatActivity {
     private void getExtras () {
         Intent intent = getIntent ();
         property_address = intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS);
+        property_address_full = intent.getStringExtra (AppConfigTags.PROPERTY_ADDRESS_FULL);
         property_city = intent.getStringExtra (AppConfigTags.PROPERTY_CITY);
         property_id = intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0);
     }
@@ -132,7 +134,7 @@ public class ScheduleTourActivity extends AppCompatActivity {
                                             JSONObject jsonObjectSchedule = jsonArraySchedule.getJSONObject (i);
                                             ScheduleTour scheduleTour = new ScheduleTour (
                                                     jsonObjectSchedule.getInt (AppConfigTags.SCHEDULE_ACCESS_TOKEN_ID),
-                                                    property_address + ", " + property_city,
+                                                    property_address_full + ", " + property_city,
                                                     jsonObjectSchedule.getString (AppConfigTags.SCHEDULE_DATE),
                                                     jsonObjectSchedule.getString (AppConfigTags.SCHEDULE_TIME),
                                                     jsonObjectSchedule.getString (AppConfigTags.BUYER_ADDRESS));
