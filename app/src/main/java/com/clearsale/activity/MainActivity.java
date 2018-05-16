@@ -17,6 +17,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -97,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
     
     public static int PERMISSION_REQUEST_CODE = 11;
     final int CURRENT_LOCATION_REQUEST_CODE = 1;
+    
+    public static String FACEBOOK_URL = "https://www.facebook.com/hometrustllc";
+    public static String FACEBOOK_PAGE_ID = "hometrustllc";
+    
     GoogleApiClient client;
     Double currentLatitude = 0.0;
     Double currentLongitude = 0.0;
@@ -123,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
     TextView tvResetFilter;
     private AccountHeader headerResult = null;
     private Drawer result = null;
+    
+    FloatingActionButton fabChat;
+    
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -165,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         rlList = (RelativeLayout) findViewById (R.id.rlList);
         tvRetry = (TextView) findViewById (R.id.tvRetry);
         tvResetFilter = (TextView) findViewById (R.id.tvResetFilter);
-    
+        fabChat = (FloatingActionButton) findViewById (R.id.fabChat);
     }
     
     private void initData () {
@@ -272,6 +280,15 @@ public class MainActivity extends AppCompatActivity {
                 rlNoResultFound.setVisibility (View.GONE);
                 swipeRefreshLayout.setRefreshing (true);
                 getAllProperties ();
+            }
+        });
+        fabChat.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                Intent intent9 = new Intent (MainActivity.this, ChatSupportActivity.class);
+                startActivity (intent9);
+                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
+            
             }
         });
     }
@@ -752,6 +769,7 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem ().withName ("Contact Us").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (6).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("FAQ").withIcon (FontAwesome.Icon.faw_question).withIdentifier (7).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Chat Support").withIcon (FontAwesome.Icon.faw_reply).withIdentifier (12).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new PrimaryDrawerItem ().withName ("Live Access").withIcon (FontAwesome.Icon.faw_reply).withIdentifier (13).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("My Profile").withIcon (FontAwesome.Icon.faw_user).withIdentifier (8).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Change Password").withIcon (FontAwesome.Icon.faw_key).withIdentifier (9).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Sign Out").withIcon (FontAwesome.Icon.faw_sign_out).withIdentifier (10).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this))
@@ -814,12 +832,33 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity (intent12);
                                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
                                 break;
+                            case 13:
+                                Intent facebookIntent = new Intent (Intent.ACTION_VIEW);
+                                String facebookUrl = getFacebookPageURL (MainActivity.this);
+                                facebookIntent.setData (Uri.parse (facebookUrl));
+                                startActivity (facebookIntent);
+                                break;
+                                
                         }
                         return false;
                     }
                 })
                 .build ();
 //        result.getActionBarDrawerToggle ().setDrawerIndicatorEnabled (false);
+    }
+    
+    public String getFacebookPageURL (Context context) {
+        PackageManager packageManager = context.getPackageManager ();
+        try {
+            int versionCode = packageManager.getPackageInfo ("com.facebook.katana", 0).versionCode;
+            if (versionCode >= 3002850) { //newer versions of fb app
+                return "fb://facewebmodal/f?href=" + FACEBOOK_URL;
+            } else { //older versions of fb app
+                return "fb://page/" + FACEBOOK_PAGE_ID;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            return FACEBOOK_URL; //normal web url
+        }
     }
     
     private void showLogOutDialog () {
@@ -886,4 +925,6 @@ public class MainActivity extends AppCompatActivity {
         // put your code here...
         getAllProperties ();
     }
+    
+    
 }

@@ -1,7 +1,9 @@
 package com.clearsale.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -60,7 +62,9 @@ public class HowItWorksActivity extends AppCompatActivity {
         public void onPageScrollStateChanged (int arg0) {
         }
     };
-
+    
+    FloatingActionButton fabChat;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +81,7 @@ public class HowItWorksActivity extends AppCompatActivity {
         btNext = (Button) findViewById(R.id.btNext);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
+        fabChat = (FloatingActionButton) findViewById (R.id.fabChat);
     }
 
     private void initData() {
@@ -117,6 +122,15 @@ public class HowItWorksActivity extends AppCompatActivity {
             public void onClick (View v) {
                 finish ();
                 overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+        fabChat.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                Intent intent9 = new Intent (HowItWorksActivity.this, ChatSupportActivity.class);
+                startActivity (intent9);
+                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
+            
             }
         });
     }

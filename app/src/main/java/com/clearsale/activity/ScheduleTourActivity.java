@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +53,7 @@ public class ScheduleTourActivity extends AppCompatActivity {
     String property_address_full = "";
     String property_city = "";
     RelativeLayout rlBack;
+    FloatingActionButton fabChat;
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -86,10 +88,21 @@ public class ScheduleTourActivity extends AppCompatActivity {
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
         rvScheduleTour = (RecyclerView) findViewById (R.id.rvScheduleTour);
         clMain = (CoordinatorLayout) findViewById (R.id.clMain);
+        fabChat = (FloatingActionButton) findViewById (R.id.fabChat);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById (R.id.swipe_refresh_layout);
     }
     
     private void initListener () {
+    
+        fabChat.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                Intent intent9 = new Intent (ScheduleTourActivity.this, ChatSupportActivity.class);
+                startActivity (intent9);
+                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
+            
+            }
+        });
         rlBack.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -51,7 +52,9 @@ public class MyFavouriteActivity extends AppCompatActivity {
     RelativeLayout rlInternetConnection;
     RelativeLayout rlNoFavPropertyFound;
     TextView StartExploring;
-
+    FloatingActionButton fabChat;
+    
+    
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -72,6 +75,7 @@ public class MyFavouriteActivity extends AppCompatActivity {
         rlNoFavPropertyFound = (RelativeLayout) findViewById (R.id.rlNoFavPropertyFound);
         tvRetry = (TextView) findViewById (R.id.tvRetry);
         StartExploring = (TextView) findViewById (R.id.StartExploring);
+        fabChat = (FloatingActionButton) findViewById (R.id.fabChat);
     }
     
     private void initData () {
@@ -118,6 +122,16 @@ public class MyFavouriteActivity extends AppCompatActivity {
             public void onClick (View v) {
                 finish ();
                 overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+    
+        fabChat.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                Intent intent9 = new Intent (MyFavouriteActivity.this, ChatSupportActivity.class);
+                startActivity (intent9);
+                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
+            
             }
         });
     }

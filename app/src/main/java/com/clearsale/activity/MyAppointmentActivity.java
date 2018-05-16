@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +55,7 @@ public class MyAppointmentActivity extends AppCompatActivity {
     BuyerDetailsPref buyerDetailsPref;
     MyAppointmentAdapter myAppointmentAdapter;
     RelativeLayout rlBack;
+    FloatingActionButton fabChat;
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -67,6 +69,15 @@ public class MyAppointmentActivity extends AppCompatActivity {
     }
     
     private void initListener () {
+        fabChat.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+                Intent intent9 = new Intent (MyAppointmentActivity.this, ChatSupportActivity.class);
+                startActivity (intent9);
+                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
+            
+            }
+        });
         rlBack.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {
@@ -102,6 +113,7 @@ public class MyAppointmentActivity extends AppCompatActivity {
         rlNoResultFound = (RelativeLayout) findViewById (R.id.rlNoResultFound);
         rlInternetConnection = (RelativeLayout) findViewById (R.id.rlInternetConnection);
         rlBack = (RelativeLayout) findViewById (R.id.rlBack);
+        fabChat = (FloatingActionButton) findViewById (R.id.fabChat);
     }
     
     private void getAppointmentList () {

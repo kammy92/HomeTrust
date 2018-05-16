@@ -238,6 +238,18 @@
                 android:textStyle="bold"/>
         </RelativeLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/activity_margin"
+            android:background="@color/colorPrimary"
+            android:src="@android:drawable/stat_notify_chat"
+            android:visibility="visible"
+            app:backgroundTint="@color/colorPrimary"/>
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

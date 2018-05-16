@@ -79,11 +79,15 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/rlFooter"
             android:layout_below="@+id/appBar"/>
+
+
         <RelativeLayout
             android:id="@+id/rlFooter"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true">
+
+
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
@@ -139,5 +143,18 @@
                 android:visibility="visible"/>
 
         </RelativeLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rlFooter"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/activity_margin"
+            android:background="@color/colorPrimary"
+            android:src="@android:drawable/stat_notify_chat"
+            android:visibility="visible"
+            app:backgroundTint="@color/colorPrimary"/>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
