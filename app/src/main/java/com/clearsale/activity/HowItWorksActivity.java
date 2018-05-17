@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.clearsale.R;
 import com.clearsale.model.HowItWork;
+import com.clearsale.utils.BuyerDetailsPref;
 import com.clearsale.utils.SetTypeFace;
 import com.clearsale.utils.Utils;
 
@@ -36,6 +37,7 @@ public class HowItWorksActivity extends AppCompatActivity {
     private Button btPrev, btNext;
     private LinearLayout dotsLayout;
     private TextView[] dots;
+    BuyerDetailsPref buyerDetailsPref;
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener () {
         @Override
         public void onPageSelected (int position) {
@@ -85,6 +87,7 @@ public class HowItWorksActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        buyerDetailsPref = BuyerDetailsPref.getInstance ();
         howItWorkList.add (new HowItWork (1, "Step 1", "Join our preferred buyers list and tell us what kinds of properties you are looking for.", "", R.drawable.img1));
         howItWorkList.add (new HowItWork (2, "Step 2", "With our proprietary marketing systems we find the best properties at great prices and pass those deals on to you.", "", R.drawable.img2));
         howItWorkList.add (new HowItWork (3, "Step 3", "As soon as we have a new property under contract in your area, you will receive an immediate alert and email allowing you to preview the property details and schedule a time to access the property.", "", R.drawable.img3));
@@ -127,10 +130,16 @@ public class HowItWorksActivity extends AppCompatActivity {
         fabChat.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
-                Intent intent9 = new Intent (HowItWorksActivity.this, ChatSupportActivity.class);
-                startActivity (intent9);
-                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
-            
+    
+                Intent intent = new Intent (HowItWorksActivity.this, com.livechatinc.inappchat.ChatWindowActivity.class);
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_GROUP_ID, "7");
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_LICENCE_NUMBER, "9704635");
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_NAME, buyerDetailsPref.getStringPref (HowItWorksActivity.this, BuyerDetailsPref.BUYER_NAME));
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_EMAIL, buyerDetailsPref.getStringPref (HowItWorksActivity.this, BuyerDetailsPref.BUYER_EMAIL));
+    
+                startActivity (intent);
+    
+    
             }
         });
     }

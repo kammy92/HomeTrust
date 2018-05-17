@@ -54,6 +54,7 @@ public class ScheduleTourActivity extends AppCompatActivity {
     String property_city = "";
     RelativeLayout rlBack;
     FloatingActionButton fabChat;
+    BuyerDetailsPref buyerDetailsPref;
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class ScheduleTourActivity extends AppCompatActivity {
     }
     
     private void initData () {
+        buyerDetailsPref = BuyerDetailsPref.getInstance ();
         swipeRefreshLayout.setRefreshing (true);
         scheduleTourAdapter = new ScheduleTourAdapter (this, scheduleTourList);
         rvScheduleTour.setAdapter (scheduleTourAdapter);
@@ -97,10 +99,19 @@ public class ScheduleTourActivity extends AppCompatActivity {
         fabChat.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
-                Intent intent9 = new Intent (ScheduleTourActivity.this, ChatSupportActivity.class);
+              /*  Intent intent9 = new Intent (ScheduleTourActivity.this, ChatSupportActivity.class);
                 startActivity (intent9);
-                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
-            
+                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
+    
+                Intent intent = new Intent (ScheduleTourActivity.this, com.livechatinc.inappchat.ChatWindowActivity.class);
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_GROUP_ID, "0");
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_LICENCE_NUMBER, "9704635");
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_NAME, buyerDetailsPref.getStringPref (ScheduleTourActivity.this, BuyerDetailsPref.BUYER_NAME));
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_EMAIL, buyerDetailsPref.getStringPref (ScheduleTourActivity.this, BuyerDetailsPref.BUYER_EMAIL));
+    
+                startActivity (intent);
+    
+    
             }
         });
         rlBack.setOnClickListener (new View.OnClickListener () {

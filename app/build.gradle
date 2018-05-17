@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.1'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.clearsale"
         minSdkVersion 16
@@ -55,6 +55,8 @@ dependencies {
 
     compile 'com.google.android.gms:play-services:10.2.4'
     compile 'com.google.firebase:firebase-messaging:10.2.4'
+
+    compile 'com.github.livechat:chat-window-android:v2.0.0'
 
     compile 'com.android.support:multidex:1.0.1'
 

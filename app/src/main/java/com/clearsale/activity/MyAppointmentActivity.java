@@ -72,10 +72,18 @@ public class MyAppointmentActivity extends AppCompatActivity {
         fabChat.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
-                Intent intent9 = new Intent (MyAppointmentActivity.this, ChatSupportActivity.class);
-                startActivity (intent9);
-                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
-            
+//                Intent intent9 = new Intent (MyAppointmentActivity.this, ChatSupportActivity.class);
+//                startActivity (intent9);
+//                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
+    
+                Intent intent = new Intent (MyAppointmentActivity.this, com.livechatinc.inappchat.ChatWindowActivity.class);
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_GROUP_ID, "0");
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_LICENCE_NUMBER, "9704635");
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_NAME, buyerDetailsPref.getStringPref (MyAppointmentActivity.this, BuyerDetailsPref.BUYER_NAME));
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_EMAIL, buyerDetailsPref.getStringPref (MyAppointmentActivity.this, BuyerDetailsPref.BUYER_EMAIL));
+    
+                startActivity (intent);
+    
             }
         });
         rlBack.setOnClickListener (new View.OnClickListener () {

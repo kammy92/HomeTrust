@@ -54,6 +54,8 @@ public class MyFavouriteActivity extends AppCompatActivity {
     TextView StartExploring;
     FloatingActionButton fabChat;
     
+    BuyerDetailsPref buyerDetailsPref;
+    
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class MyFavouriteActivity extends AppCompatActivity {
     }
     
     private void initData () {
+        buyerDetailsPref = BuyerDetailsPref.getInstance ();
         swipeRefreshLayout.setRefreshing (true);
         favouritePropertyList.clear ();
         propertyAdapter = new PropertyAdapter (MyFavouriteActivity.this, favouritePropertyList);
@@ -128,10 +131,20 @@ public class MyFavouriteActivity extends AppCompatActivity {
         fabChat.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
-                Intent intent9 = new Intent (MyFavouriteActivity.this, ChatSupportActivity.class);
+              /*  Intent intent9 = new Intent (MyFavouriteActivity.this, ChatSupportActivity.class);
                 startActivity (intent9);
                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
-            
+            */
+    
+    
+                Intent intent = new Intent (MyFavouriteActivity.this, com.livechatinc.inappchat.ChatWindowActivity.class);
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_GROUP_ID, "0");
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_LICENCE_NUMBER, "9704635");
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_NAME, buyerDetailsPref.getStringPref (MyFavouriteActivity.this, BuyerDetailsPref.BUYER_NAME));
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_EMAIL, buyerDetailsPref.getStringPref (MyFavouriteActivity.this, BuyerDetailsPref.BUYER_EMAIL));
+    
+                startActivity (intent);
+    
             }
         });
     }

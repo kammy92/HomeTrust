@@ -285,10 +285,19 @@ public class MainActivity extends AppCompatActivity {
         fabChat.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
-                Intent intent9 = new Intent (MainActivity.this, ChatSupportActivity.class);
+             /*   Intent intent9 = new Intent (MainActivity.this, ChatSupportActivity.class);
                 startActivity (intent9);
                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
-            
+            */
+    
+                Intent intent = new Intent (MainActivity.this, com.livechatinc.inappchat.ChatWindowActivity.class);
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_GROUP_ID, "0");
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_LICENCE_NUMBER, "9704635");
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_NAME, buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_NAME));
+                intent.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_EMAIL, buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_EMAIL));
+    
+                startActivity (intent);
+    
             }
         });
     }
@@ -769,7 +778,7 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem ().withName ("Contact Us").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (6).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("FAQ").withIcon (FontAwesome.Icon.faw_question).withIdentifier (7).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Chat Support").withIcon (FontAwesome.Icon.faw_reply).withIdentifier (12).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Live Access").withIcon (FontAwesome.Icon.faw_reply).withIdentifier (13).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new PrimaryDrawerItem ().withName ("Facebook Page").withIcon (FontAwesome.Icon.faw_reply).withIdentifier (13).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("My Profile").withIcon (FontAwesome.Icon.faw_user).withIdentifier (8).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Change Password").withIcon (FontAwesome.Icon.faw_key).withIdentifier (9).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Sign Out").withIcon (FontAwesome.Icon.faw_sign_out).withIdentifier (10).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this))
@@ -828,9 +837,14 @@ public class MainActivity extends AppCompatActivity {
                                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
                                 break;
                             case 12:
-                                Intent intent12 = new Intent (MainActivity.this, ChatSupportActivity.class);
+                                Intent intent12 = new Intent (MainActivity.this, com.livechatinc.inappchat.ChatWindowActivity.class);
+                                intent12.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_GROUP_ID, "0");
+                                intent12.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_LICENCE_NUMBER, "9704635");
+                                intent12.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_NAME, buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_NAME));
+                                intent12.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_EMAIL, buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_EMAIL));
+    
                                 startActivity (intent12);
-                                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
+    
                                 break;
                             case 13:
                                 Intent facebookIntent = new Intent (Intent.ACTION_VIEW);

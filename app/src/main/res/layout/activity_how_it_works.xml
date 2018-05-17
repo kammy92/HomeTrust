@@ -154,7 +154,7 @@
             android:layout_margin="@dimen/activity_margin"
             android:background="@color/colorPrimary"
             android:src="@android:drawable/stat_notify_chat"
-            android:visibility="visible"
+            android:visibility="gone"
             app:backgroundTint="@color/colorPrimary"/>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
