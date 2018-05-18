@@ -156,5 +156,7 @@ public class AppConfigTags {
     public static String ABOUT_PERSON = "about_person";
     
     
+    public static String FACE_PAGE_URL = "facebook_page_url";
+    public static String FACE_PAGE_NAME = "facebook_page_name";
     
 }

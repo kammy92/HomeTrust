@@ -470,6 +470,9 @@ public class MainActivity extends AppCompatActivity {
                                     String state_list = jsonObj.getString (AppConfigTags.STATE_LIST);
                                     buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.STATE_LIST, state_list);
                                     buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_STATE, jsonObj.getString (AppConfigTags.PROFILE_STATE));
+                                    buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.FACE_PAGE_URL, jsonObj.getString (AppConfigTags.FACE_PAGE_URL));
+                                    buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.FACE_PAGE_NAME, jsonObj.getString (AppConfigTags.FACE_PAGE_NAME));
+
                                     if (! error) {
                                         buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.ABOUT_US, jsonObj.getString (AppConfigTags.ABOUT_US));
     
@@ -862,18 +865,18 @@ public class MainActivity extends AppCompatActivity {
     }
     
     public String getFacebookPageURL (Context context) {
-        PackageManager packageManager = context.getPackageManager ();
-        try {
-            int versionCode = packageManager.getPackageInfo ("com.facebook.katana", 0).versionCode;
-            if (versionCode >= 3002850) { //newer versions of fb app
-                return "fb://facewebmodal/f?href=" + FACEBOOK_URL;
-            } else { //older versions of fb app
-                return "fb://page/" + FACEBOOK_PAGE_ID;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            return FACEBOOK_URL; //normal web url
+    PackageManager packageManager = context.getPackageManager ();
+    try {
+        int versionCode = packageManager.getPackageInfo ("com.facebook.katana", 0).versionCode;
+        if (versionCode >= 3002850) { //newer versions of fb app
+            return "fb://facewebmodal/f?href=" + buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.FACE_PAGE_URL);
+        } else { //older versions of fb app
+            return "fb://page/" + buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.FACE_PAGE_NAME);
         }
+    } catch (PackageManager.NameNotFoundException e) {
+        return FACEBOOK_URL; //normal web url
     }
+}
     
     private void showLogOutDialog () {
         MaterialDialog dialog = new MaterialDialog.Builder (this)
@@ -939,6 +942,5 @@ public class MainActivity extends AppCompatActivity {
         // put your code here...
         getAllProperties ();
     }
-    
     
 }

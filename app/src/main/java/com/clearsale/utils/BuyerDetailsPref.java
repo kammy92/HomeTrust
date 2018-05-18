@@ -19,6 +19,11 @@ public class BuyerDetailsPref {
     public static String STATE_LIST = "state_list";
     public static String PROFILE_PRICE_RANGE = "profile_price_range";
     public static String ABOUT_US = "about_us";
+    
+    public static String FACE_PAGE_URL = "facebook_page_url";
+    public static String FACE_PAGE_NAME = "facebook_page_name";
+    
+
     private static BuyerDetailsPref buyerDetailsPref;
     private String BUYER_DETAILS = "BUYER_DETAILS";
     
