@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
     public static int PERMISSION_REQUEST_CODE = 11;
     final int CURRENT_LOCATION_REQUEST_CODE = 1;
     
-    public static String FACEBOOK_URL = "https://www.facebook.com/hometrustllc";
-    public static String FACEBOOK_PAGE_ID = "hometrustllc";
+    public String FACEBOOK_URL = "https://www.facebook.com/hometrustllc";
+    public String FACEBOOK_PAGE_ID = "hometrustllc";
     
     GoogleApiClient client;
     Double currentLatitude = 0.0;
@@ -478,18 +478,7 @@ public class MainActivity extends AppCompatActivity {
     
                                         JSONArray jsonArrayCities = jsonObj.getJSONArray (AppConfigTags.CITIES);
                                         filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_CITIES_JSON, jsonArrayCities.toString ());
-                                        String cities = "";
-                                        for (int j = 0; j < jsonArrayCities.length (); j++) {
-                                            JSONObject jsonObject = jsonArrayCities.getJSONObject (j);
-                                            if (j == jsonArrayCities.length () - 1) {
-                                                cities = cities + jsonObject.getInt (AppConfigTags.CITY_ID);
-                                            } else {
-                                                cities = cities + jsonObject.getInt (AppConfigTags.CITY_ID) + ",";
-                                            }
     
-                                        }
-                                        
-                                        
                                         JSONArray jsonArrayProperty = jsonObj.getJSONArray (AppConfigTags.PROPERTIES);
                                         for (int i = 0; i < jsonArrayProperty.length (); i++) {
                                             JSONObject jsonObjectProperty = jsonArrayProperty.getJSONObject (i);
@@ -524,7 +513,9 @@ public class MainActivity extends AppCompatActivity {
                                             swipeRefreshLayout.setRefreshing (false);
                                         }
                                     } else {
-                                        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_CITIES_JSON, "[]");
+                                        JSONArray jsonArrayCities = jsonObj.getJSONArray (AppConfigTags.CITIES);
+                                        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_CITIES_JSON, jsonArrayCities.toString ());
+                                        
                                         
                                         Utils.showSnackBar (MainActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
                                         if (message.equalsIgnoreCase ("no property available"))
@@ -869,9 +860,9 @@ public class MainActivity extends AppCompatActivity {
     try {
         int versionCode = packageManager.getPackageInfo ("com.facebook.katana", 0).versionCode;
         if (versionCode >= 3002850) { //newer versions of fb app
-            return "fb://facewebmodal/f?href=" + buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.FACE_PAGE_URL);
+            return "fb://facewebmodal/f?href=" + buyerDetailsPref.getStringPref2 (MainActivity.this, BuyerDetailsPref.FACE_PAGE_URL, FACEBOOK_URL);
         } else { //older versions of fb app
-            return "fb://page/" + buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.FACE_PAGE_NAME);
+            return "fb://page/" + buyerDetailsPref.getStringPref2 (MainActivity.this, BuyerDetailsPref.FACE_PAGE_NAME, FACEBOOK_PAGE_ID);
         }
     } catch (PackageManager.NameNotFoundException e) {
         return FACEBOOK_URL; //normal web url

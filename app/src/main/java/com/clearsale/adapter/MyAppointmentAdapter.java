@@ -65,6 +65,7 @@ public class MyAppointmentAdapter extends RecyclerView.Adapter<MyAppointmentAdap
         switch (myAppointment.getStatus ()) {
             case "0":
                 holder.tvStatus.setText ("Pending Access");
+                holder.tvCancelRequest.setVisibility (View.GONE);
                 holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_yellow));
                 break;
 
@@ -82,21 +83,25 @@ public class MyAppointmentAdapter extends RecyclerView.Adapter<MyAppointmentAdap
     
             case "2":
                 holder.tvStatus.setText ("Rejected Access");
+                holder.tvCancelRequest.setVisibility (View.GONE);
                 holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_red));
                 break;
     
             case "3":
                 holder.tvStatus.setText ("Access Cancelled By Buyer");
+                holder.tvCancelRequest.setVisibility (View.GONE);
                 holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_red));
                 break;
     
             case "4":
                 holder.tvStatus.setText ("Access Cancelled By Buyer");
+                holder.tvCancelRequest.setVisibility (View.GONE);
                 holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_red));
                 break;
     
             case "5":
                 holder.tvStatus.setText ("Access Cancelled By HomeTrust");
+                holder.tvCancelRequest.setVisibility (View.GONE);
                 holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_red));
                 break;
         }

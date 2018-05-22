@@ -40,6 +40,10 @@ public class BuyerDetailsPref {
     public String getStringPref (Context context, String key) {
         return getPref (context).getString (key, "");
     }
+    
+    public String getStringPref2 (Context context, String key, String str_default) {
+        return getPref (context).getString (key, str_default);
+    }
 
     public int getIntPref (Context context, String key) {
         return getPref (context).getInt (key, 0);
